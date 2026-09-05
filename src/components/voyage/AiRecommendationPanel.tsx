@@ -2,7 +2,7 @@ import React from 'react'
 import { OptimizationResult } from '../../types/maritime'
 import { Card } from '../common/Card'
 import { Badge } from '../common/Badge'
-import { CheckCircle2, ShieldCheck, Zap, Leaf, DollarSign, Clock, HelpCircle } from 'lucide-react'
+import { CheckCircle2, ShieldCheck, Fuel, Leaf, DollarSign, Clock, HelpCircle } from 'lucide-react'
 
 interface AiRecommendationPanelProps {
   result: OptimizationResult
@@ -15,125 +15,131 @@ export const AiRecommendationPanel: React.FC<AiRecommendationPanelProps> = ({ re
     <Card
       title="GreenRoute AI Decision Rationale & Score"
       subtitle="Transparent explainable score decomposition powering the AI recommendation"
-      className="border-cyan-500/40"
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Rationale & Bullet Points */}
         <div className="lg:col-span-2 space-y-4">
-          <div className="p-4 rounded-xl bg-navy-900 border border-cyan-500/30 flex items-start gap-3">
-            <ShieldCheck className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" />
+          <div className="p-4 rounded-xl bg-white/[0.03] border border-brand-accent/30 flex items-start gap-3">
+            <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
             <div>
-              <h4 className="text-sm font-extrabold text-white">GreenRoute Primary Recommendation</h4>
-              <p className="text-xs text-slate-200 mt-1 leading-relaxed">
-                <span className="font-bold text-cyan-400">{result.bestShip.name}</span> via <span className="font-bold text-emerald-400">{result.bestRoute.name}</span> at <span className="font-bold text-cyan-400">{result.recommendedSpeedKnots} knots</span> is the most fuel-efficient option for this voyage.
+              <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-brand-bright">Primary Recommendation Synthesis</h4>
+              <p className="text-xs text-slate-200 mt-1.5 leading-relaxed">
+                <span className="font-semibold text-white">{result.bestShip.name}</span> via <span className="font-semibold text-emerald-400">{result.bestRoute.name}</span> at <span className="font-semibold text-cyan-400">{result.recommendedSpeedKnots} knots</span> is the optimal hydrodynamic package.
               </p>
             </div>
           </div>
 
           {/* Key Savings Callout Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-3 rounded-lg bg-navy-900 border border-navy-800 text-center">
-              <span className="text-[10px] text-slate-400 uppercase font-bold block">Fuel Saved</span>
-              <span className="text-base font-extrabold text-emerald-400">{result.savings.fuelPct}%</span>
+            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] text-center">
+              <span className="text-[10px] font-mono uppercase text-slate-400 block mb-1">Fuel Saved</span>
+              <span className="text-base font-bold text-emerald-400 font-mono">{result.savings.fuelPct}%</span>
             </div>
 
-            <div className="p-3 rounded-lg bg-navy-900 border border-navy-800 text-center">
-              <span className="text-[10px] text-slate-400 uppercase font-bold block">CO₂ Cut</span>
-              <span className="text-base font-extrabold text-emerald-400">{result.savings.co2Pct}%</span>
+            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] text-center">
+              <span className="text-[10px] font-mono uppercase text-slate-400 block mb-1">CO₂ Cut</span>
+              <span className="text-base font-bold text-emerald-400 font-mono">{result.savings.co2Pct}%</span>
             </div>
 
-            <div className="p-3 rounded-lg bg-navy-900 border border-navy-800 text-center">
-              <span className="text-[10px] text-slate-400 uppercase font-bold block">Cost Savings</span>
-              <span className="text-base font-extrabold text-amber-400">${result.savings.costUSD.toLocaleString()}</span>
+            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] text-center">
+              <span className="text-[10px] font-mono uppercase text-slate-400 block mb-1">Cost Savings</span>
+              <span className="text-base font-bold text-amber-400 font-mono">${result.savings.costUSD.toLocaleString()}</span>
             </div>
 
-            <div className="p-3 rounded-lg bg-navy-900 border border-navy-800 text-center">
-              <span className="text-[10px] text-slate-400 uppercase font-bold block">ETA Margin</span>
-              <span className="text-base font-extrabold text-cyan-400">{result.savings.etaDiffFormatted}</span>
+            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] text-center">
+              <span className="text-[10px] font-mono uppercase text-slate-400 block mb-1">ETA Margin</span>
+              <span className="text-base font-bold text-cyan-400 font-mono">{result.savings.etaDiffFormatted}</span>
             </div>
           </div>
 
           {/* Why this recommendation? */}
-          <div>
-            <h5 className="text-xs font-extrabold text-slate-200 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-              <HelpCircle className="w-4 h-4 text-cyan-400" />
-              Why this recommendation?
+          <div className="pt-2">
+            <h5 className="text-xs font-semibold text-slate-200 mb-3 flex items-center gap-1.5">
+              <HelpCircle className="w-3.5 h-3.5 text-brand-bright" />
+              <span>Algorithmic Decision Factors</span>
             </h5>
-            <ul className="space-y-2 text-xs text-slate-300">
-              {result.explanationPoints.map((pt, idx) => (
-                <li key={idx} className="flex items-start gap-2 bg-navy-900/60 p-2.5 rounded-lg border border-navy-800">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {result.explanationPoints.map((bullet: string, idx: number) => (
+                <div key={idx} className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="leading-relaxed">{pt}</span>
-                </li>
+                  <p className="text-xs text-slate-300 leading-relaxed">{bullet}</p>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
 
-        {/* Right Col: Score Breakdown */}
-        <div className="p-5 rounded-xl bg-navy-900 border border-navy-700/80 flex flex-col justify-between space-y-4">
+        {/* Right Col: Multi-Criteria Score Gauge & Bars */}
+        <div className="p-5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between border-b border-navy-800 pb-2 mb-3">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Optimization Score</span>
-              <Badge variant="green" size="md">92 / 100</Badge>
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-400">Composite AI Score</span>
+              <Badge variant="green" size="sm" dot>Optimal</Badge>
             </div>
 
-            <div className="space-y-3">
+            <div className="flex items-baseline gap-2 mb-6">
+              <span className="text-4xl font-extrabold text-white tracking-tight font-mono">{result.optimizationScore}</span>
+              <span className="text-xs font-mono text-slate-400">/ 100</span>
+            </div>
+
+            <div className="space-y-4">
               <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-300">Fuel Efficiency Weight</span>
-                  <span className="font-mono font-bold text-emerald-400">+{breakdown.fuelEfficiencyScore} pts</span>
+                <div className="flex justify-between text-xs mb-1.5">
+                  <span className="text-slate-400 flex items-center gap-1.5">
+                    <Fuel className="w-3.5 h-3.5 text-amber-400" />
+                    Fuel Efficiency (35% wgt)
+                  </span>
+                  <span className="font-mono font-bold text-white">{breakdown.fuelEfficiencyScore}/100</span>
                 </div>
-                <div className="w-full bg-navy-950 rounded-full h-1.5 overflow-hidden">
-                  <div className="bg-emerald-400 h-full rounded-full" style={{ width: '87.5%' }}></div>
+                <div className="w-full bg-white/[0.04] rounded-full h-1.5 overflow-hidden">
+                  <div className="bg-amber-400 h-1.5 rounded-full transition-all duration-500" style={{ width: `${breakdown.fuelEfficiencyScore}%` }} />
                 </div>
               </div>
 
               <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-300">CO₂ Abatement Weight</span>
-                  <span className="font-mono font-bold text-emerald-400">+{breakdown.co2Score} pts</span>
+                <div className="flex justify-between text-xs mb-1.5">
+                  <span className="text-slate-400 flex items-center gap-1.5">
+                    <Leaf className="w-3.5 h-3.5 text-emerald-400" />
+                    Carbon Intensity (25% wgt)
+                  </span>
+                  <span className="font-mono font-bold text-white">{breakdown.co2Score}/100</span>
                 </div>
-                <div className="w-full bg-navy-950 rounded-full h-1.5 overflow-hidden">
-                  <div className="bg-emerald-400 h-full rounded-full" style={{ width: '100%' }}></div>
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-300">ETA Window Accuracy</span>
-                  <span className="font-mono font-bold text-cyan-400">+{breakdown.etaScore} pts</span>
-                </div>
-                <div className="w-full bg-navy-950 rounded-full h-1.5 overflow-hidden">
-                  <div className="bg-cyan-400 h-full rounded-full" style={{ width: '90%' }}></div>
+                <div className="w-full bg-white/[0.04] rounded-full h-1.5 overflow-hidden">
+                  <div className="bg-emerald-400 h-1.5 rounded-full transition-all duration-500" style={{ width: `${breakdown.co2Score}%` }} />
                 </div>
               </div>
 
               <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-300">Fuel Cost Minimization</span>
-                  <span className="font-mono font-bold text-amber-400">+{breakdown.costScore} pts</span>
+                <div className="flex justify-between text-xs mb-1.5">
+                  <span className="text-slate-400 flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                    ETA Reliability (20% wgt)
+                  </span>
+                  <span className="font-mono font-bold text-white">{breakdown.etaScore}/100</span>
                 </div>
-                <div className="w-full bg-navy-950 rounded-full h-1.5 overflow-hidden">
-                  <div className="bg-amber-400 h-full rounded-full" style={{ width: '66.6%' }}></div>
+                <div className="w-full bg-white/[0.04] rounded-full h-1.5 overflow-hidden">
+                  <div className="bg-cyan-400 h-1.5 rounded-full transition-all duration-500" style={{ width: `${breakdown.etaScore}%` }} />
                 </div>
               </div>
 
               <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-slate-300">Weather Risk Avoidance</span>
-                  <span className="font-mono font-bold text-emerald-400">+{breakdown.weatherScore} pts</span>
+                <div className="flex justify-between text-xs mb-1.5">
+                  <span className="text-slate-400 flex items-center gap-1.5">
+                    <DollarSign className="w-3.5 h-3.5 text-brand-bright" />
+                    Total Operating Cost (20% wgt)
+                  </span>
+                  <span className="font-mono font-bold text-white">{breakdown.costScore}/100</span>
                 </div>
-                <div className="w-full bg-navy-950 rounded-full h-1.5 overflow-hidden">
-                  <div className="bg-emerald-400 h-full rounded-full" style={{ width: '80%' }}></div>
+                <div className="w-full bg-white/[0.04] rounded-full h-1.5 overflow-hidden">
+                  <div className="bg-brand-bright h-1.5 rounded-full transition-all duration-500" style={{ width: `${breakdown.costScore}%` }} />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="p-3 rounded-lg bg-navy-950 border border-navy-800 text-[10px] text-slate-400">
-            Total Aggregate Score: <span className="text-white font-bold font-mono text-xs">35 + 25 + 18 + 10 + 4 = 92</span>. Superior score over Route A (74) & Route C (61).
-          </div>
+          <p className="text-[10px] text-slate-400 font-mono mt-6 pt-3 border-t border-white/[0.05]">
+            *Weights calibrated to IMO CII 2026 decarbonization reduction factors.
+          </p>
         </div>
       </div>
     </Card>

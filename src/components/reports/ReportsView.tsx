@@ -22,7 +22,7 @@ export const ReportsView: React.FC = () => {
         date: new Date().toISOString().split('T')[0],
         generatedBy: 'Torque IQ AI Engine',
         status: 'Ready',
-        summary: 'Generated on-demand audit certifying 12.4% fuel savings and 1,345t CO₂ emissions for active Mumbai → Singapore corridor.'
+        summary: 'Generated on-demand audit certifying 12.4% fuel savings and 1,345t CO₂ emissions for active Chennai → Singapore corridor.'
       }
       setReportsList([newReport, ...reportsList])
       setIsGenerating(false)
@@ -30,112 +30,133 @@ export const ReportsView: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-navy-850 via-navy-800 to-navy-850 border border-navy-700/80 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest mb-1">
-            <FileText className="w-4 h-4 text-emerald-400" />
+          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-brand-bright uppercase tracking-widest mb-1.5">
+            <FileText className="w-3.5 h-3.5 text-emerald-400" />
             <span>Audit & Compliance System</span>
           </div>
-          <h2 className="text-2xl font-black text-white">Voyage & Carbon Audit Reports</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Voyage & Carbon Audit Reports</h2>
           <p className="text-xs text-slate-400 mt-1">
             Generate, inspect, and export verified maritime fuel, CII carbon emissions, and fleet efficiency reports.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <button
             onClick={exportReportsCsv}
-            className="px-4 py-2.5 rounded-xl bg-navy-800 text-slate-200 border border-navy-700 hover:border-cyan-500/40 text-xs font-bold transition flex items-center gap-2"
+            className="btn-secondary px-3.5 py-2 rounded-xl text-xs font-medium flex items-center gap-1.5"
           >
-            <Download className="w-4 h-4 text-cyan-400" />
+            <Download className="w-3.5 h-3.5 text-brand-bright" />
             <span>Export CSV</span>
           </button>
 
           <button
             onClick={handleGenerateReport}
             disabled={isGenerating}
-            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-navy-950 font-bold text-xs shadow-lg shadow-cyan-500/20 hover:scale-105 transition flex items-center gap-2 disabled:opacity-50"
+            className="btn-primary px-4 py-2 rounded-xl text-xs font-medium flex items-center gap-1.5 disabled:opacity-50"
           >
-            <PlusCircle className="w-4 h-4 fill-navy-950 text-cyan-400" />
-            <span>{isGenerating ? 'Generating...' : 'Generate New Report'}</span>
+            <PlusCircle className="w-3.5 h-3.5" />
+            <span>{isGenerating ? 'Synthesizing...' : 'Generate New Audit'}</span>
           </button>
         </div>
       </div>
 
-      {/* Reports Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {reportsList.map((rep) => (
-          <Card key={rep.id} className="hover:border-cyan-500/40 transition">
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-cyan-400 shrink-0" />
-                <div>
-                  <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">{rep.id}</span>
-                  <Badge variant={rep.type === 'Voyage' ? 'green' : rep.type === 'Carbon' ? 'cyan' : 'yellow'} size="sm" className="ml-2">
-                    {rep.type} Report
-                  </Badge>
-                </div>
-              </div>
-              <span className="text-xs text-slate-400 font-mono">{rep.date}</span>
-            </div>
-
-            <h4 className="text-base font-extrabold text-white mb-2">{rep.title}</h4>
-            <p className="text-xs text-slate-300 leading-relaxed mb-4">{rep.summary}</p>
-
-            <div className="pt-3 border-t border-navy-700/60 flex items-center justify-between">
-              <span className="text-[10px] text-slate-400">Authored by: <span className="text-slate-200 font-semibold">{rep.generatedBy}</span></span>
-              
-              <div className="flex items-center gap-2">
-                <button
+      {/* Reports Table */}
+      <Card>
+        <div className="overflow-x-auto custom-scrollbar">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-white/[0.06] text-[10px] font-mono uppercase tracking-widest text-slate-400 bg-white/[0.02]">
+                <th className="p-3">Report ID</th>
+                <th className="p-3">Title & Scope</th>
+                <th className="p-3">Category</th>
+                <th className="p-3">Date</th>
+                <th className="p-3">Generated By</th>
+                <th className="p-3 text-center">Status</th>
+                <th className="p-3 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/[0.04]">
+              {reportsList.map((rep) => (
+                <tr
+                  key={rep.id}
                   onClick={() => setSelectedReport(rep)}
-                  className="px-3 py-1.5 rounded-lg bg-navy-800 text-cyan-400 hover:bg-cyan-500 hover:text-navy-950 text-xs font-bold transition flex items-center gap-1.5"
+                  className="hover:bg-white/[0.02] cursor-pointer transition-colors"
                 >
-                  <Eye className="w-3.5 h-3.5" />
-                  <span>View Report</span>
-                </button>
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
+                  <td className="p-3 font-mono text-[11px] text-brand-bright font-semibold">
+                    {rep.id}
+                  </td>
+                  <td className="p-3">
+                    <span className="font-semibold text-white text-xs">{rep.title}</span>
+                    <p className="text-[10px] text-slate-400 mt-0.5 truncate max-w-md">{rep.summary}</p>
+                  </td>
+                  <td className="p-3">
+                    <Badge variant={rep.type === 'Fleet' ? 'cyan' : rep.type === 'Carbon' ? 'green' : 'blue'} size="sm">
+                      {rep.type}
+                    </Badge>
+                  </td>
+                  <td className="p-3 font-mono text-slate-400 text-xs">
+                    {rep.date}
+                  </td>
+                  <td className="p-3 text-slate-300">
+                    {rep.generatedBy}
+                  </td>
+                  <td className="p-3 text-center">
+                    <Badge variant="green" size="sm" dot>
+                      {rep.status}
+                    </Badge>
+                  </td>
+                  <td className="p-3 text-center">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setSelectedReport(rep)
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white/[0.04] text-slate-300 hover:bg-brand-accent hover:text-white font-mono text-[10px] font-medium border border-white/[0.06] transition-all"
+                    >
+                      Inspect
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
 
-      {/* View Report Detail Modal */}
+      {/* Report Inspector Modal */}
       {selectedReport && (
         <Modal
           isOpen={!!selectedReport}
           onClose={() => setSelectedReport(null)}
-          title={`Report Inspector — ${selectedReport.id}`}
+          title={`Audit Report Certificate — ${selectedReport.id}`}
           maxWidth="lg"
         >
           <div className="space-y-6">
-            <div className="p-4 rounded-xl bg-navy-900 border border-navy-700/80">
-              <div className="flex items-center justify-between mb-2">
-                <Badge variant="green" size="md">{selectedReport.type} Audit Report</Badge>
-                <span className="text-xs font-mono text-slate-400">{selectedReport.date}</span>
+            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
+              <div>
+                <h4 className="text-base font-bold text-white">{selectedReport.title}</h4>
+                <p className="text-xs font-mono text-slate-400 mt-1">Generated: {selectedReport.date} by {selectedReport.generatedBy}</p>
               </div>
-              <h3 className="text-lg font-extrabold text-white">{selectedReport.title}</h3>
-              <p className="text-xs text-slate-400 mt-1">Generated by: {selectedReport.generatedBy}</p>
+              <Badge variant="green" size="md" dot>
+                {selectedReport.status}
+              </Badge>
             </div>
 
-            <div className="p-4 rounded-xl bg-navy-900 border border-navy-800 space-y-3 text-xs text-slate-300">
-              <h4 className="font-bold text-white uppercase tracking-wider">Audit Executive Summary</h4>
-              <p className="leading-relaxed">{selectedReport.summary}</p>
+            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-2 text-xs">
+              <h5 className="font-semibold text-slate-200">Executive Summary</h5>
+              <p className="text-slate-300 leading-relaxed">{selectedReport.summary}</p>
             </div>
 
-            <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-800/60 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs">
-                <ShieldCheck className="w-4 h-4" />
-                <span>Verified by GreenRoute AI Audit System</span>
+            <div className="p-4 rounded-xl bg-emerald-500/[0.04] border border-emerald-500/20 flex items-center gap-3">
+              <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
+              <div className="text-xs">
+                <span className="font-semibold text-emerald-300">MARPOL & IMO CII Certified</span>
+                <p className="text-slate-300 mt-0.5">Complies with greenhouse gas intensity reporting benchmarks for international voyage corridors.</p>
               </div>
-              <button
-                onClick={exportReportsCsv}
-                className="px-3 py-1.5 rounded-lg bg-emerald-400 text-navy-950 font-bold text-xs hover:bg-emerald-300 transition flex items-center gap-1.5"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span>Download CSV Audit</span>
-              </button>
             </div>
           </div>
         </Modal>

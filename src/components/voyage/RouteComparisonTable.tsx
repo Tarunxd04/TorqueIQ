@@ -12,22 +12,22 @@ export const RouteComparisonTable: React.FC<RouteComparisonTableProps> = ({ rout
   const maxFuel = 500
 
   return (
-    <Card title="Route Intelligence Comparison" subtitle="Comprehensive analysis across candidate oceanic corridors">
-      <div className="overflow-x-auto">
+    <Card title="Route Intelligence Comparison" subtitle="Comprehensive hydrodynamic analysis across candidate oceanic corridors">
+      <div className="overflow-x-auto custom-scrollbar">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="border-b border-navy-700/80 text-slate-400 font-bold uppercase tracking-wider bg-navy-900/60">
-              <th className="p-3">Route</th>
+            <tr className="border-b border-white/[0.06] text-[10px] font-mono uppercase tracking-widest text-slate-400 bg-white/[0.02]">
+              <th className="p-3">Route Corridor</th>
               <th className="p-3 text-right">Distance</th>
               <th className="p-3 text-right">ETA</th>
               <th className="p-3 text-right">Fuel Burn</th>
               <th className="p-3 text-right">CO₂ Emissions</th>
-              <th className="p-3 text-right">Est. Fuel Cost</th>
+              <th className="p-3 text-right">Est. Cost</th>
               <th className="p-3 text-center">Weather Risk</th>
-              <th className="p-3">Fuel Efficiency Visual</th>
+              <th className="p-3">Fuel Efficiency</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-navy-800">
+          <tbody className="divide-y divide-white/[0.04]">
             {routes.map((route) => {
               const isRec = route.isRecommended
               const fuelPct = (route.fuelConsumptionTonnes / maxFuel) * 100
@@ -35,17 +35,17 @@ export const RouteComparisonTable: React.FC<RouteComparisonTableProps> = ({ rout
               return (
                 <tr
                   key={route.id}
-                  className={`transition ${
+                  className={`transition-colors ${
                     isRec
-                      ? 'bg-gradient-to-r from-emerald-950/40 via-navy-850 to-navy-850 border-l-4 border-l-emerald-400 font-medium'
-                      : 'hover:bg-navy-800/40'
+                      ? 'bg-emerald-500/[0.04] border-l-2 border-l-emerald-400 font-medium'
+                      : 'hover:bg-white/[0.02]'
                   }`}
                 >
                   <td className="p-3">
                     <div className="flex items-center gap-2">
                       {isRec && <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />}
                       <div>
-                        <span className="font-bold text-white text-xs">{route.name}</span>
+                        <span className="font-semibold text-white text-xs">{route.name}</span>
                         <p className="text-[10px] text-slate-400 mt-0.5">{route.pathDescription}</p>
                       </div>
                       {isRec && <Badge variant="green" size="sm">RECOMMENDED</Badge>}
@@ -60,38 +60,36 @@ export const RouteComparisonTable: React.FC<RouteComparisonTableProps> = ({ rout
                     {Math.floor(route.estimatedHours / 24)}d {route.estimatedHours % 24}h
                   </td>
 
-                  <td className={`p-3 text-right font-mono font-bold ${isRec ? 'text-emerald-400' : 'text-slate-200'}`}>
-                    {route.fuelConsumptionTonnes} t
+                  <td className="p-3 text-right font-mono font-bold text-white">
+                    {route.fuelConsumptionTonnes} <span className="text-[10px] font-normal text-slate-400">t</span>
                   </td>
 
-                  <td className={`p-3 text-right font-mono font-bold ${isRec ? 'text-emerald-400' : 'text-slate-200'}`}>
-                    {route.co2EmissionsTonnes} t
+                  <td className="p-3 text-right font-mono text-emerald-400">
+                    {route.co2EmissionsTonnes} <span className="text-[10px] font-normal text-slate-400">t</span>
                   </td>
 
-                  <td className="p-3 text-right font-mono font-bold text-amber-400">
-                    ${(route.estimatedCostUSD / 1000).toFixed(0)}K
+                  <td className="p-3 text-right font-mono text-slate-200">
+                    ${route.estimatedCostUSD.toLocaleString()}
                   </td>
 
                   <td className="p-3 text-center">
                     <Badge
                       variant={route.weatherRisk === 'Low' ? 'green' : route.weatherRisk === 'Medium' ? 'yellow' : 'red'}
                       size="sm"
+                      dot
                     >
                       {route.weatherRisk}
                     </Badge>
                   </td>
 
-                  <td className="p-3 w-48">
-                    <div className="space-y-1">
-                      <div className="w-full bg-navy-950 rounded-full h-2 overflow-hidden border border-navy-800">
-                        <div
-                          className={`h-full rounded-full transition-all ${
-                            isRec ? 'bg-gradient-to-r from-emerald-500 to-cyan-400' : 'bg-slate-600'
-                          }`}
-                          style={{ width: `${fuelPct}%` }}
-                        ></div>
-                      </div>
-                      <span className="text-[9px] text-slate-400 font-mono block text-right">{route.weatherImpactPct > 0 ? `+${route.weatherImpactPct}% drag` : `${route.weatherImpactPct}% push`}</span>
+                  <td className="p-3 min-w-[120px]">
+                    <div className="w-full bg-white/[0.04] rounded-full h-1.5 overflow-hidden">
+                      <div
+                        className={`h-1.5 rounded-full transition-all ${
+                          isRec ? 'bg-emerald-400' : 'bg-brand-bright'
+                        }`}
+                        style={{ width: `${Math.min(100, fuelPct)}%` }}
+                      />
                     </div>
                   </td>
                 </tr>

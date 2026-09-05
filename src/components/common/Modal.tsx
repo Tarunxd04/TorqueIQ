@@ -20,15 +20,15 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, 
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-950/80 backdrop-blur-sm animate-fade-in">
-      <div className={`w-full ${widthClasses[maxWidth]} bg-navy-850 border border-navy-700 rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]`}>
-        <div className="flex items-center justify-between px-6 py-4 border-b border-navy-700/60 bg-navy-900/50">
-          <h3 className="text-lg font-bold text-slate-100">{title}</h3>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+      <div className={`w-full ${widthClasses[maxWidth]} glass-panel-elevated border border-white/[0.12] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] bg-[#0A0A0E]/95`}>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.08] bg-white/[0.02]">
+          <h3 className="text-base font-semibold text-white tracking-tight">{title}</h3>
           <button
             onClick={onClose}
-            className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-navy-800 transition"
+            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/[0.06] transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
         <div className="p-6 overflow-y-auto custom-scrollbar flex-1">

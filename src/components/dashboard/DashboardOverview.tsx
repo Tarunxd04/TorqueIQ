@@ -9,10 +9,13 @@ import {
   ArrowUpRight,
   TrendingDown,
   Activity,
-  CheckCircle2
+  CheckCircle2,
+  Sliders,
+  Layers
 } from 'lucide-react'
 import { StatCard } from '../common/StatCard'
 import { Card } from '../common/Card'
+import { Badge } from '../common/Badge'
 import {
   ResponsiveContainer,
   AreaChart,
@@ -36,15 +39,15 @@ interface DashboardOverviewProps {
 
 export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigateToView }) => {
   return (
-    <div className="space-y-6">
-      {/* Overview Top Banner */}
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-navy-850 via-navy-800 to-navy-850 border border-navy-700/80 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div className="space-y-6 animate-fade-in">
+      {/* Top Banner Header */}
+      <div className="glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest mb-1">
-            <Activity className="w-4 h-4 text-emerald-400" />
+          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-brand-bright uppercase tracking-widest mb-1.5">
+            <Activity className="w-3.5 h-3.5 text-emerald-400" />
             <span>GreenRoute Maritime Control Matrix</span>
           </div>
-          <h2 className="text-2xl font-extrabold text-white">Fleet Sustainability & Optimization Overview</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Fleet Sustainability & Optimization Overview</h2>
           <p className="text-xs text-slate-400 mt-1">
             Real-time hydrodynamic, weather, and carbon intensity metrics across 20 active vessels.
           </p>
@@ -52,15 +55,15 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
 
         <button
           onClick={() => onNavigateToView('planner')}
-          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-navy-950 font-bold text-xs shadow-lg shadow-cyan-500/20 hover:scale-105 transition shrink-0 flex items-center gap-2"
+          className="btn-primary px-4 py-2 rounded-xl text-xs font-medium shrink-0 flex items-center gap-2"
         >
-          <span>Plan New Optimal Voyage</span>
-          <ArrowUpRight className="w-4 h-4" />
+          <span>Plan Optimal Voyage</span>
+          <ArrowUpRight className="w-3.5 h-3.5" />
         </button>
       </div>
 
-      {/* 6 KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+      {/* 6 Metric KPI Cards in Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
         <StatCard
           title="Active Ships"
           value={20}
@@ -68,7 +71,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
           trend="+2 online"
           trendType="positive"
           icon={Ship}
-          iconColor="text-cyan-400"
+          iconColor="text-brand-bright"
           description="100% operational"
         />
 
@@ -79,7 +82,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
           trend="8/8 optimized"
           trendType="positive"
           icon={Navigation}
-          iconColor="text-emerald-400"
+          iconColor="text-cyan-400"
           description="On schedule"
         />
 
@@ -89,166 +92,189 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
           trend="+1.8% MoM"
           trendType="positive"
           icon={Gauge}
-          iconColor="text-cyan-400"
+          iconColor="text-emerald-400"
           description="Fleet hydro rating"
         />
 
         <StatCard
           title="Fuel Saved"
           value="12.4%"
-          trend="420 tonnes/mo"
+          trend="420 t/mo"
           trendType="positive"
           icon={Flame}
-          iconColor="text-emerald-400"
-          description="Vs un-optimized"
+          iconColor="text-amber-400"
+          description="Below baseline"
         />
 
         <StatCard
           title="CO₂ Avoided"
-          value="11.6%"
-          trend="1,320 tonnes"
+          value="1,320"
+          unit="tonnes"
+          trend="-11.6% CII"
           trendType="positive"
           icon={Leaf}
           iconColor="text-emerald-400"
-          description="IMO CII Class A"
+          description="Tier A rating"
         />
 
         <StatCard
-          title="Monthly Cost"
-          value="$1.24M"
+          title="Cost Savings"
+          value="$315k"
           unit="USD"
-          trend="-$284K saved"
+          trend="+14% YoY"
           trendType="positive"
           icon={DollarSign}
-          iconColor="text-amber-400"
-          description="Bunker spend"
+          iconColor="text-indigo-400"
+          description="Bunker savings"
         />
       </div>
 
-      {/* Charts Grid Row 1: Fuel & CO2 Trends */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Fuel Consumption Trend Area Chart */}
-        <Card title="Monthly Fuel Consumption (Baseline vs GreenRoute)" subtitle="Tonnes heavy fuel oil burned across active fleet">
-          <div className="h-72 w-full mt-2">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={MONTHLY_FUEL_CO2_TRENDS} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="colorBaseline" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#EF4444" stopOpacity={0.4}/>
-                    <stop offset="95%" stopColor="#EF4444" stopOpacity={0}/>
-                  </linearGradient>
-                  <linearGradient id="colorOptimized" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10B981" stopOpacity={0.5}/>
-                    <stop offset="95%" stopColor="#10B981" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <XAxis dataKey="month" stroke="#64748B" fontSize={11} />
-                <YAxis stroke="#64748B" fontSize={11} />
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#0B132B', borderColor: '#233056', borderRadius: '8px', fontSize: '12px' }}
-                />
-                <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
-                <Area type="monotone" dataKey="baselineFuel" name="Baseline (Un-optimized)" stroke="#EF4444" fillOpacity={1} fill="url(#colorBaseline)" strokeWidth={2} />
-                <Area type="monotone" dataKey="optimizedFuel" name="GreenRoute Optimized" stroke="#10B981" fillOpacity={1} fill="url(#colorOptimized)" strokeWidth={2.5} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </Card>
-
-        {/* CO2 Emissions Trend Area Chart */}
-        <Card title="Monthly CO₂ Emissions Cut (Tonnes CO₂e)" subtitle="IMO CII Compliance trajectory">
-          <div className="h-72 w-full mt-2">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={MONTHLY_FUEL_CO2_TRENDS} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="colorCo2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#06B6D4" stopOpacity={0.5}/>
-                    <stop offset="95%" stopColor="#06B6D4" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <XAxis dataKey="month" stroke="#64748B" fontSize={11} />
-                <YAxis stroke="#64748B" fontSize={11} />
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#0B132B', borderColor: '#233056', borderRadius: '8px', fontSize: '12px' }}
-                />
-                <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
-                <Area type="monotone" dataKey="baselineCo2" name="Baseline CO₂ (t)" stroke="#F59E0B" strokeWidth={1.5} strokeDasharray="3 3" fill="none" />
-                <Area type="monotone" dataKey="optimizedCo2" name="Optimized CO₂ (t)" stroke="#06B6D4" fillOpacity={1} fill="url(#colorCo2)" strokeWidth={2.5} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </Card>
-      </div>
-
-      {/* Charts Grid Row 2: Fleet Distribution & Active Voyages Table */}
+      {/* Bento Layout Grid for Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Fleet Efficiency Distribution */}
-        <Card title="Fleet Efficiency Spectrum" subtitle="Hydrodynamic efficiency ratings across 20 ships">
-          <div className="h-64 w-full mt-2">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={FLEET_EFFICIENCY_DISTRIBUTION} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <XAxis dataKey="category" stroke="#64748B" fontSize={10} interval={0} />
-                <YAxis stroke="#64748B" fontSize={11} />
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#0B132B', borderColor: '#233056', borderRadius: '8px', fontSize: '12px' }}
-                />
-                <Bar dataKey="count" name="Vessels" fill="#38BDF8" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </Card>
+        {/* Monthly Fuel & Carbon Reduction Chart (2 cols) */}
+        <div className="lg:col-span-2">
+          <Card
+            title="Monthly Fuel Consumption vs Carbon Reduction"
+            subtitle="Historical baseline compared with AI hydrodynamic optimization (tonnes/month)"
+            action={
+              <Badge variant="green" size="sm" dot>
+                -12.4% Avg Fuel Cut
+              </Badge>
+            }
+          >
+            <div className="h-[280px] w-full pt-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={MONTHLY_FUEL_CO2_TRENDS} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="fuelGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#5E6AD2" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#5E6AD2" stopOpacity={0.0} />
+                    </linearGradient>
+                    <linearGradient id="co2Grad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#10B981" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#10B981" stopOpacity={0.0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="month" stroke="#4B5563" fontSize={11} tickLine={false} axisLine={false} />
+                  <YAxis stroke="#4B5563" fontSize={11} tickLine={false} axisLine={false} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#090A0E',
+                      borderColor: 'rgba(255,255,255,0.1)',
+                      borderRadius: '12px',
+                      fontSize: '12px',
+                      color: '#EDEDEF',
+                      boxShadow: '0 8px 30px rgba(0,0,0,0.5)'
+                    }}
+                  />
+                  <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
+                  <Area type="monotone" dataKey="actualFuel" name="Optimized Fuel (t)" stroke="#5E6AD2" strokeWidth={2} fillOpacity={1} fill="url(#fuelGrad)" />
+                  <Area type="monotone" dataKey="co2Saved" name="CO₂ Cut (t)" stroke="#10B981" strokeWidth={2} fillOpacity={1} fill="url(#co2Grad)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </Card>
+        </div>
 
-        {/* Voyage Status Distribution Donut */}
-        <Card title="Voyage Status Distribution" subtitle="Active operational states">
-          <div className="h-64 w-full flex items-center justify-center">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={VOYAGE_STATUS_BREAKDOWN}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={55}
-                  outerRadius={80}
-                  paddingAngle={4}
-                  dataKey="value"
-                >
-                  {VOYAGE_STATUS_BREAKDOWN.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip contentStyle={{ backgroundColor: '#0B132B', borderColor: '#233056', borderRadius: '8px', fontSize: '12px' }} />
-                <Legend wrapperStyle={{ fontSize: '11px' }} />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </Card>
+        {/* Voyage Status & CII Breakdown */}
+        <div>
+          <Card
+            title="Voyage Operational Status"
+            subtitle="Fleet live mission distribution"
+          >
+            <div className="h-[220px] w-full flex items-center justify-center">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={VOYAGE_STATUS_BREAKDOWN}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={55}
+                    outerRadius={80}
+                    paddingAngle={4}
+                    dataKey="count"
+                  >
+                    {VOYAGE_STATUS_BREAKDOWN.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} stroke="#050508" strokeWidth={2} />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#090A0E',
+                      borderColor: 'rgba(255,255,255,0.1)',
+                      borderRadius: '12px',
+                      fontSize: '12px',
+                      color: '#EDEDEF'
+                    }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
 
-        {/* Top Active Vessels Quick Status List */}
-        <Card title="Top Active Ships" subtitle="Live vessel tracking snippet" action={
-          <button onClick={() => onNavigateToView('fleet')} className="text-xs text-cyan-400 font-semibold hover:underline">
-            View All 20 →
-          </button>
-        }>
-          <div className="space-y-3 mt-1">
-            {FLEET_SHIPS.slice(0, 4).map((ship) => (
-              <div key={ship.id} className="p-3 rounded-lg bg-navy-900 border border-navy-800 flex items-center justify-between">
-                <div>
-                  <h4 className="text-xs font-bold text-white flex items-center gap-1.5">
-                    <Ship className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>{ship.name}</span>
-                  </h4>
-                  <p className="text-[10px] text-slate-400 mt-0.5">{ship.location}</p>
+            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
+              {VOYAGE_STATUS_BREAKDOWN.map((item) => (
+                <div key={item.name} className="flex items-center gap-2 text-xs">
+                  <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
+                  <span className="text-slate-400">{item.name}:</span>
+                  <span className="font-mono font-semibold text-white">{item.value}</span>
                 </div>
-
-                <div className="text-right">
-                  <span className="text-xs font-mono font-bold text-emerald-400">{ship.fuelEfficiency}% Eff</span>
-                  <p className="text-[10px] text-slate-400">{ship.currentSpeed > 0 ? `${ship.currentSpeed} kts` : ship.status}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
+              ))}
+            </div>
+          </Card>
+        </div>
       </div>
+
+      {/* Live Fleet Table */}
+      <Card
+        title="Active Fleet Operational Overview (Sample)"
+        subtitle="Real-time telemetry and hydrodynamic compliance"
+        action={
+          <button
+            onClick={() => onNavigateToView('fleet')}
+            className="text-xs font-mono font-medium text-brand-bright hover:text-white transition flex items-center gap-1"
+          >
+            <span>View All 20 Ships</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </button>
+        }
+      >
+        <div className="overflow-x-auto custom-scrollbar">
+          <table className="w-full text-left text-xs">
+            <thead>
+              <tr className="border-b border-white/[0.06] text-[10px] font-mono uppercase tracking-widest text-slate-400">
+                <th className="py-3 px-3">Vessel Name</th>
+                <th className="py-3 px-3">Type</th>
+                <th className="py-3 px-3">Location</th>
+                <th className="py-3 px-3">Speed</th>
+                <th className="py-3 px-3">Fuel Eff.</th>
+                <th className="py-3 px-3">CII Score</th>
+                <th className="py-3 px-3">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/[0.04]">
+              {FLEET_SHIPS.slice(0, 5).map((ship) => (
+                <tr key={ship.id} className="hover:bg-white/[0.02] transition-colors">
+                  <td className="py-3 px-3 font-semibold text-white">{ship.name}</td>
+                  <td className="py-3 px-3 text-slate-400">{ship.type}</td>
+                  <td className="py-3 px-3 text-slate-400 font-mono text-[11px]">{ship.location}</td>
+                  <td className="py-3 px-3 font-mono font-semibold text-cyan-400">{ship.currentSpeed} kts</td>
+                  <td className="py-3 px-3 font-mono font-semibold text-emerald-400">{ship.fuelEfficiency}%</td>
+                  <td className="py-3 px-3 font-mono text-slate-300">{ship.co2Intensity} t/t</td>
+                  <td className="py-3 px-3">
+                    <Badge
+                      variant={ship.status === 'Sailing' ? 'green' : ship.status === 'Loading' ? 'yellow' : 'cyan'}
+                      size="sm"
+                      dot
+                    >
+                      {ship.status}
+                    </Badge>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
     </div>
   )
 }

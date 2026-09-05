@@ -12,40 +12,39 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
-  CartesianGrid
+  Legend
 } from 'recharts'
 
 export const AnalyticsView: React.FC = () => {
   const [timeRange, setTimeRange] = useState('8M')
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-navy-850 via-navy-800 to-navy-850 border border-navy-700/80 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest mb-1">
-            <BarChart3 className="w-4 h-4 text-emerald-400" />
+          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-brand-bright uppercase tracking-widest mb-1.5">
+            <BarChart3 className="w-3.5 h-3.5 text-emerald-400" />
             <span>Executive Intelligence Matrix</span>
           </div>
-          <h2 className="text-2xl font-black text-white">Fleet Analytics & Historical Trends</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Fleet Analytics & Historical Trends</h2>
           <p className="text-xs text-slate-400 mt-1">
-            Multi-metric performance charts tracking bunker fuel burn, carbon abatement, speed efficiency, and route benchmarks.
+            Multi-metric performance charts tracking bunker fuel burn, carbon abatement, and route benchmarks.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-navy-900 border border-navy-700 text-xs">
-            <Calendar className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="text-slate-300">Time Range:</span>
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs">
+            <Calendar className="w-3.5 h-3.5 text-brand-bright" />
+            <span className="text-slate-400 text-[11px]">Range:</span>
             <select
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value)}
-              className="bg-transparent text-cyan-400 font-bold focus:outline-none"
+              className="bg-transparent text-white font-mono text-xs focus:outline-none"
             >
-              <option value="3M">Last 3 Months</option>
-              <option value="8M">YTD (8 Months)</option>
-              <option value="1Y">1 Year</option>
+              <option value="3M" className="bg-[#090A0E] text-white">Last 3 Months</option>
+              <option value="8M" className="bg-[#090A0E] text-white">YTD (8 Months)</option>
+              <option value="1Y" className="bg-[#090A0E] text-white">1 Year</option>
             </select>
           </div>
         </div>
@@ -57,65 +56,80 @@ export const AnalyticsView: React.FC = () => {
           <div className="h-72 w-full mt-2">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={MONTHLY_FUEL_CO2_TRENDS} margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1C2541" />
-                <XAxis dataKey="month" stroke="#64748B" fontSize={11} />
-                <YAxis stroke="#64748B" fontSize={11} domain={[10, 15]} unit="%" />
-                <Tooltip contentStyle={{ backgroundColor: '#0B132B', borderColor: '#233056', borderRadius: '8px', fontSize: '12px' }} />
-                <Legend wrapperStyle={{ fontSize: '12px' }} />
-                <Line type="monotone" dataKey="fuelSavedPct" name="Fuel Saved (%)" stroke="#10B981" strokeWidth={3} activeDot={{ r: 6 }} />
+                <XAxis dataKey="month" stroke="#4B5563" fontSize={11} tickLine={false} axisLine={false} />
+                <YAxis stroke="#4B5563" fontSize={11} unit="%" tickLine={false} axisLine={false} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#090A0E',
+                    borderColor: 'rgba(255,255,255,0.1)',
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    color: '#EDEDEF',
+                    boxShadow: '0 8px 30px rgba(0,0,0,0.6)'
+                  }}
+                  formatter={(val: number) => [`${val}%`, 'Fuel Saved']}
+                />
+                <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
+                <Line
+                  type="monotone"
+                  dataKey="fuelSavedPct"
+                  name="Fuel Savings Rate (%)"
+                  stroke="#10B981"
+                  strokeWidth={2.5}
+                  dot={{ r: 4, fill: '#10B981' }}
+                  activeDot={{ r: 6 }}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </Card>
 
-        <Card title="Monthly Bunker Fuel Expenditure ($M)" subtitle="Net USD cost savings trajectory">
+        <Card title="Monthly Carbon Abatement (Tonnes)" subtitle="Total greenhouse gas emissions prevented per month">
           <div className="h-72 w-full mt-2">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={MONTHLY_FUEL_CO2_TRENDS} margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1C2541" />
-                <XAxis dataKey="month" stroke="#64748B" fontSize={11} />
-                <YAxis stroke="#64748B" fontSize={11} unit="M$" />
-                <Tooltip contentStyle={{ backgroundColor: '#0B132B', borderColor: '#233056', borderRadius: '8px', fontSize: '12px' }} />
-                <Legend wrapperStyle={{ fontSize: '12px' }} />
-                <Bar dataKey="costUSD" name="Bunker Spend ($M)" fill="#F59E0B" radius={[4, 4, 0, 0]} />
+                <XAxis dataKey="month" stroke="#4B5563" fontSize={11} tickLine={false} axisLine={false} />
+                <YAxis stroke="#4B5563" fontSize={11} unit=" t" tickLine={false} axisLine={false} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#090A0E',
+                    borderColor: 'rgba(255,255,255,0.1)',
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    color: '#EDEDEF',
+                    boxShadow: '0 8px 30px rgba(0,0,0,0.6)'
+                  }}
+                  formatter={(val: number) => [`${val} tonnes`, 'CO₂ Avoided']}
+                />
+                <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
+                <Bar dataKey="co2Saved" name="CO₂ Cut (Tonnes)" fill="#5E6AD2" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </Card>
       </div>
 
-      {/* Row 2: Route Benchmark Table */}
-      <Card title="Key Corridor Route Benchmarks" subtitle="Performance across major maritime trade lanes">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr className="border-b border-navy-700/80 text-slate-400 font-bold uppercase tracking-wider bg-navy-900/60">
-                <th className="p-3">Trade Route</th>
-                <th className="p-3 text-right">Distance (NM)</th>
-                <th className="p-3 text-right">Avg Speed</th>
-                <th className="p-3 text-right">Fuel Intensity (t/NM)</th>
-                <th className="p-3 text-right">CO₂ Avoided / Trip</th>
-                <th className="p-3 text-center">Efficiency Rating</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-navy-800">
-              {ROUTE_EFFICIENCY_COMPARISON.map((r, idx) => (
-                <tr key={idx} className="hover:bg-navy-800/40 transition">
-                  <td className="p-3 font-bold text-white flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-cyan-400" />
-                    <span>{r.route}</span>
-                  </td>
-                  <td className="p-3 text-right font-mono text-slate-200">{r.distance.toLocaleString()} NM</td>
-                  <td className="p-3 text-right font-mono text-slate-200">{r.avgSpeed} kts</td>
-                  <td className="p-3 text-right font-mono text-cyan-400 font-bold">{r.avgFuelPerNM} t/NM</td>
-                  <td className="p-3 text-right font-mono text-emerald-400 font-bold">{r.co2Avoided} tonnes</td>
-                  <td className="p-3 text-center">
-                    <Badge variant="green" size="sm">Optimal</Badge>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* Row 2: Route Efficiency Benchmarks */}
+      <Card title="Corridor Hydrodynamic Efficiency Ranking" subtitle="Benchmarking active global shipping lanes">
+        <div className="h-72 w-full mt-2">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={ROUTE_EFFICIENCY_COMPARISON} margin={{ top: 10, right: 20, left: 10, bottom: 0 }} layout="vertical">
+              <XAxis type="number" stroke="#4B5563" fontSize={11} unit="%" domain={[80, 100]} tickLine={false} axisLine={false} />
+              <YAxis type="category" dataKey="route" stroke="#4B5563" fontSize={11} width={130} tickLine={false} axisLine={false} />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#090A0E',
+                  borderColor: 'rgba(255,255,255,0.1)',
+                  borderRadius: '12px',
+                  fontSize: '12px',
+                  color: '#EDEDEF',
+                  boxShadow: '0 8px 30px rgba(0,0,0,0.6)'
+                }}
+                formatter={(val: number) => [`${val}%`, 'Hydro Score']}
+              />
+              <Bar dataKey="efficiency" name="Hydrodynamic Rating (%)" fill="#06B6D4" radius={[0, 6, 6, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </Card>
     </div>

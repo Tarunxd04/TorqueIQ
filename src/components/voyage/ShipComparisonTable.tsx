@@ -10,11 +10,11 @@ interface ShipComparisonTableProps {
 
 export const ShipComparisonTable: React.FC<ShipComparisonTableProps> = ({ ships }) => {
   return (
-    <Card title="Candidate Vessel Hydrodynamic Comparison" subtitle="Comparing top fleet candidates for Mumbai → Singapore cargo requirement">
-      <div className="overflow-x-auto">
+    <Card title="Candidate Vessel Hydrodynamic Comparison" subtitle="Comparing top fleet candidates for cargo voyage requirement">
+      <div className="overflow-x-auto custom-scrollbar">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="border-b border-navy-700/80 text-slate-400 font-bold uppercase tracking-wider bg-navy-900/60">
+            <tr className="border-b border-white/[0.06] text-[10px] font-mono uppercase tracking-widest text-slate-400 bg-white/[0.02]">
               <th className="p-3">Vessel Name</th>
               <th className="p-3">Type</th>
               <th className="p-3 text-right">Capacity (DWT)</th>
@@ -26,7 +26,7 @@ export const ShipComparisonTable: React.FC<ShipComparisonTableProps> = ({ ships 
               <th className="p-3 text-center">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-navy-800">
+          <tbody className="divide-y divide-white/[0.04]">
             {ships.map((item) => {
               const ship = item.ship
               const isRec = item.recommended
@@ -34,10 +34,10 @@ export const ShipComparisonTable: React.FC<ShipComparisonTableProps> = ({ ships 
               return (
                 <tr
                   key={ship.id}
-                  className={`transition ${
+                  className={`transition-colors ${
                     isRec
-                      ? 'bg-gradient-to-r from-cyan-950/40 via-navy-850 to-navy-850 border-l-4 border-l-cyan-400 font-medium'
-                      : 'hover:bg-navy-800/40'
+                      ? 'bg-cyan-500/[0.04] border-l-2 border-l-cyan-400 font-medium'
+                      : 'hover:bg-white/[0.02]'
                   }`}
                 >
                   <td className="p-3">
@@ -48,10 +48,10 @@ export const ShipComparisonTable: React.FC<ShipComparisonTableProps> = ({ ships 
                         <Ship className="w-4 h-4 text-slate-500 shrink-0" />
                       )}
                       <div>
-                        <span className="font-bold text-white text-xs">{ship.name}</span>
+                        <span className="font-semibold text-white text-xs">{ship.name}</span>
                         <p className="text-[10px] text-slate-400 mt-0.5">{ship.imo} • Built {ship.yearBuilt}</p>
                       </div>
-                      {isRec && <Badge variant="cyan" size="sm">RECOMMENDED SHIP</Badge>}
+                      {isRec && <Badge variant="cyan" size="sm">RECOMMENDED</Badge>}
                     </div>
                   </td>
 
@@ -82,7 +82,7 @@ export const ShipComparisonTable: React.FC<ShipComparisonTableProps> = ({ ships 
                   </td>
 
                   <td className="p-3 text-center">
-                    <Badge variant={ship.status === 'Sailing' ? 'green' : ship.status === 'At Port' ? 'blue' : 'gray'} size="sm">
+                    <Badge variant={ship.status === 'Sailing' ? 'green' : ship.status === 'At Port' ? 'blue' : 'gray'} size="sm" dot>
                       {ship.status}
                     </Badge>
                   </td>

@@ -7,28 +7,29 @@ import { RouteComparisonTable } from '../voyage/RouteComparisonTable'
 import { MapPin, Navigation, Compass, ShieldCheck } from 'lucide-react'
 
 export const RoutesView: React.FC = () => {
-  const [activeRouteId, setActiveRouteId] = useState('route-b')
+  const [activeRouteId, setActiveRouteId] = useState('route-eco')
 
   return (
-    <div className="space-y-6">
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-navy-850 via-navy-800 to-navy-850 border border-navy-700/80 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div className="space-y-6 animate-fade-in">
+      {/* Header */}
+      <div className="glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest mb-1">
-            <Compass className="w-4 h-4 text-emerald-400" />
+          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-brand-bright uppercase tracking-widest mb-1.5">
+            <Compass className="w-3.5 h-3.5 text-emerald-400" />
             <span>Navigation Corridor Engine</span>
           </div>
-          <h2 className="text-2xl font-black text-white">Route Intelligence & Corridor Analysis</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Route Intelligence & Corridor Analysis</h2>
           <p className="text-xs text-slate-400 mt-1">
             Comparing candidate oceanic paths across distance, weather drag factors, and fuel consumption.
           </p>
         </div>
       </div>
 
-      {/* 2D SVG Map Visual */}
-      <MaritimeMapSvg selectedRouteId={activeRouteId} showAllRoutes={true} height={420} />
+      {/* Real-World Map Visual */}
+      <MaritimeMapSvg selectedRouteId={activeRouteId} showAllRoutes={true} height={480} />
 
       {/* Route Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {DEFAULT_MUMBAI_SINGAPORE_ROUTES.map((route) => {
           const isSelected = activeRouteId === route.id
 
@@ -36,38 +37,28 @@ export const RoutesView: React.FC = () => {
             <div
               key={route.id}
               onClick={() => setActiveRouteId(route.id)}
-              className={`p-5 rounded-xl border cursor-pointer transition-all ${
+              className={`p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${
                 isSelected
-                  ? 'bg-navy-850 border-cyan-500 shadow-xl shadow-cyan-950/40 ring-1 ring-cyan-500/50'
-                  : 'bg-navy-900 border-navy-700/80 hover:border-navy-600'
+                  ? 'bg-gradient-to-b from-white/[0.08] to-white/[0.02] border-brand-bright shadow-[0_0_25px_rgba(94,106,210,0.2)] ring-1 ring-brand-bright'
+                  : 'glass-panel hover:border-white/[0.12]'
               }`}
             >
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold text-slate-400 font-mono">{route.code}</span>
-                {route.isRecommended && <Badge variant="green" size="sm">RECOMMENDED</Badge>}
+                <span className="text-[10px] font-mono font-bold text-slate-400 uppercase">{route.code}</span>
+                {route.isRecommended && <Badge variant="green" size="sm" dot>RECOMMENDED</Badge>}
               </div>
 
-              <h4 className="text-base font-extrabold text-white mb-1">{route.name}</h4>
-              <p className="text-xs text-slate-400 mb-4">{route.pathDescription}</p>
+              <h4 className="text-sm font-semibold text-white mb-1">{route.name}</h4>
+              <p className="text-xs text-slate-400 mb-4 leading-relaxed">{route.pathDescription}</p>
 
-              <div className="pt-3 border-t border-navy-700/60 grid grid-cols-2 gap-2 text-xs">
+              <div className="pt-3 border-t border-white/[0.06] grid grid-cols-2 gap-2 text-xs font-mono">
                 <div>
-                  <span className="text-slate-400 block">Distance:</span>
-                  <span className="font-mono font-bold text-white">{route.distanceNM} NM</span>
+                  <span className="text-slate-400 text-[10px] block">Distance:</span>
+                  <span className="font-semibold text-white">{route.distanceNM} NM</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block">Est. Fuel:</span>
-                  <span className="font-mono font-bold text-emerald-400">{route.fuelConsumptionTonnes} t</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block">Est. Cost:</span>
-                  <span className="font-mono font-bold text-amber-400">${(route.estimatedCostUSD / 1000).toFixed(0)}K</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block">Weather Drag:</span>
-                  <span className={`font-mono font-bold ${route.weatherImpactPct < 0 ? 'text-emerald-400' : 'text-amber-400'}`}>
-                    {route.weatherImpactPct > 0 ? `+${route.weatherImpactPct}%` : `${route.weatherImpactPct}%`}
-                  </span>
+                  <span className="text-slate-400 text-[10px] block">Est. Fuel:</span>
+                  <span className="font-semibold text-emerald-400">{route.fuelConsumptionTonnes} t</span>
                 </div>
               </div>
             </div>
@@ -75,6 +66,7 @@ export const RoutesView: React.FC = () => {
         })}
       </div>
 
+      {/* Comparison Table */}
       <RouteComparisonTable routes={DEFAULT_MUMBAI_SINGAPORE_ROUTES} />
     </div>
   )

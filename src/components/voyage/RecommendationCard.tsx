@@ -19,21 +19,21 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
   return (
     <div className="space-y-6">
       {/* Banner Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-navy-700/60 pb-3 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/[0.06] pb-3 gap-3">
         <div>
-          <span className="text-xs font-extrabold text-cyan-400 uppercase tracking-widest flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <span className="text-[10px] font-mono font-bold text-brand-bright uppercase tracking-widest flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
             Decision Support Matrix — 4 Optimization Strategies
           </span>
-          <h2 className="text-2xl font-black text-white tracking-tight mt-0.5">SELECT YOUR PREFERRED VOYAGE OPTION</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-1">Select Preferred Voyage Strategy</h2>
           <p className="text-xs text-slate-400 mt-1">
-            Compare 4 distinct vessel, fuel type, route corridor, speed, and weather availability packages below. Choose the option that fits your operational priority.
+            Compare 4 distinct vessel, fuel type, route corridor, speed, and weather availability packages below.
           </p>
         </div>
       </div>
 
       {/* 4 Candidate Voyage Option Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {options.map((opt) => {
           const isSelected = selectedOptionId === opt.id
 
@@ -43,125 +43,109 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
               onClick={() => onSelectOption(opt.id)}
               className={`p-5 rounded-2xl border flex flex-col justify-between cursor-pointer transition-all duration-300 relative group overflow-hidden ${
                 isSelected
-                  ? 'bg-gradient-to-b from-navy-850 via-navy-900 to-navy-850 border-cyan-400 shadow-2xl shadow-cyan-950/60 ring-2 ring-cyan-500/50 scale-[1.02]'
-                  : 'bg-navy-900/90 border-navy-700/80 hover:border-navy-600 hover:bg-navy-850/80'
+                  ? 'bg-gradient-to-b from-white/[0.09] via-white/[0.04] to-white/[0.02] border-brand-bright shadow-[0_0_30px_rgba(94,106,210,0.25)] ring-1 ring-brand-bright'
+                  : 'glass-panel hover:border-white/[0.12] hover:bg-white/[0.05]'
               }`}
             >
-              {/* Glow background accent when selected */}
-              {isSelected && (
-                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-bl-full pointer-events-none"></div>
-              )}
-
               <div>
                 {/* Header Badge & Selection Indicator */}
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-3.5">
                   <Badge variant={opt.badgeVariant} size="sm">
                     {opt.badgeText}
                   </Badge>
-                  <div className={`p-1 rounded-full ${isSelected ? 'text-cyan-400' : 'text-slate-600'}`}>
-                    {isSelected ? <CheckCircle2 className="w-5 h-5 fill-cyan-950" /> : <Circle className="w-5 h-5" />}
-                  </div>
+
+                  {isSelected ? (
+                    <div className="flex items-center gap-1 text-[10px] font-mono font-medium text-brand-bright">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>SELECTED</span>
+                    </div>
+                  ) : (
+                    <Circle className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-300 transition-colors" />
+                  )}
                 </div>
 
-                <h3 className="text-base font-extrabold text-white mb-1 group-hover:text-cyan-400 transition">{opt.title}</h3>
-                <p className="text-[11px] text-slate-400 leading-snug mb-4">{opt.description}</p>
+                {/* Option Title */}
+                <h3 className="text-sm font-semibold text-white tracking-tight mb-1">
+                  {opt.title}
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                  {opt.description}
+                </p>
 
-                {/* Key Metrics Specifications */}
-                <div className="space-y-2.5 text-xs pt-3 border-t border-navy-700/60">
-                  {/* Vessel */}
-                  <div className="flex items-start justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5">
-                      <Ship className="w-3.5 h-3.5 text-cyan-400 shrink-0" /> Ship:
-                    </span>
-                    <span className="font-bold text-white text-right">{opt.ship.name}</span>
-                  </div>
-
-                  {/* Fuel & Fuel Type */}
-                  <div className="flex items-start justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5">
-                      <Flame className="w-3.5 h-3.5 text-cyan-400 shrink-0" /> Fuel Burn:
-                    </span>
-                    <div className="text-right">
-                      <span className="font-mono font-bold text-white block">{opt.expectedFuelTonnes} t</span>
-                      <span className="text-[10px] text-slate-400 font-mono block">{opt.fuelType}</span>
-                    </div>
-                  </div>
-
-                  {/* Speed */}
+                {/* Strategy Details */}
+                <div className="space-y-2.5 pt-3 border-t border-white/[0.06] text-xs">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5">
-                      <Zap className="w-3.5 h-3.5 text-cyan-400 shrink-0" /> Speed:
+                    <span className="text-slate-400 flex items-center gap-1.5 text-xs">
+                      <Ship className="w-3.5 h-3.5 text-slate-400" />
+                      Ship:
                     </span>
-                    <span className="font-mono font-bold text-cyan-400">{opt.speedKnots} kts</span>
+                    <span className="font-medium text-white truncate max-w-[130px]">{opt.ship.name}</span>
                   </div>
 
-                  {/* ETA & Duration */}
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-cyan-400 shrink-0" /> Voyage ETA:
+                    <span className="text-slate-400 flex items-center gap-1.5 text-xs">
+                      <Navigation className="w-3.5 h-3.5 text-slate-400" />
+                      Route:
                     </span>
-                    <span className="font-mono font-bold text-white">{opt.etaFormatted}</span>
+                    <span className="font-medium text-white truncate max-w-[130px]">{opt.route.name}</span>
                   </div>
 
-                  {/* Estimated Cost */}
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5">
-                      <DollarSign className="w-3.5 h-3.5 text-amber-400 shrink-0" /> Est. Cost:
+                    <span className="text-slate-400 flex items-center gap-1.5 text-xs">
+                      <Flame className="w-3.5 h-3.5 text-amber-400" />
+                      Fuel Type:
                     </span>
-                    <span className="font-mono font-bold text-amber-400">${(opt.estimatedCostUSD / 1000).toFixed(0)}K</span>
+                    <span className="font-mono text-[11px] text-amber-300">{opt.fuelType}</span>
                   </div>
 
-                  {/* Expected CO2 */}
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5">
-                      <Leaf className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> CO₂ Emissions:
+                    <span className="text-slate-400 flex items-center gap-1.5 text-xs">
+                      <Zap className="w-3.5 h-3.5 text-cyan-400" />
+                      Speed:
                     </span>
-                    <span className="font-mono font-bold text-emerald-400">{opt.expectedCo2Tonnes} t</span>
+                    <span className="font-mono font-semibold text-white">{opt.speedKnots} kts</span>
                   </div>
-
-                  {/* Weather Availability */}
-                  <div className="flex items-center justify-between pt-1">
-                    <span className="text-slate-400 flex items-center gap-1.5">
-                      <CloudSun className="w-3.5 h-3.5 text-cyan-400 shrink-0" /> Weather Risk:
-                    </span>
-                    <Badge variant={opt.weatherRisk === 'Low' ? 'green' : opt.weatherRisk === 'Medium' ? 'yellow' : 'red'} size="sm">
-                      {opt.weatherRisk} Risk
-                    </Badge>
-                  </div>
-                </div>
-
-                {/* Strategy Highlights */}
-                <div className="mt-4 pt-3 border-t border-navy-800 space-y-1 text-[11px]">
-                  {opt.highlights.map((h, idx) => (
-                    <div key={idx} className="flex items-center gap-1.5 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-                      <span>{h}</span>
-                    </div>
-                  ))}
                 </div>
               </div>
 
-              {/* Selection Button */}
-              <div className="mt-5 pt-3">
+              {/* Metrics Output Grid */}
+              <div className="mt-5 pt-3.5 border-t border-white/[0.06] space-y-2">
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div className="p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                    <span className="text-[9px] font-mono uppercase text-slate-400 block">ETA</span>
+                    <span className="font-mono font-semibold text-white">{opt.etaFormatted}</span>
+                  </div>
+
+                  <div className="p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                    <span className="text-[9px] font-mono uppercase text-slate-400 block">Total Fuel</span>
+                    <span className="font-mono font-semibold text-cyan-300">{opt.expectedFuelTonnes} t</span>
+                  </div>
+
+                  <div className="p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                    <span className="text-[9px] font-mono uppercase text-slate-400 block">CO₂ Emissions</span>
+                    <span className="font-mono font-semibold text-emerald-400">{opt.expectedCo2Tonnes} t</span>
+                  </div>
+
+                  <div className="p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                    <span className="text-[9px] font-mono uppercase text-slate-400 block">Voyage Cost</span>
+                    <span className="font-mono font-semibold text-slate-200">${opt.estimatedCostUSD.toLocaleString()}</span>
+                  </div>
+                </div>
+
+                {/* Selection Action Button */}
                 <button
+                  type="button"
                   onClick={(e) => {
                     e.stopPropagation()
                     onSelectOption(opt.id)
                   }}
-                  className={`w-full py-2.5 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 ${
+                  className={`w-full py-2 rounded-xl text-xs font-medium transition-all ${
                     isSelected
-                      ? 'bg-cyan-500 text-navy-950 shadow-lg shadow-cyan-500/30 hover:bg-cyan-400'
-                      : 'bg-navy-800 text-slate-300 border border-navy-700 hover:border-cyan-500/50 hover:text-white'
+                      ? 'btn-primary'
+                      : 'btn-secondary'
                   }`}
                 >
-                  {isSelected ? (
-                    <>
-                      <CheckCircle2 className="w-4 h-4 fill-navy-950 text-cyan-400" />
-                      <span>SELECTED VOYAGE</span>
-                    </>
-                  ) : (
-                    <span>CHOOSE THIS VOYAGE</span>
-                  )}
+                  {isSelected ? 'Active Strategy' : 'Select Option'}
                 </button>
               </div>
             </div>

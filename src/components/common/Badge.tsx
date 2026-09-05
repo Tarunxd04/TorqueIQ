@@ -2,28 +2,47 @@ import React from 'react'
 
 interface BadgeProps {
   children: React.ReactNode
-  variant?: 'green' | 'cyan' | 'yellow' | 'red' | 'gray' | 'blue'
+  variant?: 'green' | 'cyan' | 'yellow' | 'red' | 'gray' | 'blue' | 'purple'
   size?: 'sm' | 'md'
   className?: string
+  dot?: boolean
 }
 
-export const Badge: React.FC<BadgeProps> = ({ children, variant = 'cyan', size = 'md', className = '' }) => {
+export const Badge: React.FC<BadgeProps> = ({
+  children,
+  variant = 'cyan',
+  size = 'md',
+  className = '',
+  dot = false
+}) => {
   const variantStyles = {
-    green: 'bg-emerald-950/80 text-emerald-400 border-emerald-700/50 shadow-emerald-900/20',
-    cyan: 'bg-cyan-950/80 text-cyan-400 border-cyan-700/50 shadow-cyan-900/20',
-    yellow: 'bg-amber-950/80 text-amber-400 border-amber-700/50 shadow-amber-900/20',
-    red: 'bg-rose-950/80 text-rose-400 border-rose-700/50 shadow-rose-900/20',
-    gray: 'bg-slate-800 text-slate-300 border-slate-700',
-    blue: 'bg-blue-950/80 text-blue-400 border-blue-700/50 shadow-blue-900/20',
+    green: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25',
+    cyan: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/25',
+    yellow: 'bg-amber-500/10 text-amber-300 border-amber-500/25',
+    red: 'bg-rose-500/10 text-rose-400 border-rose-500/25',
+    gray: 'bg-white/[0.04] text-slate-300 border-white/[0.08]',
+    blue: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/25',
+    purple: 'bg-purple-500/10 text-purple-300 border-purple-500/25',
+  }
+
+  const dotColors = {
+    green: 'bg-emerald-400',
+    cyan: 'bg-cyan-400',
+    yellow: 'bg-amber-400',
+    red: 'bg-rose-400',
+    gray: 'bg-slate-400',
+    blue: 'bg-indigo-400',
+    purple: 'bg-purple-400',
   }
 
   const sizeStyles = {
-    sm: 'px-2 py-0.5 text-xs font-semibold',
-    md: 'px-2.5 py-1 text-xs font-semibold',
+    sm: 'px-2 py-0.5 text-[10px] font-mono',
+    md: 'px-2.5 py-0.5 text-xs font-mono',
   }
 
   return (
-    <span className={`inline-flex items-center rounded-md border ${variantStyles[variant]} ${sizeStyles[size]} tracking-wide ${className}`}>
+    <span className={`inline-flex items-center gap-1.5 rounded-full border ${variantStyles[variant]} ${sizeStyles[size]} tracking-wider uppercase font-medium ${className}`}>
+      {dot && <span className={`w-1.5 h-1.5 rounded-full ${dotColors[variant]} animate-pulse`} />}
       {children}
     </span>
   )
