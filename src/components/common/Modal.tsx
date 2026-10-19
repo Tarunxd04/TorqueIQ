@@ -20,18 +20,18 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, 
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-      <div className={`w-full ${widthClasses[maxWidth]} glass-panel-elevated border border-white/[0.12] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] bg-[#0A0A0E]/95`}>
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.08] bg-white/[0.02]">
-          <h3 className="text-base font-semibold text-white tracking-tight">{title}</h3>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#191919]/50 backdrop-blur-sm animate-fade-in">
+      <div className={`w-full ${widthClasses[maxWidth]} bg-white border border-[#E5E3DA] rounded-2xl shadow-dropdown overflow-hidden flex flex-col max-h-[90vh]`}>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E5E3DA] bg-[#FDFDFB]">
+          <h3 className="text-base font-semibold text-[#191919] tracking-tight">{title}</h3>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/[0.06] transition-colors"
+            className="p-1.5 text-[#777777] hover:text-[#191919] rounded-lg hover:bg-[#F5F5EF] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
-        <div className="p-6 overflow-y-auto custom-scrollbar flex-1">
+        <div className="p-6 overflow-y-auto custom-scrollbar flex-1 bg-white">
           {children}
         </div>
       </div>

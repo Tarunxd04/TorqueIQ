@@ -4,7 +4,7 @@ import { MaritimeMapSvg } from '../map/MaritimeMapSvg'
 import { Card } from '../common/Card'
 import { Badge } from '../common/Badge'
 import { RouteComparisonTable } from '../voyage/RouteComparisonTable'
-import { MapPin, Navigation, Compass, ShieldCheck } from 'lucide-react'
+import { MapPin, Navigation, Compass, ShieldCheck, CheckCircle2 } from 'lucide-react'
 
 export const RoutesView: React.FC = () => {
   const [activeRouteId, setActiveRouteId] = useState('route-eco')
@@ -12,54 +12,86 @@ export const RoutesView: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
+      <div className="bg-white border border-[#E5E3DA] p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
         <div>
-          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-brand-bright uppercase tracking-widest mb-1.5">
-            <Compass className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#174D3F] uppercase tracking-wider mb-1.5">
+            <Compass className="w-3.5 h-3.5 text-[#174D3F]" />
             <span>Navigation Corridor Engine</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Route Intelligence & Corridor Analysis</h2>
-          <p className="text-xs text-slate-400 mt-1">
-            Comparing candidate oceanic paths across distance, weather drag factors, and fuel consumption.
+          <h1 className="text-xl sm:text-2xl font-bold text-[#191919] tracking-tight">Route Intelligence & Corridor Analysis</h1>
+          <p className="text-xs text-[#777777] mt-1">
+            Comparing candidate oceanic corridors across distance, weather drag factors, and simulated bunker fuel consumption.
           </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Badge variant="green" size="md" dot>
+            Current Selection: {DEFAULT_MUMBAI_SINGAPORE_ROUTES.find(r => r.id === activeRouteId)?.name || 'Eco Corridor'}
+          </Badge>
         </div>
       </div>
 
       {/* Real-World Map Visual */}
-      <MaritimeMapSvg selectedRouteId={activeRouteId} showAllRoutes={true} height={480} />
+      <div className="bg-white border border-[#E5E3DA] p-2 rounded-2xl shadow-card">
+        <MaritimeMapSvg selectedRouteId={activeRouteId} showAllRoutes={true} height={480} />
+      </div>
 
       {/* Route Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {DEFAULT_MUMBAI_SINGAPORE_ROUTES.map((route) => {
           const isSelected = activeRouteId === route.id
+          const isRec = route.isRecommended
 
           return (
             <div
               key={route.id}
               onClick={() => setActiveRouteId(route.id)}
-              className={`p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${
+              className={`p-6 rounded-2xl border cursor-pointer transition-all duration-200 relative bg-white ${
                 isSelected
-                  ? 'bg-gradient-to-b from-white/[0.08] to-white/[0.02] border-brand-bright shadow-[0_0_25px_rgba(94,106,210,0.2)] ring-1 ring-brand-bright'
-                  : 'glass-panel hover:border-white/[0.12]'
+                  ? 'border-[#F15F56] ring-1 ring-[#F15F56] shadow-card'
+                  : isRec
+                  ? 'border-[#D2E4DC] hover:border-[#174D3F]'
+                  : 'border-[#E5E3DA] hover:border-[#D6D3C7]'
               }`}
             >
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-mono font-bold text-slate-400 uppercase">{route.code}</span>
-                {route.isRecommended && <Badge variant="green" size="sm" dot>RECOMMENDED</Badge>}
+                <span className="text-[10px] font-mono font-bold text-[#777777] uppercase">{route.code}</span>
+                <div className="flex items-center gap-1.5">
+                  {isRec && <Badge variant="green" size="sm" dot>AI RECOMMENDED</Badge>}
+                  {route.id === 'route-standard' && <Badge variant="gray" size="sm">ORIGINAL ROUTE</Badge>}
+                  {route.id === 'route-fast' && <Badge variant="cyan" size="sm">FAST TRANSIT</Badge>}
+                </div>
               </div>
 
-              <h4 className="text-sm font-semibold text-white mb-1">{route.name}</h4>
-              <p className="text-xs text-slate-400 mb-4 leading-relaxed">{route.pathDescription}</p>
+              <h3 className="text-sm font-semibold text-[#191919] mb-1 flex items-center justify-between">
+                <span>{route.name}</span>
+                {isSelected && <CheckCircle2 className="w-4 h-4 text-[#F15F56]" />}
+              </h3>
+              <p className="text-xs text-[#777777] mb-4 leading-relaxed">{route.pathDescription}</p>
 
-              <div className="pt-3 border-t border-white/[0.06] grid grid-cols-2 gap-2 text-xs font-mono">
+              <div className="pt-3 border-t border-[#E5E3DA] grid grid-cols-2 gap-2 text-xs font-mono">
                 <div>
-                  <span className="text-slate-400 text-[10px] block">Distance:</span>
-                  <span className="font-semibold text-white">{route.distanceNM} NM</span>
+                  <span className="text-[#777777] text-[10px] block">Distance:</span>
+                  <span className="font-semibold text-[#191919]">{route.distanceNM.toLocaleString()} NM</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 text-[10px] block">Est. Fuel:</span>
-                  <span className="font-semibold text-emerald-400">{route.fuelConsumptionTonnes} t</span>
+                  <span className="text-[#777777] text-[10px] block">Est. Fuel:</span>
+                  <span className={`font-semibold ${isRec ? 'text-[#174D3F]' : 'text-[#191919]'}`}>
+                    {route.fuelConsumptionTonnes} t
+                  </span>
                 </div>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-[#E5E3DA] flex items-center justify-between">
+                <span className="text-[10px] font-mono text-[#777777]">Weather Risk: <strong className="text-[#191919]">{route.weatherRisk}</strong></span>
+                <button
+                  type="button"
+                  className={`text-[11px] font-medium px-3 py-1 rounded-lg transition-colors ${
+                    isSelected ? 'bg-[#FDF1F0] text-[#D84B42]' : 'bg-[#F5F5EF] text-[#191919] hover:bg-[#EAE8DE]'
+                  }`}
+                >
+                  {isSelected ? 'Active Preview' : 'Select'}
+                </button>
               </div>
             </div>
           )

@@ -422,11 +422,11 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
   return (
     <div className={`space-y-6 ${className}`}>
       {/* SINGLE FIXED WORLD MAP CONTAINER — ZERO WATERMARKS, CLEAN ESRI BASEMAP + GEOJSON */}
-      <div className="relative bg-[#081226] border border-navy-700/80 rounded-2xl overflow-hidden shadow-2xl">
+      <div className="relative bg-[#080808] border border-[#E5E3DA] rounded-2xl overflow-hidden shadow-card">
         
         {/* TOP RIGHT SEARCH COUNTRY BAR */}
         <div className="absolute top-3 right-3 z-[1000]">
-          <form onSubmit={handleCountrySearch} className="flex items-center rounded-lg bg-slate-900/95 border border-navy-700 p-1 shadow-2xl backdrop-blur-md">
+          <form onSubmit={handleCountrySearch} className="flex items-center rounded-lg bg-white/95 border border-[#E5E3DA] p-1 shadow-subtle backdrop-blur-md">
             <input
               type="text"
               value={searchQuery}
@@ -435,20 +435,20 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
                 if (!e.target.value) setHighlightedCountry(null)
               }}
               placeholder="Search country"
-              className="px-3 py-1 text-xs text-slate-100 placeholder:text-slate-500 font-sans focus:outline-none bg-transparent w-36 sm:w-44"
+              className="px-3 py-1 text-xs text-[#191919] placeholder:text-[#777777] font-sans focus:outline-none bg-transparent w-36 sm:w-44"
             />
-            <button type="submit" className="p-1 text-cyan-400 hover:text-white transition">
+            <button type="submit" className="p-1 text-[#174D3F] hover:text-[#0F342B] transition">
               <Search className="w-4 h-4" />
             </button>
           </form>
         </div>
 
         {/* TOP LEFT FIXED TITLE BADGE */}
-        <div className="absolute top-3 left-3 z-[1000] flex items-center gap-2 bg-navy-900/90 backdrop-blur-md border border-navy-700/80 px-3 py-1.5 rounded-xl text-xs font-bold text-white shadow-xl">
-          <Globe className="w-4 h-4 text-emerald-400" />
+        <div className="absolute top-3 left-3 z-[1000] flex items-center gap-2 bg-white/95 backdrop-blur-md border border-[#E5E3DA] px-3 py-1.5 rounded-xl text-xs font-bold text-[#191919] shadow-subtle">
+          <Globe className="w-4 h-4 text-[#174D3F]" />
           <span>Global Maritime Voyage Control</span>
           {highlightedCountry && (
-            <span className="ml-2 px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-700/60 font-mono text-[10px]">
+            <span className="ml-2 px-2 py-0.5 rounded bg-[#EDF5F2] text-[#174D3F] border border-[#D2E4DC] font-mono text-[10px]">
               Highlighted: {highlightedCountry}
             </span>
           )}
@@ -576,15 +576,15 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
           </MapContainer>
         </div>
 
-        {/* BOTTOM TRACKING CONTROL BAR */}
-        <div className="p-4 bg-navy-900/95 border-t border-navy-700/80 flex flex-col md:flex-row items-center justify-between gap-4 z-[1000] relative">
+        {/* BOTTOM TRACKING CONTROL BAR (Sleek Dark Accent Section) */}
+        <div className="p-4 bg-[#080808] border-t border-[#262626] flex flex-col md:flex-row items-center justify-between gap-4 z-[1000] relative">
           <div className="flex items-center gap-3 w-full md:w-auto">
             <button
               onClick={() => setIsTracking(!isTracking)}
-              className={`px-5 py-2.5 rounded-xl font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg transition-all ${
+              className={`px-5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all ${
                 isTracking
-                  ? 'bg-amber-500 text-navy-950 hover:bg-amber-400'
-                  : 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-navy-950 hover:scale-105'
+                  ? 'bg-[#D97706] text-white hover:bg-[#B45309]'
+                  : 'btn-coral'
               }`}
             >
               {isTracking ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current" />}
@@ -593,20 +593,20 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
 
             <button
               onClick={handleResetTracking}
-              className="px-3.5 py-2.5 rounded-xl bg-navy-800 text-slate-300 hover:text-white border border-navy-700 text-xs font-bold transition flex items-center gap-1.5"
+              className="px-3.5 py-2.5 rounded-xl bg-[#191919] text-[#CCCCCC] hover:text-white border border-[#333333] text-xs font-medium transition flex items-center gap-1.5"
             >
-              <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
+              <RotateCcw className="w-3.5 h-3.5 text-[#888888]" />
               <span>Reset</span>
             </button>
 
-            <div className="hidden sm:flex items-center gap-1.5 ml-2 border-l border-navy-750 pl-3">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">Speed:</span>
+            <div className="hidden sm:flex items-center gap-1.5 ml-2 border-l border-[#262626] pl-3">
+              <span className="text-[10px] font-bold text-[#888888] uppercase">Speed:</span>
               {[1, 5, 10, 25].map((mult) => (
                 <button
                   key={mult}
                   onClick={() => setSimSpeedMultiplier(mult)}
                   className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold transition ${
-                    simSpeedMultiplier === mult ? 'bg-cyan-500 text-navy-950' : 'bg-navy-800 text-slate-300 hover:text-white'
+                    simSpeedMultiplier === mult ? 'bg-[#174D3F] text-white' : 'bg-[#191919] text-[#888888] hover:text-white'
                   }`}
                 >
                   {mult}x
@@ -618,15 +618,15 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
           {/* ROUTE PROGRESS BAR VISUALIZER */}
           <div className="w-full md:max-w-xl space-y-1.5">
             <div className="flex items-center justify-between text-[11px] font-bold">
-              <span className="text-cyan-400 font-mono">START: {origin}</span>
-              <span className="text-emerald-400 font-mono">PROGRESS: {progressPct.toFixed(1)}%</span>
-              <span className="text-emerald-400 font-mono">DEST: {destination}</span>
+              <span className="text-white font-mono">START: {origin}</span>
+              <span className="text-[#4ADE80] font-mono">PROGRESS: {progressPct.toFixed(1)}%</span>
+              <span className="text-white font-mono">DEST: {destination}</span>
             </div>
 
             {/* Custom Visual Bar: START ●━━━━━━━🚢━━━━━━━━━━━━● DESTINATION */}
-            <div className="relative w-full h-4 bg-navy-950 rounded-full border border-navy-700 p-0.5 overflow-hidden flex items-center">
+            <div className="relative w-full h-3.5 bg-[#191919] rounded-full border border-[#333333] p-0.5 overflow-hidden flex items-center">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-cyan-500 via-emerald-400 to-cyan-300 transition-all duration-200"
+                className="h-full rounded-full bg-[#174D3F] transition-all duration-200"
                 style={{ width: `${progressPct}%` }}
               ></div>
               <div
@@ -637,7 +637,7 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+            <div className="flex items-center justify-between text-[10px] text-[#888888] font-mono">
               <span>{travelledKm.toLocaleString()} km travelled</span>
               <span>{remainingKm.toLocaleString()} km remaining</span>
             </div>
@@ -646,86 +646,86 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
       </div>
 
       {/* REAL-TIME TELEMETRY PANEL */}
-      <div className="p-6 rounded-2xl bg-navy-850 border border-navy-700/80 shadow-xl space-y-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-navy-700/60">
+      <div className="p-6 rounded-2xl bg-white border border-[#E5E3DA] shadow-card space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#E5E3DA]">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest mb-1">
-              <ShipIcon className="w-4 h-4 text-emerald-400" />
+            <div className="flex items-center gap-2 text-xs font-bold text-[#174D3F] uppercase tracking-wider mb-1">
+              <ShipIcon className="w-4 h-4 text-[#174D3F]" />
               <span>Live Fleet Tracking Telemetry</span>
             </div>
-            <h3 className="text-xl font-extrabold text-white flex items-center gap-2">
+            <h3 className="text-xl font-extrabold text-[#191919] flex items-center gap-2">
               <span>SHIP: {effectiveShipName}</span>
-              <span className="text-xs px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800/60 font-mono font-normal">IMO 9988123</span>
+              <span className="text-xs px-2 py-0.5 rounded bg-[#FAF9F5] text-[#777777] border border-[#E5E3DA] font-mono font-normal">IMO 9988123</span>
             </h3>
           </div>
 
-          <div className="flex items-center gap-4 text-xs font-mono bg-navy-900 px-4 py-2 rounded-xl border border-navy-750">
+          <div className="flex items-center gap-4 text-xs font-mono bg-[#FAF9F5] px-4 py-2 rounded-xl border border-[#E5E3DA]">
             <div>
-              <span className="text-slate-500 block text-[9px] uppercase">FROM</span>
-              <span className="text-cyan-400 font-bold">{origin} Port</span>
+              <span className="text-[#777777] block text-[9px] uppercase">FROM</span>
+              <span className="text-[#191919] font-bold">{origin} Port</span>
             </div>
-            <span className="text-slate-600 text-base">➔</span>
+            <span className="text-[#777777] text-base">➔</span>
             <div>
-              <span className="text-slate-500 block text-[9px] uppercase">TO</span>
-              <span className="text-emerald-400 font-bold">{destination} Port</span>
+              <span className="text-[#777777] block text-[9px] uppercase">TO</span>
+              <span className="text-[#174D3F] font-bold">{destination} Port</span>
             </div>
           </div>
         </div>
 
         {/* METRICS GRID */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div className="p-4 rounded-xl bg-navy-900 border border-navy-750 space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Distance Travelled</span>
-            <p className="text-lg font-black text-cyan-400 font-mono">{travelledKm.toLocaleString()} <span className="text-xs text-slate-400 font-normal">km</span></p>
-            <p className="text-[10px] text-slate-500 font-mono">{Math.round(travelledKm * 0.539957).toLocaleString()} NM</p>
+          <div className="p-4 rounded-xl bg-[#FAF9F5] border border-[#E5E3DA] space-y-1">
+            <span className="text-[10px] font-bold text-[#777777] uppercase tracking-wider block">Distance Travelled</span>
+            <p className="text-lg font-bold text-[#191919] font-mono">{travelledKm.toLocaleString()} <span className="text-xs text-[#777777] font-normal">km</span></p>
+            <p className="text-[10px] text-[#777777] font-mono">{Math.round(travelledKm * 0.539957).toLocaleString()} NM</p>
           </div>
 
-          <div className="p-4 rounded-xl bg-navy-900 border border-navy-750 space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Remaining Distance</span>
-            <p className="text-lg font-black text-amber-400 font-mono">{remainingKm.toLocaleString()} <span className="text-xs text-slate-400 font-normal">km</span></p>
-            <p className="text-[10px] text-slate-500 font-mono">{Math.round(remainingKm * 0.539957).toLocaleString()} NM</p>
+          <div className="p-4 rounded-xl bg-[#FAF9F5] border border-[#E5E3DA] space-y-1">
+            <span className="text-[10px] font-bold text-[#777777] uppercase tracking-wider block">Remaining Distance</span>
+            <p className="text-lg font-bold text-[#191919] font-mono">{remainingKm.toLocaleString()} <span className="text-xs text-[#777777] font-normal">km</span></p>
+            <p className="text-[10px] text-[#777777] font-mono">{Math.round(remainingKm * 0.539957).toLocaleString()} NM</p>
           </div>
 
-          <div className="p-4 rounded-xl bg-navy-900 border border-navy-750 space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Current Speed</span>
-            <p className="text-lg font-black text-white font-mono">{activeRoute.speedKnots} <span className="text-xs text-cyan-400 font-normal">knots</span></p>
-            <p className="text-[10px] text-slate-500 font-mono">{Math.round(activeRoute.speedKnots * 1.852)} km/h</p>
+          <div className="p-4 rounded-xl bg-[#FAF9F5] border border-[#E5E3DA] space-y-1">
+            <span className="text-[10px] font-bold text-[#777777] uppercase tracking-wider block">Current Speed</span>
+            <p className="text-lg font-bold text-[#174D3F] font-mono">{activeRoute.speedKnots} <span className="text-xs text-[#777777] font-normal">knots</span></p>
+            <p className="text-[10px] text-[#777777] font-mono">{Math.round(activeRoute.speedKnots * 1.852)} km/h</p>
           </div>
 
-          <div className="p-4 rounded-xl bg-navy-900 border border-navy-750 space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Estimated ETA</span>
-            <p className="text-lg font-black text-emerald-400 font-mono">{etaHoursInt}h {etaMinsInt}m</p>
-            <p className="text-[10px] text-slate-500 font-mono">Total {totalEtaHours}h voyage</p>
+          <div className="p-4 rounded-xl bg-[#FAF9F5] border border-[#E5E3DA] space-y-1">
+            <span className="text-[10px] font-bold text-[#777777] uppercase tracking-wider block">Estimated ETA</span>
+            <p className="text-lg font-bold text-[#191919] font-mono">{etaHoursInt}h {etaMinsInt}m</p>
+            <p className="text-[10px] text-[#777777] font-mono">Total {totalEtaHours}h voyage</p>
           </div>
 
-          <div className="p-4 rounded-xl bg-navy-900 border border-navy-750 space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Fuel Consumed</span>
-            <p className="text-lg font-black text-cyan-400 font-mono">{consumedFuelTonnes} <span className="text-xs text-slate-400 font-normal">tonnes</span></p>
-            <p className="text-[10px] text-slate-500 font-mono">{consumedFuelLiters.toLocaleString()} L</p>
+          <div className="p-4 rounded-xl bg-[#FAF9F5] border border-[#E5E3DA] space-y-1">
+            <span className="text-[10px] font-bold text-[#777777] uppercase tracking-wider block">Fuel Consumed</span>
+            <p className="text-lg font-bold text-[#174D3F] font-mono">{consumedFuelTonnes} <span className="text-xs text-[#777777] font-normal">tonnes</span></p>
+            <p className="text-[10px] text-[#777777] font-mono">{consumedFuelLiters.toLocaleString()} L</p>
           </div>
 
-          <div className="p-4 rounded-xl bg-navy-900 border border-navy-750 space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">CO₂ Emitted</span>
-            <p className="text-lg font-black text-emerald-400 font-mono">{emittedCo2Tonnes} <span className="text-xs text-slate-400 font-normal">t CO₂</span></p>
-            <p className="text-[10px] text-slate-500 font-mono">3.145 t CO₂ / t fuel</p>
+          <div className="p-4 rounded-xl bg-[#FAF9F5] border border-[#E5E3DA] space-y-1">
+            <span className="text-[10px] font-bold text-[#777777] uppercase tracking-wider block">CO₂ Emitted</span>
+            <p className="text-lg font-bold text-[#174D3F] font-mono">{emittedCo2Tonnes} <span className="text-xs text-[#777777] font-normal">t CO₂</span></p>
+            <p className="text-[10px] text-[#777777] font-mono">3.145 t CO₂ / t fuel</p>
           </div>
         </div>
       </div>
 
       {/* ROUTE COMPARISON MATRIX */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h3 className="text-lg font-extrabold text-white flex items-center gap-2">
-              <Layers className="w-5 h-5 text-cyan-400" />
+            <h3 className="text-lg font-bold text-[#191919] flex items-center gap-2">
+              <Layers className="w-5 h-5 text-[#174D3F]" />
               <span>Route Intelligence & Decision Comparison</span>
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[#777777]">
               Comparing 3 real maritime paths between {origin} and {destination}. Select any route to preview on map.
             </p>
           </div>
 
-          <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800/60">
+          <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#EDF5F2] text-[#174D3F] border border-[#D2E4DC]">
             Recommended: Minimum Fuel & CO₂
           </span>
         </div>
@@ -739,59 +739,59 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
               <div
                 key={route.id}
                 onClick={() => handleSelectRoute(route.id)}
-                className={`p-5 rounded-2xl border transition-all cursor-pointer relative flex flex-col justify-between ${
+                className={`p-5 rounded-2xl border transition-all cursor-pointer relative flex flex-col justify-between bg-white ${
                   isSelected
-                    ? 'bg-navy-850 border-cyan-400 shadow-xl shadow-cyan-500/10 ring-1 ring-cyan-400'
-                    : 'bg-navy-900/80 border-navy-750 hover:border-navy-600 hover:bg-navy-850'
+                    ? 'border-[#F15F56] ring-1 ring-[#F15F56] shadow-card'
+                    : 'border-[#E5E3DA] hover:border-[#D6D3C7]'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${
+                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
                       isEco
-                        ? 'bg-emerald-950 text-emerald-400 border-emerald-800/60'
+                        ? 'bg-[#EDF5F2] text-[#174D3F] border-[#D2E4DC]'
                         : route.type === 'shortest'
-                        ? 'bg-amber-950 text-amber-400 border-amber-800/60'
-                        : 'bg-cyan-950 text-cyan-400 border-cyan-800/60'
+                        ? 'bg-[#FEF7EC] text-[#9A6210] border-[#FBE5C3]'
+                        : 'bg-[#EEF4FE] text-[#1D54B4] border-[#D0E1FD]'
                     }`}>
                       {route.badge}
                     </span>
 
                     {isSelected && (
-                      <span className="flex items-center gap-1 text-[10px] font-bold text-cyan-400">
+                      <span className="flex items-center gap-1 text-[10px] font-bold text-[#F15F56]">
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         Selected
                       </span>
                     )}
                   </div>
 
-                  <h4 className="text-sm font-bold text-white mb-1">{route.name}</h4>
-                  <p className="text-[11px] text-slate-400 leading-relaxed mb-4">{route.desc}</p>
+                  <h4 className="text-sm font-bold text-[#191919] mb-1">{route.name}</h4>
+                  <p className="text-[11px] text-[#777777] leading-relaxed mb-4">{route.desc}</p>
                 </div>
 
-                <div className="space-y-2 pt-3 border-t border-navy-750 text-xs font-mono">
-                  <div className="flex justify-between text-slate-300">
-                    <span className="text-slate-400">Distance:</span>
-                    <span className="font-bold text-white">{route.distKm.toLocaleString()} km ({route.distNM.toLocaleString()} NM)</span>
+                <div className="space-y-2 pt-3 border-t border-[#E5E3DA] text-xs font-mono">
+                  <div className="flex justify-between text-[#555555]">
+                    <span className="text-[#777777]">Distance:</span>
+                    <span className="font-bold text-[#191919]">{route.distKm.toLocaleString()} km ({route.distNM.toLocaleString()} NM)</span>
                   </div>
 
-                  <div className="flex justify-between text-slate-300">
-                    <span className="text-slate-400">Estimated Fuel:</span>
-                    <span className={`font-bold ${isEco ? 'text-emerald-400' : 'text-slate-200'}`}>
+                  <div className="flex justify-between text-[#555555]">
+                    <span className="text-[#777777]">Estimated Fuel:</span>
+                    <span className={`font-bold ${isEco ? 'text-[#174D3F]' : 'text-[#191919]'}`}>
                       {route.fuelTonnes} tonnes ({route.fuelLiters.toLocaleString()} L)
                     </span>
                   </div>
 
-                  <div className="flex justify-between text-slate-300">
-                    <span className="text-slate-400">CO₂ Emissions:</span>
-                    <span className={`font-bold ${isEco ? 'text-emerald-400' : 'text-slate-200'}`}>
+                  <div className="flex justify-between text-[#555555]">
+                    <span className="text-[#777777]">CO₂ Emissions:</span>
+                    <span className={`font-bold ${isEco ? 'text-[#174D3F]' : 'text-[#191919]'}`}>
                       {route.co2Tonnes} tonnes ({route.co2Kg.toLocaleString()} kg)
                     </span>
                   </div>
 
-                  <div className="flex justify-between text-slate-300">
-                    <span className="text-slate-400">Speed / ETA:</span>
-                    <span className="font-bold text-cyan-400">{route.speedKnots} kts • {route.etaHours} hrs</span>
+                  <div className="flex justify-between text-[#555555]">
+                    <span className="text-[#777777]">Speed / ETA:</span>
+                    <span className="font-bold text-[#174D3F]">{route.speedKnots} kts • {route.etaHours} hrs</span>
                   </div>
                 </div>
 
@@ -800,10 +800,10 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
                     e.stopPropagation()
                     handleSelectRoute(route.id)
                   }}
-                  className={`mt-4 w-full py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 ${
+                  className={`mt-4 w-full py-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 ${
                     isSelected
-                      ? 'bg-cyan-500 text-navy-950'
-                      : 'bg-navy-800 text-slate-300 hover:text-white hover:bg-navy-750'
+                      ? 'btn-coral'
+                      : 'btn-outline-warm'
                   }`}
                 >
                   <span>{isSelected ? 'Active Route' : 'Select This Route'}</span>

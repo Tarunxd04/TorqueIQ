@@ -14,7 +14,7 @@ export const ShipComparisonTable: React.FC<ShipComparisonTableProps> = ({ ships 
       <div className="overflow-x-auto custom-scrollbar">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="border-b border-white/[0.06] text-[10px] font-mono uppercase tracking-widest text-slate-400 bg-white/[0.02]">
+            <tr className="border-b border-[#E5E3DA] text-[10px] font-mono uppercase tracking-wider text-[#777777] bg-[#FAF9F5]">
               <th className="p-3">Vessel Name</th>
               <th className="p-3">Type</th>
               <th className="p-3 text-right">Capacity (DWT)</th>
@@ -26,7 +26,7 @@ export const ShipComparisonTable: React.FC<ShipComparisonTableProps> = ({ ships 
               <th className="p-3 text-center">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/[0.04]">
+          <tbody className="divide-y divide-[#E5E3DA]">
             {ships.map((item) => {
               const ship = item.ship
               const isRec = item.recommended
@@ -36,48 +36,48 @@ export const ShipComparisonTable: React.FC<ShipComparisonTableProps> = ({ ships 
                   key={ship.id}
                   className={`transition-colors ${
                     isRec
-                      ? 'bg-cyan-500/[0.04] border-l-2 border-l-cyan-400 font-medium'
-                      : 'hover:bg-white/[0.02]'
+                      ? 'bg-[#EDF5F2]/60 border-l-4 border-l-[#174D3F] font-medium'
+                      : 'hover:bg-[#FAF9F6]'
                   }`}
                 >
                   <td className="p-3">
                     <div className="flex items-center gap-2">
                       {isRec ? (
-                        <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-[#174D3F] shrink-0" />
                       ) : (
-                        <Ship className="w-4 h-4 text-slate-500 shrink-0" />
+                        <Ship className="w-4 h-4 text-[#777777] shrink-0" />
                       )}
                       <div>
-                        <span className="font-semibold text-white text-xs">{ship.name}</span>
-                        <p className="text-[10px] text-slate-400 mt-0.5">{ship.imo} • Built {ship.yearBuilt}</p>
+                        <span className="font-semibold text-[#191919] text-xs">{ship.name}</span>
+                        <p className="text-[10px] text-[#777777] mt-0.5">{ship.imo} • Built {ship.yearBuilt}</p>
                       </div>
-                      {isRec && <Badge variant="cyan" size="sm">RECOMMENDED</Badge>}
+                      {isRec && <Badge variant="green" size="sm">BEST MATCH</Badge>}
                     </div>
                   </td>
 
-                  <td className="p-3 text-slate-300">{ship.type}</td>
+                  <td className="p-3 text-[#555555]">{ship.type}</td>
 
-                  <td className="p-3 text-right font-mono text-slate-200">
+                  <td className="p-3 text-right font-mono text-[#191919]">
                     {ship.capacity.toLocaleString()} t
                   </td>
 
-                  <td className="p-3 text-right font-mono text-slate-200">
+                  <td className="p-3 text-right font-mono text-[#555555]">
                     {ship.currentLoad.toLocaleString()} t
                   </td>
 
-                  <td className="p-3 text-right font-mono font-bold text-emerald-400">
+                  <td className="p-3 text-right font-mono font-bold text-[#174D3F]">
                     {ship.fuelEfficiency}%
                   </td>
 
-                  <td className="p-3 text-right font-mono text-slate-200">
+                  <td className="p-3 text-right font-mono text-[#191919]">
                     13.8 kts
                   </td>
 
-                  <td className={`p-3 text-right font-mono font-bold ${isRec ? 'text-cyan-400' : 'text-slate-200'}`}>
+                  <td className={`p-3 text-right font-mono font-bold ${isRec ? 'text-[#174D3F]' : 'text-[#191919]'}`}>
                     {item.fuel} t
                   </td>
 
-                  <td className={`p-3 text-right font-mono font-bold ${isRec ? 'text-emerald-400' : 'text-slate-200'}`}>
+                  <td className={`p-3 text-right font-mono font-bold ${isRec ? 'text-[#174D3F]' : 'text-[#555555]'}`}>
                     {item.co2} t
                   </td>
 

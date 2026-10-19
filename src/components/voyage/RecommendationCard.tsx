@@ -19,15 +19,15 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
   return (
     <div className="space-y-6">
       {/* Banner Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/[0.06] pb-3 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E5E3DA] pb-3 gap-3">
         <div>
-          <span className="text-[10px] font-mono font-bold text-brand-bright uppercase tracking-widest flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            Decision Support Matrix — 4 Optimization Strategies
+          <span className="text-[10px] font-mono font-bold text-[#174D3F] uppercase tracking-wider flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#174D3F]" />
+            Multi-Criteria Decision Matrix — 4 Optimization Strategies
           </span>
-          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-1">Select Preferred Voyage Strategy</h2>
-          <p className="text-xs text-slate-400 mt-1">
-            Compare 4 distinct vessel, fuel type, route corridor, speed, and weather availability packages below.
+          <h2 className="text-xl sm:text-2xl font-bold text-[#191919] tracking-tight mt-1">Select Preferred Voyage Strategy</h2>
+          <p className="text-xs text-[#777777] mt-1">
+            Compare 4 synthesized vessel, corridor, speed profile, and weather routing strategy packages below.
           </p>
         </div>
       </div>
@@ -41,10 +41,10 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
             <div
               key={opt.id}
               onClick={() => onSelectOption(opt.id)}
-              className={`p-5 rounded-2xl border flex flex-col justify-between cursor-pointer transition-all duration-300 relative group overflow-hidden ${
+              className={`p-5 rounded-2xl border flex flex-col justify-between cursor-pointer transition-all duration-200 relative bg-white ${
                 isSelected
-                  ? 'bg-gradient-to-b from-white/[0.09] via-white/[0.04] to-white/[0.02] border-brand-bright shadow-[0_0_30px_rgba(94,106,210,0.25)] ring-1 ring-brand-bright'
-                  : 'glass-panel hover:border-white/[0.12] hover:bg-white/[0.05]'
+                  ? 'border-[#F15F56] ring-1 ring-[#F15F56] shadow-card'
+                  : 'border-[#E5E3DA] hover:border-[#D6D3C7] hover:shadow-subtle'
               }`}
             >
               <div>
@@ -55,80 +55,80 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
                   </Badge>
 
                   {isSelected ? (
-                    <div className="flex items-center gap-1 text-[10px] font-mono font-medium text-brand-bright">
+                    <div className="flex items-center gap-1 text-[10px] font-mono font-medium text-[#F15F56]">
                       <CheckCircle2 className="w-3.5 h-3.5" />
-                      <span>SELECTED</span>
+                      <span>ACTIVE</span>
                     </div>
                   ) : (
-                    <Circle className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-300 transition-colors" />
+                    <Circle className="w-3.5 h-3.5 text-[#B8B6AD] group-hover:text-[#777777] transition-colors" />
                   )}
                 </div>
 
                 {/* Option Title */}
-                <h3 className="text-sm font-semibold text-white tracking-tight mb-1">
+                <h3 className="text-sm font-semibold text-[#191919] tracking-tight mb-1">
                   {opt.title}
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs text-[#777777] leading-relaxed mb-4">
                   {opt.description}
                 </p>
 
                 {/* Strategy Details */}
-                <div className="space-y-2.5 pt-3 border-t border-white/[0.06] text-xs">
+                <div className="space-y-2.5 pt-3 border-t border-[#E5E3DA] text-xs">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5 text-xs">
-                      <Ship className="w-3.5 h-3.5 text-slate-400" />
+                    <span className="text-[#777777] flex items-center gap-1.5 text-xs">
+                      <Ship className="w-3.5 h-3.5 text-[#777777]" />
                       Ship:
                     </span>
-                    <span className="font-medium text-white truncate max-w-[130px]">{opt.ship.name}</span>
+                    <span className="font-medium text-[#191919] truncate max-w-[130px]">{opt.ship.name}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5 text-xs">
-                      <Navigation className="w-3.5 h-3.5 text-slate-400" />
+                    <span className="text-[#777777] flex items-center gap-1.5 text-xs">
+                      <Navigation className="w-3.5 h-3.5 text-[#777777]" />
                       Route:
                     </span>
-                    <span className="font-medium text-white truncate max-w-[130px]">{opt.route.name}</span>
+                    <span className="font-medium text-[#191919] truncate max-w-[130px]">{opt.route.name}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5 text-xs">
-                      <Flame className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="text-[#777777] flex items-center gap-1.5 text-xs">
+                      <Flame className="w-3.5 h-3.5 text-[#F15F56]" />
                       Fuel Type:
                     </span>
-                    <span className="font-mono text-[11px] text-amber-300">{opt.fuelType}</span>
+                    <span className="font-mono text-[11px] font-medium text-[#191919]">{opt.fuelType}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5 text-xs">
-                      <Zap className="w-3.5 h-3.5 text-cyan-400" />
+                    <span className="text-[#777777] flex items-center gap-1.5 text-xs">
+                      <Zap className="w-3.5 h-3.5 text-[#174D3F]" />
                       Speed:
                     </span>
-                    <span className="font-mono font-semibold text-white">{opt.speedKnots} kts</span>
+                    <span className="font-mono font-bold text-[#174D3F]">{opt.speedKnots} kts</span>
                   </div>
                 </div>
               </div>
 
               {/* Metrics Output Grid */}
-              <div className="mt-5 pt-3.5 border-t border-white/[0.06] space-y-2">
+              <div className="mt-5 pt-3.5 border-t border-[#E5E3DA] space-y-2">
                 <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                    <span className="text-[9px] font-mono uppercase text-slate-400 block">ETA</span>
-                    <span className="font-mono font-semibold text-white">{opt.etaFormatted}</span>
+                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA]">
+                    <span className="text-[9px] font-mono uppercase text-[#777777] block">ETA</span>
+                    <span className="font-mono font-semibold text-[#191919] text-[11px]">{opt.etaFormatted}</span>
                   </div>
 
-                  <div className="p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                    <span className="text-[9px] font-mono uppercase text-slate-400 block">Total Fuel</span>
-                    <span className="font-mono font-semibold text-cyan-300">{opt.expectedFuelTonnes} t</span>
+                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA]">
+                    <span className="text-[9px] font-mono uppercase text-[#777777] block">Total Fuel</span>
+                    <span className="font-mono font-semibold text-[#174D3F] text-[11px]">{opt.expectedFuelTonnes} t</span>
                   </div>
 
-                  <div className="p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                    <span className="text-[9px] font-mono uppercase text-slate-400 block">CO₂ Emissions</span>
-                    <span className="font-mono font-semibold text-emerald-400">{opt.expectedCo2Tonnes} t</span>
+                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA]">
+                    <span className="text-[9px] font-mono uppercase text-[#777777] block">CO₂ Emissions</span>
+                    <span className="font-mono font-semibold text-[#174D3F] text-[11px]">{opt.expectedCo2Tonnes} t</span>
                   </div>
 
-                  <div className="p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                    <span className="text-[9px] font-mono uppercase text-slate-400 block">Voyage Cost</span>
-                    <span className="font-mono font-semibold text-slate-200">${opt.estimatedCostUSD.toLocaleString()}</span>
+                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA]">
+                    <span className="text-[9px] font-mono uppercase text-[#777777] block">Voyage Cost</span>
+                    <span className="font-mono font-semibold text-[#191919] text-[11px]">${opt.estimatedCostUSD.toLocaleString()}</span>
                   </div>
                 </div>
 
@@ -141,8 +141,8 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
                   }}
                   className={`w-full py-2 rounded-xl text-xs font-medium transition-all ${
                     isSelected
-                      ? 'btn-primary'
-                      : 'btn-secondary'
+                      ? 'btn-coral'
+                      : 'btn-outline-warm'
                   }`}
                 >
                   {isSelected ? 'Active Strategy' : 'Select Option'}

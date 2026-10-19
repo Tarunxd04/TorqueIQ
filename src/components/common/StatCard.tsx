@@ -19,47 +19,47 @@ export const StatCard: React.FC<StatCardProps> = ({
   trend,
   trendType = 'positive',
   icon: Icon,
-  iconColor = 'text-brand-bright',
+  iconColor = 'text-[#174D3F]',
   description
 }) => {
   const trendStyles = {
-    positive: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
-    negative: 'text-rose-400 bg-rose-500/10 border-rose-500/20',
-    neutral: 'text-slate-400 bg-white/[0.04] border-white/[0.08]',
+    positive: 'text-[#174D3F] bg-[#EDF5F2] border-[#D2E4DC]',
+    negative: 'text-[#F15F56] bg-[#FDF1F0] border-[#FCD8D5]',
+    neutral: 'text-[#777777] bg-[#F5F5EF] border-[#E5E3DA]',
   }
 
   return (
-    <div className="glass-panel p-5 rounded-xl flex flex-col justify-between group hover:border-brand-accent/40 transition-all duration-300">
-      <div className="flex items-start justify-between">
-        <span className="text-[10px] font-mono font-semibold uppercase tracking-widest text-slate-400">
+    <div className="bg-white border border-[#E5E3DA] p-5 rounded-2xl flex flex-col justify-between group hover:border-[#174D3F]/30 hover:shadow-card transition-all duration-200">
+      <div className="flex items-start justify-between gap-2">
+        <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#777777]">
           {title}
         </span>
-        <div className={`p-2 rounded-lg bg-white/[0.04] border border-white/[0.08] ${iconColor} group-hover:bg-white/[0.08] transition-colors`}>
+        <div className="p-2 rounded-lg bg-[#F5F5EF] border border-[#E5E3DA] text-[#174D3F] group-hover:bg-[#EDF5F2] group-hover:border-[#D2E4DC] transition-colors">
           <Icon className="w-4 h-4" />
         </div>
       </div>
 
       <div className="mt-4">
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-2xl lg:text-3xl font-bold text-white tracking-tight font-sans">
+        <div className="flex items-baseline gap-1.5 flex-wrap">
+          <span className="text-2xl lg:text-3xl font-bold text-[#191919] tracking-tight font-sans">
             {value}
           </span>
           {unit && (
-            <span className="text-xs font-mono font-medium text-slate-400">
+            <span className="text-xs font-mono font-medium text-[#777777]">
               {unit}
             </span>
           )}
         </div>
 
         {(trend || description) && (
-          <div className="mt-3 flex items-center gap-2">
+          <div className="mt-3 flex items-center gap-2 flex-wrap">
             {trend && (
               <span className={`text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border ${trendStyles[trendType]}`}>
                 {trend}
               </span>
             )}
             {description && (
-              <span className="text-xs text-slate-400 truncate font-sans">{description}</span>
+              <span className="text-xs text-[#777777] truncate font-sans">{description}</span>
             )}
           </div>
         )}

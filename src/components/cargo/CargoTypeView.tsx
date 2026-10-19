@@ -166,14 +166,14 @@ export const CargoTypeView: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
+      <div className="bg-white border border-[#E5E3DA] p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
         <div>
-          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-brand-bright uppercase tracking-widest mb-1.5">
-            <Boxes className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#174D3F] uppercase tracking-wider mb-1.5">
+            <Boxes className="w-3.5 h-3.5 text-[#174D3F]" />
             <span>Maritime Freight Intelligence</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Cargo Classification & Handling Catalog</h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-[#191919] tracking-tight">Cargo Classification & Handling Catalog</h1>
+          <p className="text-xs text-[#777777] mt-1">
             Explore operational specifications, genset power requirements, and trade corridors across diverse freight types.
           </p>
         </div>
@@ -184,29 +184,29 @@ export const CargoTypeView: React.FC = () => {
       </div>
 
       {/* Controls Bar */}
-      <div className="glass-panel p-4 rounded-xl">
+      <div className="bg-white border border-[#E5E3DA] p-4 rounded-xl shadow-subtle">
         <div className="flex flex-col md:flex-row items-center justify-between gap-3.5">
           <div className="relative w-full md:w-80">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#777777] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search cargo example (e.g. Cattle, EVs, Fruit, LNG)..."
-              className="input-tech w-full pl-9 pr-4 py-2 text-xs font-medium placeholder:text-slate-500"
+              className="input-warm w-full pl-9 pr-4 py-2 text-xs font-medium"
             />
           </div>
 
           <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto custom-scrollbar pb-1 md:pb-0">
-            <Filter className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <Filter className="w-3.5 h-3.5 text-[#777777] shrink-0" />
             {['ALL', 'Livestock & Animals', 'Vehicles & Ro-Ro', 'Refrigerated & Pharma', 'Heavy & Industrial', 'Hazardous & Energy', 'Dry Bulk'].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium shrink-0 transition-all ${
                   selectedCategory === cat
-                    ? 'bg-white/[0.08] text-white border border-brand-accent/40 font-semibold'
-                    : 'bg-white/[0.02] border border-white/[0.06] text-slate-400 hover:text-white'
+                    ? 'bg-[#EDF5F2] text-[#174D3F] border border-[#174D3F] font-bold shadow-subtle'
+                    : 'bg-[#FFFFFF] border border-[#E5E3DA] text-[#777777] hover:text-[#191919] hover:bg-[#FAF9F5]'
                 }`}
               >
                 {cat === 'ALL' ? 'All Freight' : cat}
@@ -228,53 +228,53 @@ export const CargoTypeView: React.FC = () => {
                   <Badge variant={item.riskLevel === 'Low' ? 'green' : item.riskLevel === 'Medium' ? 'yellow' : 'red'} size="sm" dot>
                     {item.riskLevel} Risk
                   </Badge>
-                  <span className="text-[10px] font-mono text-brand-bright font-semibold uppercase">{item.category}</span>
+                  <span className="text-[10px] font-mono text-[#174D3F] font-semibold uppercase">{item.category}</span>
                 </div>
 
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-brand-bright shrink-0">
+                  <div className="p-2.5 rounded-xl bg-[#FAF9F5] border border-[#E5E3DA] text-[#174D3F] shrink-0">
                     <IconComponent className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-white tracking-tight leading-snug">{item.title}</h3>
-                    <p className="text-xs text-emerald-400 font-medium mt-0.5">{item.realWorldExample}</p>
+                    <h3 className="text-sm font-bold text-[#191919] tracking-tight leading-snug">{item.title}</h3>
+                    <p className="text-xs text-[#174D3F] font-medium mt-0.5">{item.realWorldExample}</p>
                   </div>
                 </div>
 
-                <div className="space-y-2 text-xs pt-3 border-t border-white/[0.06]">
+                <div className="space-y-2 text-xs pt-3 border-t border-[#E5E3DA]">
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Trade Corridor:</span>
-                    <span className="font-mono text-slate-200 text-right">{item.tradeCorridor}</span>
+                    <span className="text-[#777777]">Trade Corridor:</span>
+                    <span className="font-mono text-[#191919] text-right font-medium">{item.tradeCorridor}</span>
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Recommended Vessel:</span>
-                    <span className="font-medium text-white text-right">{item.vesselType}</span>
+                    <span className="text-[#777777]">Recommended Vessel:</span>
+                    <span className="font-medium text-[#191919] text-right">{item.vesselType}</span>
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Cargo Volume / Unit:</span>
-                    <span className="font-mono text-cyan-300 text-right">{item.cargoVolume}</span>
+                    <span className="text-[#777777]">Cargo Volume / Unit:</span>
+                    <span className="font-mono text-[#191919] text-right font-medium">{item.cargoVolume}</span>
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Climate Specs:</span>
-                    <span className="font-mono text-amber-300 text-right">{item.tempControl}</span>
+                    <span className="text-[#777777]">Climate Specs:</span>
+                    <span className="font-mono text-[#D97706] text-right font-medium">{item.tempControl}</span>
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Aux Genset Load:</span>
-                    <span className="font-mono font-bold text-rose-400 text-right">{item.auxPowerImpact}</span>
+                    <span className="text-[#777777]">Aux Genset Load:</span>
+                    <span className="font-mono font-bold text-[#F15F56] text-right">{item.auxPowerImpact}</span>
                   </div>
                 </div>
 
                 {/* Handling Requirements List */}
-                <div className="mt-4 pt-3 border-t border-white/[0.06]">
-                  <h4 className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2">Special Protocols:</h4>
-                  <ul className="space-y-1.5 text-xs text-slate-300">
+                <div className="mt-4 pt-3 border-t border-[#E5E3DA]">
+                  <h4 className="text-[10px] font-mono font-bold text-[#777777] uppercase tracking-wider mb-2">Special Protocols:</h4>
+                  <ul className="space-y-1.5 text-xs text-[#555555]">
                     {item.handlingSpecs.map((spec, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-bright mt-1.5 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#174D3F] mt-1.5 shrink-0" />
                         <span className="leading-tight">{spec}</span>
                       </li>
                     ))}

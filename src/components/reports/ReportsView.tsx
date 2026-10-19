@@ -26,37 +26,37 @@ export const ReportsView: React.FC = () => {
       }
       setReportsList([newReport, ...reportsList])
       setIsGenerating(false)
-    }, 800)
+    }, 600)
   }
 
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
+      <div className="bg-white border border-[#E5E3DA] p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
         <div>
-          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-brand-bright uppercase tracking-widest mb-1.5">
-            <FileText className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#174D3F] uppercase tracking-wider mb-1.5">
+            <FileText className="w-3.5 h-3.5 text-[#174D3F]" />
             <span>Audit & Compliance System</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Voyage & Carbon Audit Reports</h2>
-          <p className="text-xs text-slate-400 mt-1">
-            Generate, inspect, and export verified maritime fuel, CII carbon emissions, and fleet efficiency reports.
+          <h1 className="text-xl sm:text-2xl font-bold text-[#191919] tracking-tight">Voyage & Carbon Audit Reports</h1>
+          <p className="text-xs text-[#777777] mt-1">
+            Generate, inspect, and export verified maritime bunker fuel, IMO CII emissions, and fleet efficiency audit certificates.
           </p>
         </div>
 
         <div className="flex items-center gap-2.5">
           <button
             onClick={exportReportsCsv}
-            className="btn-secondary px-3.5 py-2 rounded-xl text-xs font-medium flex items-center gap-1.5"
+            className="btn-outline-warm px-3.5 py-2.5 rounded-xl text-xs font-medium flex items-center gap-1.5"
           >
-            <Download className="w-3.5 h-3.5 text-brand-bright" />
+            <Download className="w-3.5 h-3.5 text-[#174D3F]" />
             <span>Export CSV</span>
           </button>
 
           <button
             onClick={handleGenerateReport}
             disabled={isGenerating}
-            className="btn-primary px-4 py-2 rounded-xl text-xs font-medium flex items-center gap-1.5 disabled:opacity-50"
+            className="btn-coral px-4 py-2.5 rounded-xl text-xs font-medium flex items-center gap-1.5 disabled:opacity-50 shadow-sm"
           >
             <PlusCircle className="w-3.5 h-3.5" />
             <span>{isGenerating ? 'Synthesizing...' : 'Generate New Audit'}</span>
@@ -69,7 +69,7 @@ export const ReportsView: React.FC = () => {
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-white/[0.06] text-[10px] font-mono uppercase tracking-widest text-slate-400 bg-white/[0.02]">
+              <tr className="border-b border-[#E5E3DA] text-[10px] font-mono uppercase tracking-wider text-[#777777] bg-[#FAF9F5]">
                 <th className="p-3">Report ID</th>
                 <th className="p-3">Title & Scope</th>
                 <th className="p-3">Category</th>
@@ -79,29 +79,29 @@ export const ReportsView: React.FC = () => {
                 <th className="p-3 text-center">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/[0.04]">
+            <tbody className="divide-y divide-[#E5E3DA]">
               {reportsList.map((rep) => (
                 <tr
                   key={rep.id}
                   onClick={() => setSelectedReport(rep)}
-                  className="hover:bg-white/[0.02] cursor-pointer transition-colors"
+                  className="hover:bg-[#FAF9F6] cursor-pointer transition-colors"
                 >
-                  <td className="p-3 font-mono text-[11px] text-brand-bright font-semibold">
+                  <td className="p-3 font-mono text-[11px] text-[#174D3F] font-bold">
                     {rep.id}
                   </td>
                   <td className="p-3">
-                    <span className="font-semibold text-white text-xs">{rep.title}</span>
-                    <p className="text-[10px] text-slate-400 mt-0.5 truncate max-w-md">{rep.summary}</p>
+                    <span className="font-semibold text-[#191919] text-xs">{rep.title}</span>
+                    <p className="text-[10px] text-[#777777] mt-0.5 truncate max-w-md">{rep.summary}</p>
                   </td>
                   <td className="p-3">
                     <Badge variant={rep.type === 'Fleet' ? 'cyan' : rep.type === 'Carbon' ? 'green' : 'blue'} size="sm">
                       {rep.type}
                     </Badge>
                   </td>
-                  <td className="p-3 font-mono text-slate-400 text-xs">
+                  <td className="p-3 font-mono text-[#777777] text-xs">
                     {rep.date}
                   </td>
-                  <td className="p-3 text-slate-300">
+                  <td className="p-3 text-[#555555]">
                     {rep.generatedBy}
                   </td>
                   <td className="p-3 text-center">
@@ -115,7 +115,7 @@ export const ReportsView: React.FC = () => {
                         e.stopPropagation()
                         setSelectedReport(rep)
                       }}
-                      className="px-2.5 py-1 rounded-lg bg-white/[0.04] text-slate-300 hover:bg-brand-accent hover:text-white font-mono text-[10px] font-medium border border-white/[0.06] transition-all"
+                      className="px-2.5 py-1 rounded-lg bg-[#F5F5EF] text-[#191919] hover:bg-[#174D3F] hover:text-white font-mono text-[10px] font-medium border border-[#E5E3DA] transition-all"
                     >
                       Inspect
                     </button>
@@ -136,26 +136,26 @@ export const ReportsView: React.FC = () => {
           maxWidth="lg"
         >
           <div className="space-y-6">
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
+            <div className="p-4 rounded-xl bg-[#FAF9F5] border border-[#E5E3DA] flex items-center justify-between">
               <div>
-                <h4 className="text-base font-bold text-white">{selectedReport.title}</h4>
-                <p className="text-xs font-mono text-slate-400 mt-1">Generated: {selectedReport.date} by {selectedReport.generatedBy}</p>
+                <h4 className="text-base font-bold text-[#191919]">{selectedReport.title}</h4>
+                <p className="text-xs font-mono text-[#777777] mt-1">Generated: {selectedReport.date} by {selectedReport.generatedBy}</p>
               </div>
               <Badge variant="green" size="md" dot>
                 {selectedReport.status}
               </Badge>
             </div>
 
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-2 text-xs">
-              <h5 className="font-semibold text-slate-200">Executive Summary</h5>
-              <p className="text-slate-300 leading-relaxed">{selectedReport.summary}</p>
+            <div className="p-4 rounded-xl bg-white border border-[#E5E3DA] space-y-2 text-xs">
+              <h5 className="font-semibold text-[#191919]">Executive Summary</h5>
+              <p className="text-[#555555] leading-relaxed">{selectedReport.summary}</p>
             </div>
 
-            <div className="p-4 rounded-xl bg-emerald-500/[0.04] border border-emerald-500/20 flex items-center gap-3">
-              <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
+            <div className="p-4 rounded-xl bg-[#EDF5F2] border border-[#D2E4DC] flex items-center gap-3">
+              <ShieldCheck className="w-5 h-5 text-[#174D3F] shrink-0" />
               <div className="text-xs">
-                <span className="font-semibold text-emerald-300">MARPOL & IMO CII Certified</span>
-                <p className="text-slate-300 mt-0.5">Complies with greenhouse gas intensity reporting benchmarks for international voyage corridors.</p>
+                <span className="font-semibold text-[#174D3F]">MARPOL & IMO CII Certified</span>
+                <p className="text-[#555555] mt-0.5">Complies with greenhouse gas intensity reporting benchmarks for international voyage corridors.</p>
               </div>
             </div>
           </div>

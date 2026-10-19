@@ -30,23 +30,23 @@ export const WhatIfSimulator: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
+      <div className="bg-white border border-[#E5E3DA] p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
         <div>
-          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-brand-bright uppercase tracking-widest mb-1.5">
-            <Sliders className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#174D3F] uppercase tracking-wider mb-1.5">
+            <Sliders className="w-3.5 h-3.5 text-[#174D3F]" />
             <span>Interactive Scenario Engine</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">What-If Hydrodynamic Voyage Simulator</h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-[#191919] tracking-tight">What-If Hydrodynamic Voyage Simulator</h1>
+          <p className="text-xs text-[#777777] mt-1">
             Adjust speed, cargo payload, bunker pricing, oceanic corridors, and swell severity to model real-time trade-offs.
           </p>
         </div>
 
         <button
           onClick={handleReset}
-          className="btn-secondary px-4 py-2 rounded-xl text-xs font-medium shrink-0 flex items-center gap-2"
+          className="btn-outline-warm px-4 py-2 rounded-xl text-xs font-medium shrink-0 flex items-center gap-2"
         >
-          <RefreshCw className="w-3.5 h-3.5 text-brand-bright" />
+          <RefreshCw className="w-3.5 h-3.5 text-[#174D3F]" />
           <span>Reset Defaults</span>
         </button>
       </div>
@@ -58,10 +58,10 @@ export const WhatIfSimulator: React.FC = () => {
             {/* Speed Slider */}
             <div>
               <div className="flex justify-between text-xs font-semibold mb-2">
-                <span className="text-slate-300 flex items-center gap-1.5">
-                  <Zap className="w-3.5 h-3.5 text-cyan-400" /> Speed (knots)
+                <span className="text-[#191919] flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 text-[#174D3F]" /> Speed (knots)
                 </span>
-                <span className="font-mono text-cyan-400 text-sm font-bold">{params.speedKnots} kts</span>
+                <span className="font-mono text-[#174D3F] text-sm font-bold">{params.speedKnots} kts</span>
               </div>
               <input
                 type="range"
@@ -70,11 +70,11 @@ export const WhatIfSimulator: React.FC = () => {
                 step="0.1"
                 value={params.speedKnots}
                 onChange={(e) => setParams(p => ({ ...p, speedKnots: parseFloat(e.target.value) }))}
-                className="w-full h-1.5 bg-white/[0.06] rounded-lg appearance-none cursor-pointer accent-[#5E6AD2]"
+                className="w-full h-1.5 bg-[#E5E3DA] rounded-lg appearance-none cursor-pointer accent-[#174D3F]"
               />
-              <div className="flex justify-between text-[10px] text-slate-500 font-mono mt-1.5">
-                <span>10 kts (Eco Slow)</span>
-                <span className="text-emerald-400 font-bold">13.8 kts (Opt)</span>
+              <div className="flex justify-between text-[10px] text-[#777777] font-mono mt-1.5">
+                <span>10 kts (Eco)</span>
+                <span className="text-[#174D3F] font-bold">13.8 kts (Opt)</span>
                 <span>20 kts (Fast)</span>
               </div>
             </div>
@@ -82,8 +82,8 @@ export const WhatIfSimulator: React.FC = () => {
             {/* Cargo Load Slider */}
             <div>
               <div className="flex justify-between text-xs font-semibold mb-2">
-                <span className="text-slate-300">Cargo Payload (DWT tonnes)</span>
-                <span className="font-mono text-white text-sm font-bold">{params.cargoTonnes.toLocaleString()} t</span>
+                <span className="text-[#191919]">Cargo Payload (DWT tonnes)</span>
+                <span className="font-mono text-[#191919] text-sm font-bold">{params.cargoTonnes.toLocaleString()} t</span>
               </div>
               <input
                 type="range"
@@ -92,9 +92,9 @@ export const WhatIfSimulator: React.FC = () => {
                 step="2500"
                 value={params.cargoTonnes}
                 onChange={(e) => setParams(p => ({ ...p, cargoTonnes: parseInt(e.target.value) }))}
-                className="w-full h-1.5 bg-white/[0.06] rounded-lg appearance-none cursor-pointer accent-[#10B981]"
+                className="w-full h-1.5 bg-[#E5E3DA] rounded-lg appearance-none cursor-pointer accent-[#F15F56]"
               />
-              <div className="flex justify-between text-[10px] text-slate-500 font-mono mt-1.5">
+              <div className="flex justify-between text-[10px] text-[#777777] font-mono mt-1.5">
                 <span>10,000 t</span>
                 <span>80,000 t</span>
               </div>
@@ -103,8 +103,8 @@ export const WhatIfSimulator: React.FC = () => {
             {/* Fuel Price Slider */}
             <div>
               <div className="flex justify-between text-xs font-semibold mb-2">
-                <span className="text-slate-300">Bunker Fuel Index ($/tonne)</span>
-                <span className="font-mono text-amber-400 text-sm font-bold">${params.fuelPricePerTonne}/t</span>
+                <span className="text-[#191919]">Bunker Fuel Index ($/tonne)</span>
+                <span className="font-mono text-[#D97706] text-sm font-bold">${params.fuelPricePerTonne}/t</span>
               </div>
               <input
                 type="range"
@@ -113,9 +113,9 @@ export const WhatIfSimulator: React.FC = () => {
                 step="25"
                 value={params.fuelPricePerTonne}
                 onChange={(e) => setParams(p => ({ ...p, fuelPricePerTonne: parseInt(e.target.value) }))}
-                className="w-full h-1.5 bg-white/[0.06] rounded-lg appearance-none cursor-pointer accent-[#F59E0B]"
+                className="w-full h-1.5 bg-[#E5E3DA] rounded-lg appearance-none cursor-pointer accent-[#D97706]"
               />
-              <div className="flex justify-between text-[10px] text-slate-500 font-mono mt-1.5">
+              <div className="flex justify-between text-[10px] text-[#777777] font-mono mt-1.5">
                 <span>$500/t</span>
                 <span>$1,200/t</span>
               </div>
@@ -123,7 +123,7 @@ export const WhatIfSimulator: React.FC = () => {
 
             {/* Route Option Radio */}
             <div>
-              <label className="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-wider block mb-2">Route Corridor</label>
+              <label className="text-[10px] font-mono font-semibold text-[#777777] uppercase tracking-wider block mb-2">Route Corridor</label>
               <div className="grid grid-cols-3 gap-2 text-xs font-medium">
                 {[
                   { id: 'route-a', label: 'Route A' },
@@ -135,8 +135,8 @@ export const WhatIfSimulator: React.FC = () => {
                     onClick={() => setParams(p => ({ ...p, routeId: r.id }))}
                     className={`py-2 rounded-lg border text-center transition-all ${
                       params.routeId === r.id
-                        ? 'bg-brand-accent/20 border-brand-bright text-white font-semibold shadow-sm'
-                        : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:text-white'
+                        ? 'bg-[#EDF5F2] border-[#174D3F] text-[#174D3F] font-bold shadow-subtle'
+                        : 'bg-[#FFFFFF] border-[#E5E3DA] text-[#777777] hover:text-[#191919] hover:bg-[#FAF9F5]'
                     }`}
                   >
                     {r.label}
@@ -147,7 +147,7 @@ export const WhatIfSimulator: React.FC = () => {
 
             {/* Weather Severity */}
             <div>
-              <label className="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-wider block mb-2">Weather Severity</label>
+              <label className="text-[10px] font-mono font-semibold text-[#777777] uppercase tracking-wider block mb-2">Weather Severity</label>
               <div className="grid grid-cols-3 gap-2 text-xs font-medium">
                 {['Low', 'Medium', 'High'].map((sev) => (
                   <button
@@ -155,8 +155,12 @@ export const WhatIfSimulator: React.FC = () => {
                     onClick={() => setParams(p => ({ ...p, weatherSeverity: sev as any }))}
                     className={`py-2 rounded-lg border text-center transition-all ${
                       params.weatherSeverity === sev
-                        ? sev === 'Low' ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300 font-semibold' : sev === 'Medium' ? 'bg-amber-500/20 border-amber-500/40 text-amber-300 font-semibold' : 'bg-rose-500/20 border-rose-500/40 text-rose-300 font-semibold'
-                        : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:text-white'
+                        ? sev === 'Low'
+                          ? 'bg-[#EDF5F2] border-[#D2E4DC] text-[#174D3F] font-bold'
+                          : sev === 'Medium'
+                          ? 'bg-[#FEF7EC] border-[#FBE5C3] text-[#9A6210] font-bold'
+                          : 'bg-[#FDF1F0] border-[#FCD8D5] text-[#D84B42] font-bold'
+                        : 'bg-[#FFFFFF] border-[#E5E3DA] text-[#777777] hover:text-[#191919] hover:bg-[#FAF9F5]'
                     }`}
                   >
                     {sev}
@@ -170,15 +174,15 @@ export const WhatIfSimulator: React.FC = () => {
         {/* Dynamic Results Display */}
         <div className="lg:col-span-2 space-y-6">
           {/* Dynamic Efficiency Score Callout */}
-          <div className="p-6 rounded-2xl glass-panel-elevated border border-brand-accent/30 flex items-center justify-between">
+          <div className="p-6 rounded-2xl bg-white border border-[#E5E3DA] flex items-center justify-between shadow-subtle">
             <div>
-              <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Dynamic Scenario Efficiency Score</span>
+              <span className="text-[10px] font-mono font-bold text-[#777777] uppercase tracking-wider">Dynamic Scenario Efficiency Score</span>
               <div className="flex items-baseline gap-2 mt-1">
-                <span className="text-4xl font-extrabold text-white font-mono">{sim.efficiencyScore}</span>
-                <span className="text-xs font-mono text-slate-400">/ 100</span>
+                <span className="text-4xl font-extrabold text-[#191919] font-mono">{sim.efficiencyScore}</span>
+                <span className="text-xs font-mono text-[#777777]">/ 100</span>
               </div>
-              <p className="text-xs text-slate-400 mt-1">
-                {sim.efficiencyScore >= 90 ? 'Optimal configuration — High fuel efficiency & compliance.' : sim.efficiencyScore >= 75 ? 'Moderate efficiency — Slight speed or route penalty.' : 'Sub-optimal — High fuel burn or severe weather drag.'}
+              <p className="text-xs text-[#777777] mt-1">
+                {sim.efficiencyScore >= 90 ? 'Optimal configuration — High fuel efficiency & regulatory compliance.' : sim.efficiencyScore >= 75 ? 'Moderate efficiency — Slight speed or route penalty.' : 'Sub-optimal — High fuel burn or severe weather drag.'}
               </p>
             </div>
 
@@ -189,57 +193,57 @@ export const WhatIfSimulator: React.FC = () => {
 
           {/* Dynamic Calculated KPI Output Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-            <div className="p-4 rounded-xl glass-panel space-y-1">
-              <span className="text-[10px] font-mono font-bold text-slate-400 uppercase flex items-center gap-1.5">
-                <Flame className="w-3.5 h-3.5 text-cyan-400" /> Fuel Burn
+            <div className="p-4 rounded-xl bg-white border border-[#E5E3DA] space-y-1 shadow-subtle">
+              <span className="text-[10px] font-mono font-bold text-[#777777] uppercase flex items-center gap-1.5">
+                <Flame className="w-3.5 h-3.5 text-[#F15F56]" /> Fuel Burn
               </span>
-              <p className="text-2xl font-bold text-white font-mono">{sim.fuelTonnes}</p>
-              <span className="text-[10px] font-mono text-slate-400">tonnes HFO</span>
+              <p className="text-2xl font-bold text-[#191919] font-mono">{sim.fuelTonnes}</p>
+              <span className="text-[10px] font-mono text-[#777777]">tonnes HFO</span>
             </div>
 
-            <div className="p-4 rounded-xl glass-panel space-y-1">
-              <span className="text-[10px] font-mono font-bold text-slate-400 uppercase flex items-center gap-1.5">
-                <Leaf className="w-3.5 h-3.5 text-emerald-400" /> CO₂ Cut
+            <div className="p-4 rounded-xl bg-white border border-[#E5E3DA] space-y-1 shadow-subtle">
+              <span className="text-[10px] font-mono font-bold text-[#777777] uppercase flex items-center gap-1.5">
+                <Leaf className="w-3.5 h-3.5 text-[#174D3F]" /> CO₂ Cut
               </span>
-              <p className="text-2xl font-bold text-emerald-400 font-mono">{sim.co2Tonnes}</p>
-              <span className="text-[10px] font-mono text-slate-400">tonnes CO₂e</span>
+              <p className="text-2xl font-bold text-[#174D3F] font-mono">{sim.co2Tonnes}</p>
+              <span className="text-[10px] font-mono text-[#777777]">tonnes CO₂e</span>
             </div>
 
-            <div className="p-4 rounded-xl glass-panel space-y-1">
-              <span className="text-[10px] font-mono font-bold text-slate-400 uppercase flex items-center gap-1.5">
-                <DollarSign className="w-3.5 h-3.5 text-amber-400" /> Fuel Cost
+            <div className="p-4 rounded-xl bg-white border border-[#E5E3DA] space-y-1 shadow-subtle">
+              <span className="text-[10px] font-mono font-bold text-[#777777] uppercase flex items-center gap-1.5">
+                <DollarSign className="w-3.5 h-3.5 text-[#D97706]" /> Fuel Cost
               </span>
-              <p className="text-2xl font-bold text-amber-400 font-mono">${(sim.fuelCostUSD / 1000).toFixed(0)}K</p>
-              <span className="text-[10px] font-mono text-slate-400">USD total</span>
+              <p className="text-2xl font-bold text-[#191919] font-mono">${(sim.fuelCostUSD / 1000).toFixed(0)}K</p>
+              <span className="text-[10px] font-mono text-[#777777]">USD total</span>
             </div>
 
-            <div className="p-4 rounded-xl glass-panel space-y-1">
-              <span className="text-[10px] font-mono font-bold text-slate-400 uppercase flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-brand-bright" /> Voyage ETA
+            <div className="p-4 rounded-xl bg-white border border-[#E5E3DA] space-y-1 shadow-subtle">
+              <span className="text-[10px] font-mono font-bold text-[#777777] uppercase flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-[#174D3F]" /> Voyage ETA
               </span>
-              <p className="text-2xl font-bold text-white font-mono">{sim.etaFormatted}</p>
-              <span className="text-[10px] font-mono text-slate-400">{sim.etaHours} total hours</span>
+              <p className="text-2xl font-bold text-[#191919] font-mono">{sim.etaFormatted}</p>
+              <span className="text-[10px] font-mono text-[#777777]">{sim.etaHours} total hours</span>
             </div>
           </div>
 
           {/* Dynamic Tradeoff Insight Box */}
           <Card title="Live Scenario Insights">
-            <div className="space-y-3 text-xs text-slate-300">
-              <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-start gap-2.5">
-                <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+            <div className="space-y-3 text-xs text-[#555555]">
+              <div className="p-3 rounded-xl bg-[#FAF9F5] border border-[#E5E3DA] flex items-start gap-2.5">
+                <ShieldCheck className="w-4 h-4 text-[#174D3F] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-semibold text-white">Speed Sensitivity:</span>
-                  <p className="mt-0.5 text-slate-400">
-                    At {params.speedKnots} knots, the vessel burns {sim.fuelTonnes} tonnes of fuel. {params.speedKnots > 16 ? 'WARNING: High speed incurs steep cubic fuel penalty!' : params.speedKnots < 12 ? 'Notice: Slow steaming reduces fuel but extends ETA to ' + sim.etaFormatted : 'Speed is well balanced near the 13.8 kt hydrodynamic optimum.'}
+                  <span className="font-semibold text-[#191919]">Speed Sensitivity:</span>
+                  <p className="mt-0.5 text-[#777777]">
+                    At {params.speedKnots} knots, the vessel burns {sim.fuelTonnes} tonnes of fuel. {params.speedKnots > 16 ? 'WARNING: High speed incurs steep cubic fuel penalty!' : params.speedKnots < 12 ? 'Notice: Slow steaming reduces fuel burn but extends ETA to ' + sim.etaFormatted : 'Speed is well balanced near the 13.8 kt hydrodynamic optimum.'}
                   </p>
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-start gap-2.5">
-                <Leaf className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <div className="p-3 rounded-xl bg-[#FAF9F5] border border-[#E5E3DA] flex items-start gap-2.5">
+                <Leaf className="w-4 h-4 text-[#174D3F] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-semibold text-white">Carbon Footprint:</span>
-                  <p className="mt-0.5 text-slate-400">
+                  <span className="font-semibold text-[#191919]">Carbon Footprint:</span>
+                  <p className="mt-0.5 text-[#777777]">
                     Calculated CO₂ of {sim.co2Tonnes} tonnes using standard 3.145 emission factor.
                   </p>
                 </div>

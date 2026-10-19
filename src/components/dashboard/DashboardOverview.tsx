@@ -20,15 +20,14 @@ import {
   ResponsiveContainer,
   AreaChart,
   Area,
-  BarChart,
-  Bar,
   PieChart,
   Pie,
   Cell,
   XAxis,
   YAxis,
   Tooltip,
-  Legend
+  Legend,
+  CartesianGrid
 } from 'recharts'
 import { MONTHLY_FUEL_CO2_TRENDS, FLEET_EFFICIENCY_DISTRIBUTION, VOYAGE_STATUS_BREAKDOWN } from '../../data/analyticsData'
 import { FLEET_SHIPS } from '../../data/shipsData'
@@ -38,40 +37,42 @@ interface DashboardOverviewProps {
 }
 
 export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigateToView }) => {
+  const pieColors = ['#174D3F', '#F15F56', '#D97706', '#64748B']
+
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Top Banner Header */}
-      <div className="glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
+      <div className="bg-white border border-[#E5E3DA] p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
         <div>
-          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-brand-bright uppercase tracking-widest mb-1.5">
-            <Activity className="w-3.5 h-3.5 text-emerald-400" />
-            <span>GreenRoute Maritime Control Matrix</span>
+          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#174D3F] uppercase tracking-wider mb-1.5">
+            <Activity className="w-3.5 h-3.5 text-[#174D3F]" />
+            <span>Autonomous Fleet Operations & Voyage Control Matrix</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Fleet Sustainability & Optimization Overview</h2>
-          <p className="text-xs text-slate-400 mt-1">
-            Real-time hydrodynamic, weather, and carbon intensity metrics across 20 active vessels.
+          <h1 className="text-xl sm:text-2xl font-bold text-[#191919] tracking-tight">Fleet Sustainability & Optimization Overview</h1>
+          <p className="text-xs text-[#777777] mt-1">
+            Real-time hydrodynamic, oceanic weather, and carbon intensity metrics across 20 active commercial vessels.
           </p>
         </div>
 
         <button
           onClick={() => onNavigateToView('planner')}
-          className="btn-primary px-4 py-2 rounded-xl text-xs font-medium shrink-0 flex items-center gap-2"
+          className="btn-coral px-4 py-2.5 rounded-xl text-xs font-medium shrink-0 flex items-center gap-2 shadow-sm"
         >
           <span>Plan Optimal Voyage</span>
           <ArrowUpRight className="w-3.5 h-3.5" />
         </button>
       </div>
 
-      {/* 6 Metric KPI Cards in Grid */}
+      {/* 6 Required KPI Cards in Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
         <StatCard
-          title="Active Ships"
+          title="Total Fleet"
           value={20}
           unit="vessels"
           trend="+2 online"
           trendType="positive"
           icon={Ship}
-          iconColor="text-brand-bright"
+          iconColor="text-[#174D3F]"
           description="100% operational"
         />
 
@@ -82,50 +83,51 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
           trend="8/8 optimized"
           trendType="positive"
           icon={Navigation}
-          iconColor="text-cyan-400"
+          iconColor="text-[#174D3F]"
           description="On schedule"
         />
 
         <StatCard
-          title="Avg Efficiency"
-          value="92.4%"
-          trend="+1.8% MoM"
-          trendType="positive"
-          icon={Gauge}
-          iconColor="text-emerald-400"
-          description="Fleet hydro rating"
-        />
-
-        <StatCard
-          title="Fuel Saved"
-          value="12.4%"
-          trend="420 t/mo"
+          title="Fuel Consumption"
+          value="428 t"
+          unit="this mo"
+          trend="-12.4% vs base"
           trendType="positive"
           icon={Flame}
-          iconColor="text-amber-400"
-          description="Below baseline"
+          iconColor="text-[#F15F56]"
+          description="Optimized burn"
         />
 
         <StatCard
-          title="CO₂ Avoided"
-          value="1,320"
-          unit="tonnes"
-          trend="-11.6% CII"
-          trendType="positive"
-          icon={Leaf}
-          iconColor="text-emerald-400"
-          description="Tier A rating"
-        />
-
-        <StatCard
-          title="Cost Savings"
+          title="Estimated Fuel Savings"
           value="$315k"
           unit="USD"
           trend="+14% YoY"
           trendType="positive"
           icon={DollarSign}
-          iconColor="text-indigo-400"
+          iconColor="text-[#174D3F]"
           description="Bunker savings"
+        />
+
+        <StatCard
+          title="CO2 Emissions Reduced"
+          value="1,320"
+          unit="tonnes"
+          trend="-11.6% CII"
+          trendType="positive"
+          icon={Leaf}
+          iconColor="text-[#174D3F]"
+          description="Tier A compliance"
+        />
+
+        <StatCard
+          title="Optimization Performance"
+          value="92.4%"
+          trend="+1.8% MoM"
+          trendType="positive"
+          icon={Gauge}
+          iconColor="text-[#174D3F]"
+          description="Fleet hydro rating"
         />
       </div>
 
@@ -146,30 +148,31 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={MONTHLY_FUEL_CO2_TRENDS} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
-                    <linearGradient id="fuelGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#5E6AD2" stopOpacity={0.4} />
-                      <stop offset="95%" stopColor="#5E6AD2" stopOpacity={0.0} />
+                    <linearGradient id="fuelGradWarm" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#174D3F" stopOpacity={0.25} />
+                      <stop offset="95%" stopColor="#174D3F" stopOpacity={0.0} />
                     </linearGradient>
-                    <linearGradient id="co2Grad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10B981" stopOpacity={0.4} />
-                      <stop offset="95%" stopColor="#10B981" stopOpacity={0.0} />
+                    <linearGradient id="co2GradWarm" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#F15F56" stopOpacity={0.25} />
+                      <stop offset="95%" stopColor="#F15F56" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
-                  <XAxis dataKey="month" stroke="#4B5563" fontSize={11} tickLine={false} axisLine={false} />
-                  <YAxis stroke="#4B5563" fontSize={11} tickLine={false} axisLine={false} />
+                  <CartesianGrid stroke="#E5E3DA" strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="month" stroke="#777777" fontSize={11} tickLine={false} axisLine={{ stroke: '#E5E3DA' }} />
+                  <YAxis stroke="#777777" fontSize={11} tickLine={false} axisLine={{ stroke: '#E5E3DA' }} />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#090A0E',
-                      borderColor: 'rgba(255,255,255,0.1)',
+                      backgroundColor: '#FFFFFF',
+                      borderColor: '#E5E3DA',
                       borderRadius: '12px',
                       fontSize: '12px',
-                      color: '#EDEDEF',
-                      boxShadow: '0 8px 30px rgba(0,0,0,0.5)'
+                      color: '#191919',
+                      boxShadow: '0 4px 16px rgba(25, 25, 25, 0.08)'
                     }}
                   />
                   <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
-                  <Area type="monotone" dataKey="actualFuel" name="Optimized Fuel (t)" stroke="#5E6AD2" strokeWidth={2} fillOpacity={1} fill="url(#fuelGrad)" />
-                  <Area type="monotone" dataKey="co2Saved" name="CO₂ Cut (t)" stroke="#10B981" strokeWidth={2} fillOpacity={1} fill="url(#co2Grad)" />
+                  <Area type="monotone" dataKey="actualFuel" name="Optimized Fuel (t)" stroke="#174D3F" strokeWidth={2.5} fillOpacity={1} fill="url(#fuelGradWarm)" />
+                  <Area type="monotone" dataKey="co2Saved" name="CO₂ Cut (t)" stroke="#F15F56" strokeWidth={2} fillOpacity={1} fill="url(#co2GradWarm)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -182,7 +185,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
             title="Voyage Operational Status"
             subtitle="Fleet live mission distribution"
           >
-            <div className="h-[220px] w-full flex items-center justify-center">
+            <div className="h-[200px] w-full flex items-center justify-center">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -191,32 +194,33 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
                     cy="50%"
                     innerRadius={55}
                     outerRadius={80}
-                    paddingAngle={4}
+                    paddingAngle={3}
                     dataKey="count"
                   >
                     {VOYAGE_STATUS_BREAKDOWN.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} stroke="#050508" strokeWidth={2} />
+                      <Cell key={`cell-${index}`} fill={pieColors[index % pieColors.length]} stroke="#FFFFFF" strokeWidth={2} />
                     ))}
                   </Pie>
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#090A0E',
-                      borderColor: 'rgba(255,255,255,0.1)',
+                      backgroundColor: '#FFFFFF',
+                      borderColor: '#E5E3DA',
                       borderRadius: '12px',
                       fontSize: '12px',
-                      color: '#EDEDEF'
+                      color: '#191919',
+                      boxShadow: '0 4px 16px rgba(25, 25, 25, 0.08)'
                     }}
                   />
                 </PieChart>
               </ResponsiveContainer>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
-              {VOYAGE_STATUS_BREAKDOWN.map((item) => (
+            <div className="grid grid-cols-2 gap-2 pt-3 border-t border-[#E5E3DA]">
+              {VOYAGE_STATUS_BREAKDOWN.map((item, idx) => (
                 <div key={item.name} className="flex items-center gap-2 text-xs">
-                  <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
-                  <span className="text-slate-400">{item.name}:</span>
-                  <span className="font-mono font-semibold text-white">{item.value}</span>
+                  <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: pieColors[idx % pieColors.length] }} />
+                  <span className="text-[#777777] text-[11px] truncate">{item.name}:</span>
+                  <span className="font-mono font-semibold text-[#191919] text-[11px] ml-auto">{item.value}</span>
                 </div>
               ))}
             </div>
@@ -224,24 +228,24 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
         </div>
       </div>
 
-      {/* Live Fleet Table */}
+      {/* Live Fleet Sample Table */}
       <Card
-        title="Active Fleet Operational Overview (Sample)"
-        subtitle="Real-time telemetry and hydrodynamic compliance"
+        title="Active Fleet Operational Telemetry (Sample)"
+        subtitle="Real-time vessel position, fuel efficiency, and IMO CII compliance"
         action={
           <button
             onClick={() => onNavigateToView('fleet')}
-            className="text-xs font-mono font-medium text-brand-bright hover:text-white transition flex items-center gap-1"
+            className="text-xs font-mono font-medium text-[#174D3F] hover:text-[#0F342B] transition flex items-center gap-1"
           >
-            <span>View All 20 Ships</span>
+            <span>View All 20 Vessels</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
         }
       >
         <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-white/[0.06] text-[10px] font-mono uppercase tracking-widest text-slate-400">
+              <tr className="border-b border-[#E5E3DA] text-[10px] font-mono uppercase tracking-wider text-[#777777] bg-[#FDFDFB]">
                 <th className="py-3 px-3">Vessel Name</th>
                 <th className="py-3 px-3">Type</th>
                 <th className="py-3 px-3">Location</th>
@@ -251,15 +255,20 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
                 <th className="py-3 px-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/[0.04]">
-              {FLEET_SHIPS.slice(0, 5).map((ship) => (
-                <tr key={ship.id} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="py-3 px-3 font-semibold text-white">{ship.name}</td>
-                  <td className="py-3 px-3 text-slate-400">{ship.type}</td>
-                  <td className="py-3 px-3 text-slate-400 font-mono text-[11px]">{ship.location}</td>
-                  <td className="py-3 px-3 font-mono font-semibold text-cyan-400">{ship.currentSpeed} kts</td>
-                  <td className="py-3 px-3 font-mono font-semibold text-emerald-400">{ship.fuelEfficiency}%</td>
-                  <td className="py-3 px-3 font-mono text-slate-300">{ship.co2Intensity} t/t</td>
+            <tbody className="divide-y divide-[#E5E3DA]">
+              {FLEET_SHIPS.slice(0, 6).map((ship) => (
+                <tr key={ship.id} className="hover:bg-[#FAF9F6] transition-colors">
+                  <td className="py-3 px-3 font-semibold text-[#191919]">
+                    <div className="flex items-center gap-2">
+                      <Ship className="w-3.5 h-3.5 text-[#174D3F]" />
+                      <span>{ship.name}</span>
+                    </div>
+                  </td>
+                  <td className="py-3 px-3 text-[#777777]">{ship.type}</td>
+                  <td className="py-3 px-3 text-[#777777] font-mono text-[11px]">{ship.location}</td>
+                  <td className="py-3 px-3 font-mono font-semibold text-[#191919]">{ship.currentSpeed} kts</td>
+                  <td className="py-3 px-3 font-mono font-bold text-[#174D3F]">{ship.fuelEfficiency}%</td>
+                  <td className="py-3 px-3 font-mono text-[#555555]">{ship.co2Intensity} g/t-NM</td>
                   <td className="py-3 px-3">
                     <Badge
                       variant={ship.status === 'Sailing' ? 'green' : ship.status === 'Loading' ? 'yellow' : 'cyan'}

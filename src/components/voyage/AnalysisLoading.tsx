@@ -37,17 +37,17 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({
   }, [onComplete])
 
   return (
-    <div className="p-10 rounded-2xl glass-panel-elevated border border-brand-accent/40 shadow-2xl text-center space-y-6 animate-fade-in max-w-xl mx-auto my-8">
+    <div className="p-10 rounded-2xl bg-white border border-[#E5E3DA] shadow-card text-center space-y-6 animate-fade-in max-w-xl mx-auto my-8">
       <div className="relative w-16 h-16 mx-auto">
-        <div className="absolute inset-0 rounded-full border-2 border-brand-accent/20 border-t-brand-bright animate-spin" />
-        <div className="w-full h-full rounded-full flex items-center justify-center text-brand-bright">
+        <div className="absolute inset-0 rounded-full border-2 border-[#E5E3DA] border-t-[#F15F56] animate-spin" />
+        <div className="w-full h-full rounded-full flex items-center justify-center text-[#174D3F]">
           <Compass className="w-8 h-8 animate-pulse" />
         </div>
       </div>
 
       <div>
-        <h3 className="text-lg font-bold text-white tracking-tight">Torque IQ Optimization Engine</h3>
-        <p className="text-xs text-slate-400 mt-1">Analyzing {origin} → {destination} voyage variables...</p>
+        <h3 className="text-lg font-bold text-[#191919] tracking-tight">Torque IQ Optimization Engine</h3>
+        <p className="text-xs text-[#777777] mt-1">Analyzing {origin} → {destination} voyage variables...</p>
       </div>
 
       <div className="space-y-2.5 max-w-md mx-auto text-left">
@@ -61,16 +61,16 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({
               key={idx}
               className={`p-3 rounded-xl border flex items-center gap-3 transition-all ${
                 isDone
-                  ? 'bg-emerald-500/[0.04] border-emerald-500/20 text-emerald-300'
+                  ? 'bg-[#EDF5F2] border-[#D2E4DC] text-[#174D3F]'
                   : isCurrent
-                  ? 'bg-brand-accent/[0.08] border-brand-accent/40 text-white font-medium shadow-lg shadow-brand-accent/10'
-                  : 'bg-white/[0.01] border-white/[0.04] text-slate-400'
+                  ? 'bg-[#FDF1F0] border-[#FCD8D5] text-[#191919] font-medium shadow-subtle'
+                  : 'bg-white border-[#E5E3DA] text-[#777777]'
               }`}
             >
               {isDone ? (
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-[#174D3F] shrink-0" />
               ) : (
-                <Icon className={`w-4 h-4 shrink-0 ${isCurrent ? 'text-brand-bright' : ''}`} />
+                <Icon className={`w-4 h-4 shrink-0 ${isCurrent ? 'text-[#F15F56]' : ''}`} />
               )}
               <span className="text-xs">{s.label}</span>
             </div>

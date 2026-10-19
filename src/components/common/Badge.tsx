@@ -16,23 +16,23 @@ export const Badge: React.FC<BadgeProps> = ({
   dot = false
 }) => {
   const variantStyles = {
-    green: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25',
-    cyan: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/25',
-    yellow: 'bg-amber-500/10 text-amber-300 border-amber-500/25',
-    red: 'bg-rose-500/10 text-rose-400 border-rose-500/25',
-    gray: 'bg-white/[0.04] text-slate-300 border-white/[0.08]',
-    blue: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/25',
-    purple: 'bg-purple-500/10 text-purple-300 border-purple-500/25',
+    green: 'bg-[#EDF5F2] text-[#174D3F] border-[#D2E4DC]',
+    cyan: 'bg-[#EBF7FB] text-[#0F6575] border-[#BDE3ED]',
+    yellow: 'bg-[#FEF7EC] text-[#9A6210] border-[#FBE5C3]',
+    red: 'bg-[#FDF1F0] text-[#D84B42] border-[#FCD8D5]',
+    gray: 'bg-[#F5F5EF] text-[#555555] border-[#E5E3DA]',
+    blue: 'bg-[#EEF4FE] text-[#1D54B4] border-[#D0E1FD]',
+    purple: 'bg-[#F5F0FB] text-[#63359E] border-[#E2D2F7]',
   }
 
   const dotColors = {
-    green: 'bg-emerald-400',
-    cyan: 'bg-cyan-400',
-    yellow: 'bg-amber-400',
-    red: 'bg-rose-400',
-    gray: 'bg-slate-400',
-    blue: 'bg-indigo-400',
-    purple: 'bg-purple-400',
+    green: 'bg-[#174D3F]',
+    cyan: 'bg-[#0F6575]',
+    yellow: 'bg-[#C27E1A]',
+    red: 'bg-[#F15F56]',
+    gray: 'bg-[#777777]',
+    blue: 'bg-[#2563EB]',
+    purple: 'bg-[#7C3AED]',
   }
 
   const sizeStyles = {
@@ -41,8 +41,8 @@ export const Badge: React.FC<BadgeProps> = ({
   }
 
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full border ${variantStyles[variant]} ${sizeStyles[size]} tracking-wider uppercase font-medium ${className}`}>
-      {dot && <span className={`w-1.5 h-1.5 rounded-full ${dotColors[variant]} animate-pulse`} />}
+    <span className={`inline-flex items-center gap-1.5 rounded-full border ${variantStyles[variant]} ${sizeStyles[size]} tracking-wide uppercase font-semibold ${className}`}>
+      {dot && <span className={`w-1.5 h-1.5 rounded-full ${dotColors[variant]}`} />}
       {children}
     </span>
   )

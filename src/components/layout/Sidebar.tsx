@@ -110,8 +110,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onSelectView, onR
       <div className="p-4 border-t border-navy-700/60 bg-navy-950/60">
         <div className="flex items-center justify-between text-xs text-slate-400">
           <div>
-            <p className="font-bold text-slate-200">SIH Project SIH26138</p>
-            <p className="text-[10px] text-slate-400">v1.0.0 Presentation Ready</p>
+            <p className="font-bold text-slate-200">Torque IQ Enterprise</p>
+            <p className="text-[10px] text-slate-400">v2.4 Production Active</p>
           </div>
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" title="System Online"></span>
         </div>

@@ -10,7 +10,8 @@ import {
   YAxis,
   Tooltip,
   ReferenceDot,
-  Legend
+  Legend,
+  CartesianGrid
 } from 'recharts'
 import { Zap, Gauge, Flame, Clock } from 'lucide-react'
 
@@ -29,30 +30,31 @@ export const SpeedOptimizationChart: React.FC<SpeedOptimizationChartProps> = ({
     <Card
       title="Cubic Speed-Power Optimization Curve"
       subtitle="Hydrodynamic power law (P ∝ V^2.7) balancing fuel burn vs voyage duration"
-      action={<Badge variant="cyan" size="sm" dot>Sweet Spot: {optimalSpeed} kts</Badge>}
+      action={<Badge variant="green" size="sm" dot>Sweet Spot: {optimalSpeed} kts</Badge>}
     >
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
         {/* Recharts Curve */}
         <div className="lg:col-span-3 h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={speedCurvePoints} margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
+              <CartesianGrid stroke="#E5E3DA" strokeDasharray="3 3" vertical={false} />
               <XAxis
                 dataKey="speed"
-                stroke="#4B5563"
+                stroke="#777777"
                 fontSize={11}
                 unit=" kts"
                 tickLine={false}
-                axisLine={false}
+                axisLine={{ stroke: '#E5E3DA' }}
               />
-              <YAxis stroke="#4B5563" fontSize={11} tickLine={false} axisLine={false} />
+              <YAxis stroke="#777777" fontSize={11} tickLine={false} axisLine={{ stroke: '#E5E3DA' }} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#090A0E',
-                  borderColor: 'rgba(255,255,255,0.1)',
+                  backgroundColor: '#FFFFFF',
+                  borderColor: '#E5E3DA',
                   borderRadius: '12px',
                   fontSize: '12px',
-                  color: '#EDEDEF',
-                  boxShadow: '0 8px 30px rgba(0,0,0,0.6)'
+                  color: '#191919',
+                  boxShadow: '0 4px 16px rgba(25, 25, 25, 0.08)'
                 }}
                 formatter={(val: number, name: string) => [
                   name === 'fuel' ? `${val} tonnes` : name === 'etaHours' ? `${val} hrs` : `$${(val / 1000).toFixed(0)}K`,
@@ -64,16 +66,16 @@ export const SpeedOptimizationChart: React.FC<SpeedOptimizationChartProps> = ({
                 type="monotone"
                 dataKey="fuel"
                 name="Fuel Consumption (tonnes)"
-                stroke="#5E6AD2"
+                stroke="#174D3F"
                 strokeWidth={2.5}
                 dot={false}
-                activeDot={{ r: 5, fill: '#6872D9' }}
+                activeDot={{ r: 5, fill: '#174D3F' }}
               />
               <Line
                 type="monotone"
                 dataKey="etaHours"
                 name="Voyage Duration (hours)"
-                stroke="#06B6D4"
+                stroke="#777777"
                 strokeWidth={1.5}
                 strokeDasharray="4 4"
                 dot={false}
@@ -83,8 +85,8 @@ export const SpeedOptimizationChart: React.FC<SpeedOptimizationChartProps> = ({
                   x={optimalPoint.speed}
                   y={optimalPoint.fuel}
                   r={7}
-                  fill="#10B981"
-                  stroke="#050508"
+                  fill="#F15F56"
+                  stroke="#FFFFFF"
                   strokeWidth={2}
                 />
               )}
@@ -93,34 +95,34 @@ export const SpeedOptimizationChart: React.FC<SpeedOptimizationChartProps> = ({
         </div>
 
         {/* Sweet Spot Insight Card */}
-        <div className="p-5 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-3.5">
-          <div className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400">
-            <Zap className="w-3.5 h-3.5" />
+        <div className="p-5 rounded-xl bg-[#FAF9F5] border border-[#E5E3DA] space-y-3.5">
+          <div className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-wider text-[#174D3F]">
+            <Zap className="w-3.5 h-3.5 text-[#174D3F]" />
             <span>Optimal Sweet Spot</span>
           </div>
 
           <div>
             <div className="flex items-baseline gap-1.5">
-              <span className="text-3xl font-extrabold text-white font-mono">{optimalSpeed}</span>
-              <span className="text-xs font-mono text-slate-400">knots</span>
+              <span className="text-3xl font-extrabold text-[#191919] font-mono">{optimalSpeed}</span>
+              <span className="text-xs font-mono text-[#777777]">knots</span>
             </div>
-            <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
+            <p className="text-[11px] text-[#777777] mt-1 leading-relaxed">
               Minimum fuel consumption per nautical mile while strictly fulfilling requested arrival window.
             </p>
           </div>
 
-          <div className="space-y-2 pt-3 border-t border-white/[0.06] text-xs font-mono">
+          <div className="space-y-2 pt-3 border-t border-[#E5E3DA] text-xs font-mono">
             <div className="flex justify-between">
-              <span className="text-slate-400">Fuel Savings:</span>
-              <span className="font-bold text-emerald-400">-14.2%</span>
+              <span className="text-[#777777]">Fuel Savings:</span>
+              <span className="font-bold text-[#174D3F]">-14.2%</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Over-speed Penalty:</span>
-              <span className="font-bold text-rose-400">+28% @ 16.5 kts</span>
+              <span className="text-[#777777]">Over-speed Penalty:</span>
+              <span className="font-bold text-[#F15F56]">+28% @ 16.5 kts</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Engine Load:</span>
-              <span className="font-bold text-slate-200">74% (Eco Mode)</span>
+              <span className="text-[#777777]">Engine Load:</span>
+              <span className="font-bold text-[#191919]">74% (Eco Mode)</span>
             </div>
           </div>
         </div>
