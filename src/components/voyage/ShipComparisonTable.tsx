@@ -12,7 +12,7 @@ export const ShipComparisonTable: React.FC<ShipComparisonTableProps> = ({ ships 
   return (
     <Card title="Candidate Vessel Hydrodynamic Comparison" subtitle="Comparing top fleet candidates for cargo voyage requirement">
       <div className="overflow-x-auto custom-scrollbar">
-        <table className="w-full text-left text-xs border-collapse">
+        <table className="w-full min-w-[720px] text-left text-xs border-collapse">
           <thead>
             <tr className="border-b border-[#E5E3DA] text-[10px] font-mono uppercase tracking-wider text-[#777777] bg-[#FAF9F5]">
               <th className="p-3">Vessel Name</th>

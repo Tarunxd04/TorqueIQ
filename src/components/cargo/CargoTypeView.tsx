@@ -166,14 +166,14 @@ export const CargoTypeView: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="bg-white border border-[#E5E3DA] p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
+      <div className="bg-white border border-[#E5E3DA] p-6 sm:p-7 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
         <div>
-          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#174D3F] uppercase tracking-wider mb-1.5">
-            <Boxes className="w-3.5 h-3.5 text-[#174D3F]" />
+          <div className="flex items-center gap-2 text-xs font-mono font-semibold text-[#174D3F] uppercase tracking-wider mb-1.5">
+            <Boxes className="w-4 h-4 text-[#174D3F]" />
             <span>Maritime Freight Intelligence</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold text-[#191919] tracking-tight">Cargo Classification & Handling Catalog</h1>
-          <p className="text-xs text-[#777777] mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#191919] tracking-tight">Cargo Classification & Handling Catalog</h1>
+          <p className="text-sm text-[#666666] mt-1">
             Explore operational specifications, genset power requirements, and trade corridors across diverse freight types.
           </p>
         </div>

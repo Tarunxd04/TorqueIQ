@@ -1,24 +1,19 @@
 import React, { useState } from 'react'
 import {
   Anchor,
-  LayoutDashboard,
   Navigation,
-  Ship,
-  MapPin,
   CloudSun,
   Zap,
   Sliders,
-  Leaf,
   Boxes,
   ArrowRight,
-  Settings,
   User,
   ChevronDown,
   Menu,
   X,
-  BarChart3,
   FileText
 } from 'lucide-react'
+import { useAuth } from '../../context/AuthContext'
 
 interface NavbarProps {
   onNavigateToDashboard: (view: string) => void
@@ -28,6 +23,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onNavigateToDashboard, activeView }) => {
   const [moreOpen, setMoreOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { currentUser, isAuthenticated, openAuthModal, openProfile } = useAuth()
 
   const primaryNavItems = [
     { id: 'landing',   label: 'Overview' },
@@ -55,44 +51,53 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToDashboard, activeVie
 
   const isMoreActive = secondaryNavItems.some(item => item.id === activeView)
 
+  const userInitials = currentUser?.fullName
+    ? currentUser.fullName
+        .split(' ')
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(w => w[0].toUpperCase())
+        .join('')
+    : 'U'
+
   return (
-    <header className="sticky top-0 z-50 bg-[#FFFFFF]/90 backdrop-blur-md border-b border-[#E5E3DA] w-full transition-all">
-      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        {/* Brand Logo & System Status */}
-        <div className="flex items-center gap-4 shrink-0">
+    <header className="sticky top-0 z-50 bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#E5E3DA] w-full transition-all shadow-subtle">
+      {/* 
+        3 Independent Horizontal Sections via Full-Width CSS Grid:
+        - Col 1 [minmax(0, 1fr)]: Pinned to the Extreme Left (Brand Logo)
+        - Col 2 [auto]: Exactly Centered horizontally (Navigation Options)
+        - Col 3 [minmax(0, 1fr)]: Pinned to the Extreme Right (Profile & Plan Voyage CTA)
+        Using w-full with responsive side-padding pushes the logo to the extreme left
+        and profile/actions to the extreme right while keeping the center links perfectly centered.
+      */}
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 h-16 grid grid-cols-[auto_1fr] lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center">
+        {/* LEFT SECTION — BRAND LOGO */}
+        <div className="flex items-center justify-start min-w-0">
           <div
             onClick={() => handleNav('landing')}
-            className="flex items-center gap-2.5 cursor-pointer group"
+            className="flex items-center gap-2.5 cursor-pointer group select-none shrink-0"
           >
             <div className="w-8 h-8 rounded-lg bg-[#174D3F] flex items-center justify-center text-white shadow-sm group-hover:bg-[#0F342B] transition-colors">
-              <Anchor className="w-4 h-4 text-[#FFFFFF] group-hover:rotate-12 transition-transform" />
+              <Anchor className="w-4 h-4 text-white group-hover:rotate-12 transition-transform" />
             </div>
             
-            <div className="flex items-center gap-2">
-              <span className="text-base font-bold tracking-tight text-[#191919] flex items-center gap-1">
+            <div className="flex items-center">
+              <span className="text-base font-bold tracking-tight text-[#191919] flex items-center gap-1 font-sans">
                 Torque <span className="text-[#F15F56]">IQ</span>
               </span>
-              <span className="hidden sm:inline-flex text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-[#F5F5EF] text-[#777777] border border-[#E5E3DA]">
-                Enterprise
-              </span>
             </div>
-          </div>
-
-          <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#EDF5F2] border border-[#D2E4DC] text-[10px] font-mono text-[#174D3F]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#174D3F] animate-pulse" />
-            <span className="font-semibold">OPERATIONAL</span>
           </div>
         </div>
 
-        {/* Center Nav Links — Minimalist Pill Tabs */}
-        <nav className="hidden lg:flex items-center gap-1">
+        {/* CENTER SECTION — NAVIGATION OPTIONS */}
+        <nav className="hidden lg:flex items-center justify-center gap-1 xl:gap-2 whitespace-nowrap min-w-0">
           {primaryNavItems.map((item) => {
             const isActive = activeView === item.id
             return (
               <button
                 key={item.id}
                 onClick={() => handleNav(item.id)}
-                className={`relative px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 whitespace-nowrap ${
+                className={`relative px-2.5 xl:px-3 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-all duration-150 whitespace-nowrap ${
                   isActive
                     ? 'text-[#191919] bg-[#F5F5EF] font-semibold border border-[#E5E3DA]'
                     : 'text-[#777777] hover:text-[#191919] hover:bg-[#F9F9F6]'
@@ -100,31 +105,31 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToDashboard, activeVie
               >
                 {item.label}
                 {isActive && (
-                  <span className="absolute -bottom-[1px] left-3 right-3 h-[2px] bg-[#F15F56] rounded-full" />
+                  <span className="absolute -bottom-[1px] left-2.5 right-2.5 xl:left-3 xl:right-3 h-[2px] bg-[#F15F56] rounded-full" />
                 )}
               </button>
             )
           })}
 
-          {/* More Dropdown */}
+          {/* More Modules Dropdown */}
           <div className="relative">
             <button
               onClick={() => setMoreOpen(!moreOpen)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 flex items-center gap-1 ${
+              className={`px-2.5 xl:px-3 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-all duration-150 flex items-center gap-1 xl:gap-1.5 whitespace-nowrap ${
                 isMoreActive
                   ? 'text-[#191919] bg-[#F5F5EF] font-semibold border border-[#E5E3DA]'
                   : 'text-[#777777] hover:text-[#191919] hover:bg-[#F9F9F6]'
               }`}
             >
               <span>More Modules</span>
-              <ChevronDown className={`w-3 h-3 transition-transform ${moreOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${moreOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {moreOpen && (
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setMoreOpen(false)} />
                 <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-[#E5E3DA] rounded-xl shadow-dropdown p-2 z-50 animate-fade-in">
-                  <div className="text-[10px] font-mono font-semibold text-[#777777] px-2.5 py-1 uppercase tracking-wider">
+                  <div className="text-[11px] font-mono font-semibold text-[#777777] px-2.5 py-1 uppercase tracking-wider">
                     Extended Intelligence
                   </div>
                   {secondaryNavItems.map((item) => {
@@ -145,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToDashboard, activeVie
                         </div>
                         <div>
                           <div className="font-semibold text-xs leading-none">{item.label}</div>
-                          <div className="text-[10px] text-[#777777] mt-1 leading-snug">{item.desc}</div>
+                          <div className="text-[11px] text-[#777777] mt-1 leading-snug">{item.desc}</div>
                         </div>
                       </button>
                     )
@@ -156,45 +161,44 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToDashboard, activeVie
           </div>
         </nav>
 
-        {/* Right: Controls & Actions */}
-        <div className="flex items-center gap-2.5 shrink-0">
-          {/* Settings button */}
-          <button
-            onClick={() => handleNav('settings')}
-            title="Settings & Configurations"
-            className={`p-2 rounded-lg text-xs font-medium border transition-colors ${
-              activeView === 'settings'
-                ? 'bg-[#F5F5EF] text-[#191919] border-[#E5E3DA]'
-                : 'text-[#777777] hover:text-[#191919] border-transparent hover:border-[#E5E3DA] hover:bg-[#F9F9F6]'
-            }`}
-          >
-            <Settings className="w-4 h-4" />
-          </button>
-
-          {/* Profile user badge */}
-          <button
-            onClick={() => handleNav('settings')}
-            className="hidden sm:flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-[#E5E3DA] bg-white hover:bg-[#F9F9F6] text-[#191919] transition-colors"
-          >
-            <div className="w-5 h-5 rounded-full bg-[#174D3F] text-white flex items-center justify-center text-[10px] font-bold">
-              VS
-            </div>
-            <span className="text-xs font-medium">Capt. Sharma</span>
-          </button>
+        {/* RIGHT SECTION — PROFILE AND ACTION BUTTONS */}
+        <div className="flex items-center justify-end gap-2.5 sm:gap-3 min-w-0">
+          {/* Profile-First Interaction Avatar */}
+          {isAuthenticated && currentUser ? (
+            <button
+              onClick={openProfile}
+              title={`Account: ${currentUser.fullName} (${currentUser.email})`}
+              className="flex items-center justify-center w-9 h-9 rounded-full bg-[#174D3F] hover:bg-[#0F342B] text-white text-xs font-bold transition-all shadow-subtle border border-[#174D3F] active:scale-95 shrink-0"
+              aria-label="User Account"
+            >
+              {userInitials}
+            </button>
+          ) : (
+            <button
+              onClick={() => openAuthModal('login')}
+              title="Sign In / Create Account"
+              className="flex items-center justify-center w-9 h-9 rounded-full bg-white hover:bg-[#F9F9F6] text-[#777777] hover:text-[#174D3F] border border-[#E5E3DA] transition-all shadow-subtle active:scale-95 shrink-0"
+              aria-label="Sign In or Create Account"
+            >
+              <User className="w-4 h-4" />
+            </button>
+          )}
 
           {/* Primary Coral CTA Button */}
           <button
             onClick={() => handleNav('planner')}
-            className="btn-coral text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-1.5"
+            className="btn-coral text-xs sm:text-sm font-medium px-3.5 sm:px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-sm whitespace-nowrap shrink-0"
           >
-            <span>Plan Voyage</span>
+            <span className="hidden sm:inline">Plan Voyage</span>
+            <span className="sm:hidden text-xs">Plan</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
 
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg text-[#191919] hover:bg-[#F5F5EF] border border-[#E5E3DA] lg:hidden"
+            className="p-2 rounded-lg text-[#191919] hover:bg-[#F5F5EF] border border-[#E5E3DA] lg:hidden shrink-0 ml-1"
+            aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
@@ -203,8 +207,50 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToDashboard, activeVie
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-[#E5E3DA] bg-white px-4 py-4 space-y-3 animate-fade-in shadow-lg">
-          <div className="text-[10px] font-mono uppercase tracking-wider text-[#777777]">Primary Navigation</div>
+        <div className="lg:hidden border-t border-[#E5E3DA] bg-white px-4 py-4 space-y-4 animate-fade-in shadow-lg">
+          {/* Account status for mobile */}
+          <div className="p-3 bg-[#FAF9F5] border border-[#E5E3DA] rounded-xl flex items-center justify-between">
+            {isAuthenticated && currentUser ? (
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-[#174D3F] text-white flex items-center justify-center text-xs font-bold">
+                  {userInitials}
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-[#191919]">{currentUser.fullName}</div>
+                  <div className="text-[11px] text-[#777777]">{currentUser.email}</div>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 text-xs text-[#777777]">
+                <User className="w-4 h-4 text-[#174D3F]" />
+                <span>Guest Visitor</span>
+              </div>
+            )}
+
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  openProfile()
+                }}
+                className="btn-outline-warm text-xs px-3 py-1.5 rounded-lg"
+              >
+                My Account
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  openAuthModal('login')
+                }}
+                className="btn-coral text-xs px-3 py-1.5 rounded-lg"
+              >
+                Sign In
+              </button>
+            )}
+          </div>
+
+          <div className="text-[11px] font-mono uppercase tracking-wider text-[#777777]">Primary Navigation</div>
           <div className="grid grid-cols-2 gap-2">
             {primaryNavItems.map((item) => (
               <button
@@ -221,7 +267,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToDashboard, activeVie
             ))}
           </div>
 
-          <div className="text-[10px] font-mono uppercase tracking-wider text-[#777777] pt-2 border-t border-[#E5E3DA]">Specialized Engines</div>
+          <div className="text-[11px] font-mono uppercase tracking-wider text-[#777777] pt-2 border-t border-[#E5E3DA]">Specialized Engines</div>
           <div className="grid grid-cols-2 gap-2">
             {secondaryNavItems.map((item) => (
               <button
@@ -236,16 +282,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToDashboard, activeVie
                 {item.label}
               </button>
             ))}
-            <button
-              onClick={() => handleNav('settings')}
-              className={`px-3 py-2 rounded-lg text-xs font-medium text-left transition-colors ${
-                activeView === 'settings'
-                  ? 'bg-[#FDF1F0] text-[#F15F56] font-semibold border border-[#FCD8D5]'
-                  : 'bg-[#F5F5EF] text-[#191919] hover:bg-[#EFEFEA]'
-              }`}
-            >
-              Settings & Profile
-            </button>
           </div>
         </div>
       )}

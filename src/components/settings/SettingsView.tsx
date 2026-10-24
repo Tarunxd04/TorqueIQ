@@ -58,16 +58,16 @@ export const SettingsView: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 max-w-6xl mx-auto animate-fade-in">
+    <div className="space-y-6 w-full animate-fade-in">
       {/* Settings Top Header */}
       <div className="bg-white border border-[#E5E3DA] p-6 sm:p-8 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
         <div className="relative z-10">
-          <div className="flex items-center gap-2 text-[10px] font-mono font-semibold text-[#174D3F] uppercase tracking-wider mb-1.5">
-            <Settings className="w-3.5 h-3.5 text-[#174D3F]" />
+          <div className="flex items-center gap-2 text-xs font-mono font-semibold text-[#174D3F] uppercase tracking-wider mb-1.5">
+            <Settings className="w-4 h-4 text-[#174D3F]" />
             <span>Enterprise Fleet Control Panel</span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-[#191919]">Torque IQ System Settings</h1>
-          <p className="text-xs text-[#777777] mt-1 max-w-2xl font-normal">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#191919]">Torque IQ System Settings</h1>
+          <p className="text-sm text-[#666666] mt-1 max-w-2xl font-normal">
             Configure global hydrodynamic parameters, marine bunker reference prices, MARPOL CO₂ emission constants, and automated weather thresholds.
           </p>
         </div>

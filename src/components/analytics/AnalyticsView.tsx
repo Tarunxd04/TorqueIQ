@@ -23,14 +23,14 @@ export const AnalyticsView: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="bg-white border border-[#E5E3DA] p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
+      <div className="bg-white border border-[#E5E3DA] p-6 sm:p-7 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
         <div>
-          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#174D3F] uppercase tracking-wider mb-1.5">
-            <BarChart3 className="w-3.5 h-3.5 text-[#174D3F]" />
+          <div className="flex items-center gap-2 text-xs font-mono font-semibold text-[#174D3F] uppercase tracking-wider mb-1.5">
+            <BarChart3 className="w-4 h-4 text-[#174D3F]" />
             <span>Executive Intelligence Matrix</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold text-[#191919] tracking-tight">Fleet Analytics & Historical Trends</h1>
-          <p className="text-xs text-[#777777] mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#191919] tracking-tight">Fleet Analytics & Historical Trends</h1>
+          <p className="text-sm text-[#666666] mt-1">
             Multi-metric performance charts tracking predicted vs actual bunker fuel burn, carbon abatement, and route benchmarks.
           </p>
         </div>
@@ -95,7 +95,7 @@ export const AnalyticsView: React.FC = () => {
       {/* Row 1: Fuel Saved & CO2 Reduction Trends */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card title="Monthly Fuel Savings (%)" subtitle="Percentage fuel reduction achieved vs traditional uncalibrated routing">
-          <div className="h-72 w-full mt-2">
+          <div className="h-72 w-full mt-2 min-w-0">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={MONTHLY_FUEL_CO2_TRENDS} margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
                 <CartesianGrid stroke="#E5E3DA" strokeDasharray="3 3" vertical={false} />
@@ -128,7 +128,7 @@ export const AnalyticsView: React.FC = () => {
         </Card>
 
         <Card title="Monthly Carbon Abatement (Tonnes)" subtitle="Total greenhouse gas emissions prevented per month across active voyages">
-          <div className="h-72 w-full mt-2">
+          <div className="h-72 w-full mt-2 min-w-0">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={MONTHLY_FUEL_CO2_TRENDS} margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
                 <CartesianGrid stroke="#E5E3DA" strokeDasharray="3 3" vertical={false} />
@@ -155,7 +155,7 @@ export const AnalyticsView: React.FC = () => {
 
       {/* Row 2: Route Efficiency Benchmarks */}
       <Card title="Corridor Hydrodynamic Efficiency Ranking" subtitle="Benchmarking active global shipping lanes under dynamic current vectors">
-        <div className="h-72 w-full mt-2">
+        <div className="h-72 w-full mt-2 min-w-0">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={ROUTE_EFFICIENCY_COMPARISON} margin={{ top: 10, right: 20, left: 10, bottom: 0 }} layout="vertical">
               <CartesianGrid stroke="#E5E3DA" strokeDasharray="3 3" horizontal={false} />

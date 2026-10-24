@@ -34,7 +34,7 @@ export const SpeedOptimizationChart: React.FC<SpeedOptimizationChartProps> = ({
     >
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
         {/* Recharts Curve */}
-        <div className="lg:col-span-3 h-72 w-full">
+        <div className="lg:col-span-3 h-72 w-full min-w-0">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={speedCurvePoints} margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
               <CartesianGrid stroke="#E5E3DA" strokeDasharray="3 3" vertical={false} />

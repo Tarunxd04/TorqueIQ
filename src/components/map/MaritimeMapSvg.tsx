@@ -422,36 +422,39 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
   return (
     <div className={`space-y-6 ${className}`}>
       {/* SINGLE FIXED WORLD MAP CONTAINER — ZERO WATERMARKS, CLEAN ESRI BASEMAP + GEOJSON */}
-      <div className="relative bg-[#080808] border border-[#E5E3DA] rounded-2xl overflow-hidden shadow-card">
+      <div className="relative bg-[#080808] border border-[#E5E3DA] rounded-2xl overflow-hidden shadow-card isolate">
         
-        {/* TOP RIGHT SEARCH COUNTRY BAR */}
-        <div className="absolute top-3 right-3 z-[1000]">
-          <form onSubmit={handleCountrySearch} className="flex items-center rounded-lg bg-white/95 border border-[#E5E3DA] p-1 shadow-subtle backdrop-blur-md">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value)
-                if (!e.target.value) setHighlightedCountry(null)
-              }}
-              placeholder="Search country"
-              className="px-3 py-1 text-xs text-[#191919] placeholder:text-[#777777] font-sans focus:outline-none bg-transparent w-36 sm:w-44"
-            />
-            <button type="submit" className="p-1 text-[#174D3F] hover:text-[#0F342B] transition">
-              <Search className="w-4 h-4" />
-            </button>
-          </form>
-        </div>
+        {/* TOP CONTROLS OVERLAY: TITLE BADGE + SEARCH BAR */}
+        <div className="absolute top-3 left-3 right-3 z-[1000] flex flex-wrap items-center justify-between gap-2.5 pointer-events-none">
+          {/* TITLE BADGE */}
+          <div className="pointer-events-auto flex items-center gap-2 bg-white/95 backdrop-blur-md border border-[#E5E3DA] px-3 py-1.5 rounded-xl text-xs font-bold text-[#191919] shadow-subtle max-w-full">
+            <Globe className="w-4 h-4 text-[#174D3F] shrink-0" />
+            <span className="truncate">Global Maritime Voyage Control</span>
+            {highlightedCountry && (
+              <span className="ml-1 sm:ml-2 px-2 py-0.5 rounded bg-[#EDF5F2] text-[#174D3F] border border-[#D2E4DC] font-mono text-[10px] shrink-0">
+                {highlightedCountry}
+              </span>
+            )}
+          </div>
 
-        {/* TOP LEFT FIXED TITLE BADGE */}
-        <div className="absolute top-3 left-3 z-[1000] flex items-center gap-2 bg-white/95 backdrop-blur-md border border-[#E5E3DA] px-3 py-1.5 rounded-xl text-xs font-bold text-[#191919] shadow-subtle">
-          <Globe className="w-4 h-4 text-[#174D3F]" />
-          <span>Global Maritime Voyage Control</span>
-          {highlightedCountry && (
-            <span className="ml-2 px-2 py-0.5 rounded bg-[#EDF5F2] text-[#174D3F] border border-[#D2E4DC] font-mono text-[10px]">
-              Highlighted: {highlightedCountry}
-            </span>
-          )}
+          {/* SEARCH COUNTRY BAR */}
+          <div className="pointer-events-auto shrink-0">
+            <form onSubmit={handleCountrySearch} className="flex items-center rounded-lg bg-white/95 border border-[#E5E3DA] p-1 shadow-subtle backdrop-blur-md">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value)
+                  if (!e.target.value) setHighlightedCountry(null)
+                }}
+                placeholder="Search country"
+                className="px-2.5 py-1 text-xs text-[#191919] placeholder:text-[#777777] font-sans focus:outline-none bg-transparent w-32 sm:w-40"
+              />
+              <button type="submit" className="p-1 text-[#174D3F] hover:text-[#0F342B] transition">
+                <Search className="w-4 h-4" />
+              </button>
+            </form>
+          </div>
         </div>
 
         {/* LEAFLET CANVAS — ESRI WORLD DARK GRAY BASE (100% FREE, NO WATERMARKS, NO API KEY REQUIRED) */}
@@ -578,7 +581,7 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
 
         {/* BOTTOM TRACKING CONTROL BAR (Sleek Dark Accent Section) */}
         <div className="p-4 bg-[#080808] border-t border-[#262626] flex flex-col md:flex-row items-center justify-between gap-4 z-[1000] relative">
-          <div className="flex items-center gap-3 w-full md:w-auto">
+          <div className="flex items-center gap-2.5 flex-wrap w-full md:w-auto">
             <button
               onClick={() => setIsTracking(!isTracking)}
               className={`px-5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all ${
@@ -618,9 +621,9 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
           {/* ROUTE PROGRESS BAR VISUALIZER */}
           <div className="w-full md:max-w-xl space-y-1.5">
             <div className="flex items-center justify-between text-[11px] font-bold">
-              <span className="text-white font-mono">START: {origin}</span>
-              <span className="text-[#4ADE80] font-mono">PROGRESS: {progressPct.toFixed(1)}%</span>
-              <span className="text-white font-mono">DEST: {destination}</span>
+              <span className="text-white font-mono text-left">START: {origin}</span>
+              <span className="text-[#4ADE80] font-mono text-center">PROGRESS: {progressPct.toFixed(1)}%</span>
+              <span className="text-white font-mono text-right">DEST: {destination}</span>
             </div>
 
             {/* Custom Visual Bar: START ●━━━━━━━🚢━━━━━━━━━━━━● DESTINATION */}
@@ -638,8 +641,8 @@ export const MaritimeMapSvg: React.FC<MaritimeMapProps> = ({
             </div>
 
             <div className="flex items-center justify-between text-[10px] text-[#888888] font-mono">
-              <span>{travelledKm.toLocaleString()} km travelled</span>
-              <span>{remainingKm.toLocaleString()} km remaining</span>
+              <span className="text-left">{travelledKm.toLocaleString()} km travelled</span>
+              <span className="text-right">{remainingKm.toLocaleString()} km remaining</span>
             </div>
           </div>
         </div>

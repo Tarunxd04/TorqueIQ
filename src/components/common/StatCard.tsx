@@ -29,9 +29,9 @@ export const StatCard: React.FC<StatCardProps> = ({
   }
 
   return (
-    <div className="bg-white border border-[#E5E3DA] p-5 rounded-2xl flex flex-col justify-between group hover:border-[#174D3F]/30 hover:shadow-card transition-all duration-200">
+    <div className="bg-white border border-[#E5E3DA] p-5 rounded-2xl flex flex-col justify-between group hover:border-[#174D3F]/30 hover:shadow-card transition-all duration-200 min-w-0">
       <div className="flex items-start justify-between gap-2">
-        <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#777777]">
+        <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#777777] break-words">
           {title}
         </span>
         <div className="p-2 rounded-lg bg-[#F5F5EF] border border-[#E5E3DA] text-[#174D3F] group-hover:bg-[#EDF5F2] group-hover:border-[#D2E4DC] transition-colors">
@@ -41,11 +41,11 @@ export const StatCard: React.FC<StatCardProps> = ({
 
       <div className="mt-4">
         <div className="flex items-baseline gap-1.5 flex-wrap">
-          <span className="text-2xl lg:text-3xl font-bold text-[#191919] tracking-tight font-sans">
+          <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#191919] tracking-tight font-sans">
             {value}
           </span>
           {unit && (
-            <span className="text-xs font-mono font-medium text-[#777777]">
+            <span className="text-xs sm:text-sm font-mono font-medium text-[#777777]">
               {unit}
             </span>
           )}
@@ -54,12 +54,12 @@ export const StatCard: React.FC<StatCardProps> = ({
         {(trend || description) && (
           <div className="mt-3 flex items-center gap-2 flex-wrap">
             {trend && (
-              <span className={`text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border ${trendStyles[trendType]}`}>
+              <span className={`text-xs font-mono font-medium px-2.5 py-0.5 rounded-full border ${trendStyles[trendType]}`}>
                 {trend}
               </span>
             )}
             {description && (
-              <span className="text-xs text-[#777777] truncate font-sans">{description}</span>
+              <span className="text-xs sm:text-sm text-[#777777] font-sans">{description}</span>
             )}
           </div>
         )}

@@ -12,14 +12,14 @@ export const RoutesView: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="bg-white border border-[#E5E3DA] p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
+      <div className="bg-white border border-[#E5E3DA] p-6 sm:p-7 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
         <div>
-          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#174D3F] uppercase tracking-wider mb-1.5">
-            <Compass className="w-3.5 h-3.5 text-[#174D3F]" />
+          <div className="flex items-center gap-2 text-xs font-mono font-semibold text-[#174D3F] uppercase tracking-wider mb-1.5">
+            <Compass className="w-4 h-4 text-[#174D3F]" />
             <span>Navigation Corridor Engine</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold text-[#191919] tracking-tight">Route Intelligence & Corridor Analysis</h1>
-          <p className="text-xs text-[#777777] mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#191919] tracking-tight">Route Intelligence & Corridor Analysis</h1>
+          <p className="text-sm text-[#666666] mt-1">
             Comparing candidate oceanic corridors across distance, weather drag factors, and simulated bunker fuel consumption.
           </p>
         </div>
@@ -70,13 +70,13 @@ export const RoutesView: React.FC = () => {
               <p className="text-xs text-[#777777] mb-4 leading-relaxed">{route.pathDescription}</p>
 
               <div className="pt-3 border-t border-[#E5E3DA] grid grid-cols-2 gap-2 text-xs font-mono">
-                <div>
-                  <span className="text-[#777777] text-[10px] block">Distance:</span>
-                  <span className="font-semibold text-[#191919]">{route.distanceNM.toLocaleString()} NM</span>
+                <div className="text-left">
+                  <span className="text-[#777777] text-[10px] block text-left">Distance:</span>
+                  <span className="font-semibold text-[#191919] text-left">{route.distanceNM.toLocaleString()} NM</span>
                 </div>
-                <div>
-                  <span className="text-[#777777] text-[10px] block">Est. Fuel:</span>
-                  <span className={`font-semibold ${isRec ? 'text-[#174D3F]' : 'text-[#191919]'}`}>
+                <div className="text-right">
+                  <span className="text-[#777777] text-[10px] block text-right">Est. Fuel:</span>
+                  <span className={`font-semibold ${isRec ? 'text-[#174D3F]' : 'text-[#191919]'} text-right`}>
                     {route.fuelConsumptionTonnes} t
                   </span>
                 </div>

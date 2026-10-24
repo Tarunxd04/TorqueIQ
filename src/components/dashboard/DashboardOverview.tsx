@@ -42,29 +42,29 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Top Banner Header */}
-      <div className="bg-white border border-[#E5E3DA] p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
+      <div className="bg-white border border-[#E5E3DA] p-6 sm:p-7 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
         <div>
-          <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#174D3F] uppercase tracking-wider mb-1.5">
-            <Activity className="w-3.5 h-3.5 text-[#174D3F]" />
+          <div className="flex items-center gap-2 text-xs font-mono font-semibold text-[#174D3F] uppercase tracking-wider mb-1.5">
+            <Activity className="w-4 h-4 text-[#174D3F]" />
             <span>Autonomous Fleet Operations & Voyage Control Matrix</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold text-[#191919] tracking-tight">Fleet Sustainability & Optimization Overview</h1>
-          <p className="text-xs text-[#777777] mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#191919] tracking-tight">Fleet Sustainability & Optimization Overview</h1>
+          <p className="text-sm text-[#666666] mt-1">
             Real-time hydrodynamic, oceanic weather, and carbon intensity metrics across 20 active commercial vessels.
           </p>
         </div>
 
         <button
           onClick={() => onNavigateToView('planner')}
-          className="btn-coral px-4 py-2.5 rounded-xl text-xs font-medium shrink-0 flex items-center gap-2 shadow-sm"
+          className="btn-coral px-5 py-2.5 rounded-xl text-sm font-medium shrink-0 flex items-center gap-2 shadow-sm"
         >
           <span>Plan Optimal Voyage</span>
-          <ArrowUpRight className="w-3.5 h-3.5" />
+          <ArrowUpRight className="w-4 h-4" />
         </button>
       </div>
 
       {/* 6 Required KPI Cards in Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-4">
         <StatCard
           title="Total Fleet"
           value={20}
@@ -144,7 +144,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
               </Badge>
             }
           >
-            <div className="h-[280px] w-full pt-2">
+            <div className="h-[280px] w-full pt-2 min-w-0">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={MONTHLY_FUEL_CO2_TRENDS} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
@@ -185,7 +185,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
             title="Voyage Operational Status"
             subtitle="Fleet live mission distribution"
           >
-            <div className="h-[200px] w-full flex items-center justify-center">
+            <div className="h-[200px] w-full flex items-center justify-center min-w-0">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -243,33 +243,33 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
         }
       >
         <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-left text-xs border-collapse">
+          <table className="w-full min-w-[650px] text-left text-xs border-collapse">
             <thead>
               <tr className="border-b border-[#E5E3DA] text-[10px] font-mono uppercase tracking-wider text-[#777777] bg-[#FDFDFB]">
-                <th className="py-3 px-3">Vessel Name</th>
-                <th className="py-3 px-3">Type</th>
-                <th className="py-3 px-3">Location</th>
-                <th className="py-3 px-3">Speed</th>
-                <th className="py-3 px-3">Fuel Eff.</th>
-                <th className="py-3 px-3">CII Score</th>
-                <th className="py-3 px-3">Status</th>
+                <th className="py-3 px-3 text-left">Vessel Name</th>
+                <th className="py-3 px-3 text-left">Type</th>
+                <th className="py-3 px-3 text-left">Location</th>
+                <th className="py-3 px-3 text-right">Speed</th>
+                <th className="py-3 px-3 text-right">Fuel Eff.</th>
+                <th className="py-3 px-3 text-right">CII Score</th>
+                <th className="py-3 px-3 text-center">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#E5E3DA]">
               {FLEET_SHIPS.slice(0, 6).map((ship) => (
                 <tr key={ship.id} className="hover:bg-[#FAF9F6] transition-colors">
-                  <td className="py-3 px-3 font-semibold text-[#191919]">
+                  <td className="py-3 px-3 font-semibold text-[#191919] text-left">
                     <div className="flex items-center gap-2">
                       <Ship className="w-3.5 h-3.5 text-[#174D3F]" />
                       <span>{ship.name}</span>
                     </div>
                   </td>
-                  <td className="py-3 px-3 text-[#777777]">{ship.type}</td>
-                  <td className="py-3 px-3 text-[#777777] font-mono text-[11px]">{ship.location}</td>
-                  <td className="py-3 px-3 font-mono font-semibold text-[#191919]">{ship.currentSpeed} kts</td>
-                  <td className="py-3 px-3 font-mono font-bold text-[#174D3F]">{ship.fuelEfficiency}%</td>
-                  <td className="py-3 px-3 font-mono text-[#555555]">{ship.co2Intensity} g/t-NM</td>
-                  <td className="py-3 px-3">
+                  <td className="py-3 px-3 text-[#777777] text-left">{ship.type}</td>
+                  <td className="py-3 px-3 text-[#777777] font-mono text-[11px] text-left">{ship.location}</td>
+                  <td className="py-3 px-3 font-mono font-semibold text-[#191919] text-right">{ship.currentSpeed} kts</td>
+                  <td className="py-3 px-3 font-mono font-bold text-[#174D3F] text-right">{ship.fuelEfficiency}%</td>
+                  <td className="py-3 px-3 font-mono text-[#555555] text-right">{ship.co2Intensity} g/t-NM</td>
+                  <td className="py-3 px-3 text-center">
                     <Badge
                       variant={ship.status === 'Sailing' ? 'green' : ship.status === 'Loading' ? 'yellow' : 'cyan'}
                       size="sm"

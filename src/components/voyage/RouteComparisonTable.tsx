@@ -14,7 +14,7 @@ export const RouteComparisonTable: React.FC<RouteComparisonTableProps> = ({ rout
   return (
     <Card title="Route Intelligence Comparison Matrix" subtitle="Comprehensive hydrodynamic analysis across candidate oceanic corridors">
       <div className="overflow-x-auto custom-scrollbar">
-        <table className="w-full text-left text-xs border-collapse">
+        <table className="w-full min-w-[680px] text-left text-xs border-collapse">
           <thead>
             <tr className="border-b border-[#E5E3DA] text-[10px] font-mono uppercase tracking-wider text-[#777777] bg-[#FAF9F5]">
               <th className="p-3">Route Corridor</th>

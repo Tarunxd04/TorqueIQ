@@ -41,7 +41,7 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
             <div
               key={opt.id}
               onClick={() => onSelectOption(opt.id)}
-              className={`p-5 rounded-2xl border flex flex-col justify-between cursor-pointer transition-all duration-200 relative bg-white ${
+              className={`p-5 rounded-2xl border flex flex-col justify-between cursor-pointer transition-all duration-200 relative bg-white min-w-0 ${
                 isSelected
                   ? 'border-[#F15F56] ring-1 ring-[#F15F56] shadow-card'
                   : 'border-[#E5E3DA] hover:border-[#D6D3C7] hover:shadow-subtle'
@@ -111,24 +111,24 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
               {/* Metrics Output Grid */}
               <div className="mt-5 pt-3.5 border-t border-[#E5E3DA] space-y-2">
                 <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA]">
-                    <span className="text-[9px] font-mono uppercase text-[#777777] block">ETA</span>
-                    <span className="font-mono font-semibold text-[#191919] text-[11px]">{opt.etaFormatted}</span>
+                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA] text-left">
+                    <span className="text-[9px] font-mono uppercase text-[#777777] block text-left">ETA</span>
+                    <span className="font-mono font-semibold text-[#191919] text-[11px] block text-left">{opt.etaFormatted}</span>
                   </div>
 
-                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA]">
-                    <span className="text-[9px] font-mono uppercase text-[#777777] block">Total Fuel</span>
-                    <span className="font-mono font-semibold text-[#174D3F] text-[11px]">{opt.expectedFuelTonnes} t</span>
+                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA] text-right">
+                    <span className="text-[9px] font-mono uppercase text-[#777777] block text-right">Total Fuel</span>
+                    <span className="font-mono font-semibold text-[#174D3F] text-[11px] block text-right">{opt.expectedFuelTonnes} t</span>
                   </div>
 
-                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA]">
-                    <span className="text-[9px] font-mono uppercase text-[#777777] block">CO₂ Emissions</span>
-                    <span className="font-mono font-semibold text-[#174D3F] text-[11px]">{opt.expectedCo2Tonnes} t</span>
+                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA] text-left">
+                    <span className="text-[9px] font-mono uppercase text-[#777777] block text-left">CO₂ Emissions</span>
+                    <span className="font-mono font-semibold text-[#174D3F] text-[11px] block text-left">{opt.expectedCo2Tonnes} t</span>
                   </div>
 
-                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA]">
-                    <span className="text-[9px] font-mono uppercase text-[#777777] block">Voyage Cost</span>
-                    <span className="font-mono font-semibold text-[#191919] text-[11px]">${opt.estimatedCostUSD.toLocaleString()}</span>
+                  <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E5E3DA] text-right">
+                    <span className="text-[9px] font-mono uppercase text-[#777777] block text-right">Voyage Cost</span>
+                    <span className="font-mono font-semibold text-[#191919] text-[11px] block text-right">${opt.estimatedCostUSD.toLocaleString()}</span>
                   </div>
                 </div>
 
