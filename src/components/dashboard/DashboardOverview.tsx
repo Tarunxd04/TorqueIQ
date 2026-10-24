@@ -40,9 +40,9 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
   const pieColors = ['#174D3F', '#F15F56', '#D97706', '#64748B']
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6">
       {/* Top Banner Header */}
-      <div className="bg-white border border-[#E5E3DA] p-6 sm:p-7 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle">
+      <div className="bg-white border border-[#E5E3DA] p-6 sm:p-7 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-subtle reveal-fade-up">
         <div>
           <div className="flex items-center gap-2 text-xs font-mono font-semibold text-[#174D3F] uppercase tracking-wider mb-1.5">
             <Activity className="w-4 h-4 text-[#174D3F]" />
@@ -64,7 +64,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
       </div>
 
       {/* 6 Required KPI Cards in Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-4 reveal-fade-up reveal-stagger-1">
         <StatCard
           title="Total Fleet"
           value={20}
@@ -132,7 +132,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
       </div>
 
       {/* Bento Layout Grid for Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 reveal-fade-up reveal-stagger-2">
         {/* Monthly Fuel & Carbon Reduction Chart (2 cols) */}
         <div className="lg:col-span-2">
           <Card
@@ -230,6 +230,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onNavigate
 
       {/* Live Fleet Sample Table */}
       <Card
+        className="reveal-fade-up reveal-stagger-3"
         title="Active Fleet Operational Telemetry (Sample)"
         subtitle="Real-time vessel position, fuel efficiency, and IMO CII compliance"
         action={

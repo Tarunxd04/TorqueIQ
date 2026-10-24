@@ -151,7 +151,7 @@ export const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ onNavigateToView }
           </div>
 
           {/* DRAWER BODY */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
+          <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar" data-lenis-prevent>
             {activeTab === 'plans' ? (
               /* SAVED VOYAGE PLANS */
               <div className="space-y-4">

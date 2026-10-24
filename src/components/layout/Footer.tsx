@@ -22,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateToView }) => {
   ]
 
   return (
-    <footer className="border-t border-[#E5E3DA] bg-[#080808] text-[#A3A3A3] text-sm py-16 px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+    <footer className="border-t border-[#E5E3DA] bg-[#080808] text-[#A3A3A3] text-sm py-16 px-4 sm:px-6 lg:px-8 relative z-10 w-full reveal-fade-up">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 mb-12">
         {/* LEFT COLUMN: TORQUE IQ BRAND */}
         <div className="space-y-4">

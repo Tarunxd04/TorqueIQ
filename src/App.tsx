@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { AuthProvider } from './context/AuthContext'
+import { SmoothScrollProvider } from './context/SmoothScrollContext'
 import { AuthModal } from './components/auth/AuthModal'
 import { ProfileDrawer } from './components/auth/ProfileDrawer'
 import { Navbar } from './components/layout/Navbar'
@@ -28,48 +29,50 @@ export function App() {
 
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-[#F5F5EF] text-[#191919] font-sans selection:bg-[#F15F56] selection:text-white flex flex-col">
-        {/* PERMANENT HEADER — Always visible across all views */}
-        <Navbar
-          onNavigateToDashboard={handleSelectView}
-          activeView={currentView}
-        />
+      <SmoothScrollProvider>
+        <div className="min-h-screen bg-[#F5F5EF] text-[#191919] font-sans selection:bg-[#F15F56] selection:text-white flex flex-col">
+          {/* PERMANENT HEADER — Always visible across all views */}
+          <Navbar
+            onNavigateToDashboard={handleSelectView}
+            activeView={currentView}
+          />
 
-        {/* BODY — Changes based on selected view */}
-        <main className="w-full flex-1">
-          {currentView === 'landing' && (
-            <LandingPage
-              onNavigateToPlanner={() => handleSelectView('planner')}
-              onNavigateToFleet={() => handleSelectView('fleet')}
-              onNavigateToView={handleSelectView}
-            />
-          )}
+          {/* BODY — Changes based on selected view */}
+          <main className="w-full flex-1">
+            {currentView === 'landing' && (
+              <LandingPage
+                onNavigateToPlanner={() => handleSelectView('planner')}
+                onNavigateToFleet={() => handleSelectView('fleet')}
+                onNavigateToView={handleSelectView}
+              />
+            )}
 
-          {currentView !== 'landing' && (
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 w-full">
-              {currentView === 'overview' && <DashboardOverview onNavigateToView={handleSelectView} />}
-              {currentView === 'planner' && <VoyagePlanner />}
-              {currentView === 'fleet' && <FleetView />}
-              {currentView === 'routes' && <RoutesView />}
-              {currentView === 'analytics' && <AnalyticsView />}
-              {currentView === 'carbon' && <CarbonView />}
-              {currentView === 'weather' && <WeatherView />}
-              {currentView === 'optimization' && <OptimizationView />}
-              {currentView === 'simulator' && <WhatIfSimulator />}
-              {currentView === 'cargo' && <CargoTypeView />}
-              {currentView === 'reports' && <ReportsView />}
-              {currentView === 'settings' && <SettingsView />}
-            </div>
-          )}
-        </main>
+            {currentView !== 'landing' && (
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 w-full">
+                {currentView === 'overview' && <DashboardOverview onNavigateToView={handleSelectView} />}
+                {currentView === 'planner' && <VoyagePlanner />}
+                {currentView === 'fleet' && <FleetView />}
+                {currentView === 'routes' && <RoutesView />}
+                {currentView === 'analytics' && <AnalyticsView />}
+                {currentView === 'carbon' && <CarbonView />}
+                {currentView === 'weather' && <WeatherView />}
+                {currentView === 'optimization' && <OptimizationView />}
+                {currentView === 'simulator' && <WhatIfSimulator />}
+                {currentView === 'cargo' && <CargoTypeView />}
+                {currentView === 'reports' && <ReportsView />}
+                {currentView === 'settings' && <SettingsView />}
+              </div>
+            )}
+          </main>
 
-        {/* FOOTER — For all non-landing views (LandingPage has its own Footer with identical onNavigateToView) */}
-        {currentView !== 'landing' && <Footer onNavigateToView={handleSelectView} />}
+          {/* FOOTER — For all non-landing views (LandingPage has its own Footer with identical onNavigateToView) */}
+          {currentView !== 'landing' && <Footer onNavigateToView={handleSelectView} />}
 
-        {/* GLOBAL ACCOUNT OVERLAYS */}
-        <AuthModal />
-        <ProfileDrawer onNavigateToView={handleSelectView} />
-      </div>
+          {/* GLOBAL ACCOUNT OVERLAYS */}
+          <AuthModal />
+          <ProfileDrawer onNavigateToView={handleSelectView} />
+        </div>
+      </SmoothScrollProvider>
     </AuthProvider>
   )
 }

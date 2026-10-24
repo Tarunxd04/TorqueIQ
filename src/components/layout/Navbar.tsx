@@ -82,8 +82,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToDashboard, activeVie
             </div>
             
             <div className="flex items-center">
-              <span className="text-base font-bold tracking-tight text-[#191919] flex items-center gap-1 font-sans">
-                Torque <span className="text-[#F15F56]">IQ</span>
+              <span className="text-base font-bold tracking-tight text-[#F15F56] flex items-center gap-1 font-sans">
+                Torque IQ
               </span>
             </div>
           </div>

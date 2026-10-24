@@ -285,7 +285,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* 2. STATISTICS & FLEET BENCHMARKS SECTION */}
       <section className="w-full py-12 border-y border-[#E5E3DA] bg-white px-4 sm:px-6 lg:px-8 relative z-10 shadow-subtle">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 mb-6 border-b border-[#E5E3DA] gap-2">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 mb-6 border-b border-[#E5E3DA] gap-2 reveal-fade-up">
             <div>
               <span className="text-[10px] font-mono font-bold text-[#174D3F] uppercase tracking-wider block">
                 Verified Quantitative Benchmarks
@@ -305,7 +305,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               return (
                 <div
                   key={idx}
-                  className="bg-[#FAF9F5] border border-[#E5E3DA] p-4 sm:p-5 rounded-2xl flex flex-col justify-between hover:border-[#174D3F]/30 hover:shadow-subtle transition-all min-w-0 h-full"
+                  className={`bg-[#FAF9F5] border border-[#E5E3DA] p-4 sm:p-5 rounded-2xl flex flex-col justify-between hover:border-[#174D3F]/30 hover:shadow-subtle transition-all min-w-0 h-full reveal-fade-up reveal-stagger-${idx + 1}`}
                 >
                   <div className="flex items-center justify-between gap-2 mb-3">
                     <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#777777] truncate">
@@ -331,7 +331,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* 3. INTERACTIVE MARITIME VOYAGE MAP & LIVE TRACKING SHOWCASE */}
       <section className="w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-8 gap-4">
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-8 gap-4 reveal-fade-up">
             <div>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDF5F2] border border-[#D2E4DC] text-xs font-mono font-semibold text-[#174D3F] uppercase tracking-wider mb-3">
                 Real-Time Oceanic Intelligence
@@ -356,7 +356,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </div>
 
           {/* Polished Maritime Route Visualization Card */}
-          <div className="rounded-2xl p-2 sm:p-3 bg-white border border-[#E5E3DA] shadow-card w-full">
+          <div className="rounded-2xl p-2 sm:p-3 bg-white border border-[#E5E3DA] shadow-card w-full reveal-fade-up reveal-stagger-2">
             <div className="p-3.5 bg-[#FAF9F5] border border-[#E5E3DA] rounded-xl mb-3 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs sm:text-sm">
               <div className="flex items-center gap-2 flex-wrap text-left">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#174D3F] shrink-0" />
@@ -378,7 +378,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* 4. PLATFORM FEATURES & INTELLIGENCE SUITE SHOWCASE */}
       <section className="w-full py-20 border-t border-[#E5E3DA] bg-white px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="text-center max-w-3xl mx-auto mb-14 reveal-fade-up">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDF5F2] border border-[#D2E4DC] text-xs font-mono font-semibold text-[#174D3F] uppercase tracking-wider mb-3">
               Platform Modules & Capabilities
             </div>
@@ -391,13 +391,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {platformModules.map((module) => {
+            {platformModules.map((module, idx) => {
               const Icon = module.icon
               return (
                 <div
                   key={module.id}
                   onClick={() => onNavigateToView(module.id)}
-                  className="bg-[#FAF9F5] border border-[#E5E3DA] rounded-2xl p-6 sm:p-7 hover:border-[#174D3F]/40 hover:bg-white hover:shadow-card transition-all cursor-pointer flex flex-col justify-between group space-y-4 h-full"
+                  className={`bg-[#FAF9F5] border border-[#E5E3DA] rounded-2xl p-6 sm:p-7 hover:border-[#174D3F]/40 hover:bg-white hover:shadow-card transition-all cursor-pointer flex flex-col justify-between group space-y-4 h-full reveal-fade-up reveal-stagger-${(idx % 3) + 1}`}
                 >
                   <div className="space-y-3.5">
                     <div className="flex items-center justify-between">
@@ -433,7 +433,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* 5. THE EFFICIENCY CHALLENGE / PROBLEMS SECTION */}
       <section className="w-full py-20 border-t border-[#E5E3DA] bg-[#FAF9F5] px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="text-center max-w-3xl mx-auto mb-14 reveal-fade-up">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDF5F2] border border-[#D2E4DC] text-xs font-mono font-semibold text-[#174D3F] uppercase tracking-wider mb-3">
               Maritime Industry Challenges
             </div>
@@ -449,7 +449,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             {problemCards.map((item, idx) => {
               const Icon = item.icon
               return (
-                <div key={idx} className="bg-white border border-[#E5E3DA] rounded-2xl p-6 hover:shadow-card hover:border-[#D6D3C7] transition-all space-y-3.5 h-full flex flex-col justify-between">
+                <div key={idx} className={`bg-white border border-[#E5E3DA] rounded-2xl p-6 hover:shadow-card hover:border-[#D6D3C7] transition-all space-y-3.5 h-full flex flex-col justify-between reveal-fade-up reveal-stagger-${idx + 1}`}>
                   <div className="space-y-3.5">
                     <div className="flex items-center justify-between">
                       <div className={`w-10 h-10 rounded-xl border flex items-center justify-center ${item.iconBg} ${item.iconColor}`}>
@@ -474,7 +474,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* 6. HOW TORQUE IQ OPERATES / 6 STEP WORKFLOW */}
       <section className="w-full py-24 border-t border-[#E5E3DA] bg-white px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-16 reveal-fade-up">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDF5F2] border border-[#D2E4DC] text-xs font-mono font-semibold text-[#174D3F] uppercase tracking-wider mb-3">
               Optimization Architecture
             </div>
@@ -487,10 +487,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {workflowSteps.map((step) => {
+            {workflowSteps.map((step, idx) => {
               const Icon = step.icon
               return (
-                <div key={step.num} className="bg-[#FAF9F5] border border-[#E5E3DA] rounded-2xl p-6 hover:shadow-card hover:border-[#174D3F]/40 transition-all relative group h-full flex flex-col justify-between">
+                <div key={step.num} className={`bg-[#FAF9F5] border border-[#E5E3DA] rounded-2xl p-6 hover:shadow-card hover:border-[#174D3F]/40 transition-all relative group h-full flex flex-col justify-between reveal-fade-up reveal-stagger-${(idx % 3) + 1}`}>
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-xs font-mono font-bold text-[#777777] group-hover:text-[#174D3F] transition-colors">
@@ -513,7 +513,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* 7. CLOSING CALL TO ACTION BANNER */}
       <section className="w-full py-16 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="bg-[#174D3F] text-white rounded-3xl p-8 sm:p-12 shadow-card flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative overflow-hidden">
+          <div className="bg-[#174D3F] text-white rounded-3xl p-8 sm:p-12 shadow-card flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative overflow-hidden reveal-fade-up">
             {/* Subtle background decoration */}
             <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-white/[0.08] to-transparent pointer-events-none" />
 
